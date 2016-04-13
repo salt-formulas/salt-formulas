@@ -22,10 +22,16 @@ Clone repositories
 
 Simply run ``checkout`` tool without parameters or with formula names, eg.:
 
-.. codeb-lock:: bash
+.. code-block:: bash
 
     ./checkout
     ./checkout nova freeipa salt
+
+Or with some parallelism:
+
+.. code-block:: bash
+
+    mr --trust-all --force -j 4 checkout
 
 Update repositories
 ===================
@@ -36,3 +42,9 @@ Pull with rebase in each repo or only one
 
     mr --trust-all update
     mr --trust-all -d apache update
+
+Read more
+=========
+
+- https://wiki.debian.org/Teams/Ruby/Packaging
+- https://myrepos.branchable.com/
