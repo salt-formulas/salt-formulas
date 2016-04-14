@@ -17,6 +17,12 @@ To add ``gerrit`` remote automatically, set your username:
 
     git config --global gitreview.username johndoe
 
+To avoid using ``--trust-all`` option, add this .mrconfig into trusts file:
+
+.. code-block:: bash
+
+    echo $PWD/.mrconfig >> ~/.mrtrust
+
 Clone repositories
 ==================
 
