@@ -21,7 +21,7 @@ def get_org_repos(org_name):
 
 def print_repo_config(org, repo):
     formula_name = re.match('^salt-formula-(.*)?', repo).group(1)
-    print "[%s]" % repo
+    print "[%s/%s]" % (org, repo)
     print "checkout = git_checkout_%s %s" % (org, formula_name)
     print "skip = lazy"
     print ""

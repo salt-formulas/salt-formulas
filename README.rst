@@ -47,7 +47,8 @@ Pull with rebase in each repo or only one
 .. code-block:: bash
 
     mr --trust-all update
-    mr --trust-all -d apache update
+    mr --trust-all -d tcpcloud update
+    mr --trust-all -d tcpcloud/apache update
 
 Read more
 =========

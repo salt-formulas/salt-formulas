@@ -1,285 +1,287 @@
 # vim: syntax=dosini
 
-[DEFAULT]
+[tcpcloud/DEFAULT]
 lib=
       msg () {
         echo "I: $1"
       }
       git_checkout_tcpcloud () {
-        (git clone git@github.com:tcpcloud/salt-formula-$1.git $1 || git clone https://github.com/tcpcloud/salt-formula-$1.git $1)
+        [ -d tcpcloud ] || mkdir tcpcloud &&
+        (git clone git@github.com:tcpcloud/salt-formula-$1.git tcpcloud/$1 || git clone https://github.com/tcpcloud/salt-formula-$1.git tcpcloud/$1)
       }
       git_checkout_openstack () {
-        (git clone git@github.com:openstack/salt-formula-$1.git $1 || git clone https://github.com/openstack/salt-formula-$1.git $1) &&
-        cd $1 &&
+        [ -d tcpcloud ] || mkdir openstack &&
+        (git clone git@github.com:openstack/salt-formula-$1.git openstack/$1 || git clone https://github.com/openstack/salt-formula-$1.git openstack/$1) &&
+        cd openstack/$1 &&
         test -z "$(git config --get gitreview.username)" || git remote add gerrit ssh://$(git config --get gitreview.username)@review.openstack.org:29418/openstack/salt-formula-$1 &&
         test -z "$(git config --get gitreview.username)" || git config gitreview.remote gerrit
       }
 update = git pull --rebase
 
-[cinder]
+[openstack/cinder]
 checkout = git_checkout_openstack cinder
 skip = lazy
 
-[nova]
+[openstack/nova]
 checkout = git_checkout_openstack nova
 skip = lazy
 
-[neutron]
+[openstack/neutron]
 checkout = git_checkout_openstack neutron
 skip = lazy
 
-[glance]
+[openstack/glance]
 checkout = git_checkout_openstack glance
 skip = lazy
 
-[keystone]
+[openstack/keystone]
 checkout = git_checkout_openstack keystone
 skip = lazy
 
-[opencontrail]
+[openstack/opencontrail]
 checkout = git_checkout_openstack opencontrail
 skip = lazy
 
-[horizon]
+[openstack/horizon]
 checkout = git_checkout_openstack horizon
 skip = lazy
 
-[heat]
+[openstack/heat]
 checkout = git_checkout_openstack heat
 skip = lazy
 
-[ceilometer]
+[openstack/ceilometer]
 checkout = git_checkout_openstack ceilometer
 skip = lazy
 
-[openvstorage]
+[tcpcloud/openvstorage]
 checkout = git_checkout_tcpcloud openvstorage
 skip = lazy
 
-[postfix]
+[tcpcloud/postfix]
 checkout = git_checkout_tcpcloud postfix
 skip = lazy
 
-[dovecot]
+[tcpcloud/dovecot]
 checkout = git_checkout_tcpcloud dovecot
 skip = lazy
 
-[roundcube]
+[tcpcloud/roundcube]
 checkout = git_checkout_tcpcloud roundcube
 skip = lazy
 
-[glusterfs]
+[tcpcloud/glusterfs]
 checkout = git_checkout_tcpcloud glusterfs
 skip = lazy
 
-[apache]
+[tcpcloud/apache]
 checkout = git_checkout_tcpcloud apache
 skip = lazy
 
-[aptly]
+[tcpcloud/aptly]
 checkout = git_checkout_tcpcloud aptly
 skip = lazy
 
-[backupninja]
+[tcpcloud/backupninja]
 checkout = git_checkout_tcpcloud backupninja
 skip = lazy
 
-[billometer]
+[tcpcloud/billometer]
 checkout = git_checkout_tcpcloud billometer
 skip = lazy
 
-[collectd]
+[tcpcloud/collectd]
 checkout = git_checkout_tcpcloud collectd
 skip = lazy
 
-[elasticsearch]
+[tcpcloud/elasticsearch]
 checkout = git_checkout_tcpcloud elasticsearch
 skip = lazy
 
-[foreman]
+[tcpcloud/foreman]
 checkout = git_checkout_tcpcloud foreman
 skip = lazy
 
-[galera]
+[tcpcloud/galera]
 checkout = git_checkout_tcpcloud galera
 skip = lazy
 
-[git]
+[tcpcloud/git]
 checkout = git_checkout_tcpcloud git
 skip = lazy
 
-[gitlab]
+[tcpcloud/gitlab]
 checkout = git_checkout_tcpcloud gitlab
 skip = lazy
 
-[graphite]
+[tcpcloud/graphite]
 checkout = git_checkout_tcpcloud graphite
 skip = lazy
 
-[haproxy]
+[tcpcloud/haproxy]
 checkout = git_checkout_tcpcloud haproxy
 skip = lazy
 
-[iptables]
+[tcpcloud/iptables]
 checkout = git_checkout_tcpcloud iptables
 skip = lazy
 
-[java]
+[tcpcloud/java]
 checkout = git_checkout_tcpcloud java
 skip = lazy
 
-[jenkins]
+[tcpcloud/jenkins]
 checkout = git_checkout_tcpcloud jenkins
 skip = lazy
 
-[kedb]
+[tcpcloud/kedb]
 checkout = git_checkout_tcpcloud kedb
 skip = lazy
 
-[keepalived]
+[tcpcloud/keepalived]
 checkout = git_checkout_tcpcloud keepalived
 skip = lazy
 
-[kibana]
+[tcpcloud/kibana]
 checkout = git_checkout_tcpcloud kibana
 skip = lazy
 
-[linux]
+[tcpcloud/linux]
 checkout = git_checkout_tcpcloud linux
 skip = lazy
 
-[memcached]
+[tcpcloud/memcached]
 checkout = git_checkout_tcpcloud memcached
 skip = lazy
 
-[mongodb]
+[tcpcloud/mongodb]
 checkout = git_checkout_tcpcloud mongodb
 skip = lazy
 
-[mysql]
+[tcpcloud/mysql]
 checkout = git_checkout_tcpcloud mysql
 skip = lazy
 
-[nginx]
+[tcpcloud/nginx]
 checkout = git_checkout_tcpcloud nginx
 skip = lazy
 
-[ntp]
+[tcpcloud/ntp]
 checkout = git_checkout_tcpcloud ntp
 skip = lazy
 
-[openssh]
+[tcpcloud/openssh]
 checkout = git_checkout_tcpcloud openssh
 skip = lazy
 
-[postgresql]
+[tcpcloud/postgresql]
 checkout = git_checkout_tcpcloud postgresql
 skip = lazy
 
-[python]
+[tcpcloud/python]
 checkout = git_checkout_tcpcloud python
 skip = lazy
 
-[rabbitmq]
+[tcpcloud/rabbitmq]
 checkout = git_checkout_tcpcloud rabbitmq
 skip = lazy
 
-[reclass]
+[tcpcloud/reclass]
 checkout = git_checkout_tcpcloud reclass
 skip = lazy
 
-[redis]
+[tcpcloud/redis]
 checkout = git_checkout_tcpcloud redis
 skip = lazy
 
-[salt]
+[tcpcloud/salt]
 checkout = git_checkout_tcpcloud salt
 skip = lazy
 
-[sensu]
+[tcpcloud/sensu]
 checkout = git_checkout_tcpcloud sensu
 skip = lazy
 
-[supervisor]
+[tcpcloud/supervisor]
 checkout = git_checkout_tcpcloud supervisor
 skip = lazy
 
-[heka]
+[tcpcloud/heka]
 checkout = git_checkout_tcpcloud heka
 skip = lazy
 
-[owncloud]
+[tcpcloud/owncloud]
 checkout = git_checkout_tcpcloud owncloud
 skip = lazy
 
-[murano]
+[tcpcloud/murano]
 checkout = git_checkout_tcpcloud murano
 skip = lazy
 
-[nfs]
+[tcpcloud/nfs]
 checkout = git_checkout_tcpcloud nfs
 skip = lazy
 
-[varnish]
+[tcpcloud/varnish]
 checkout = git_checkout_tcpcloud varnish
 skip = lazy
 
-[statsd]
+[tcpcloud/statsd]
 checkout = git_checkout_tcpcloud statsd
 skip = lazy
 
-[nodejs]
+[tcpcloud/nodejs]
 checkout = git_checkout_tcpcloud nodejs
 skip = lazy
 
-[letsencrypt]
+[tcpcloud/letsencrypt]
 checkout = git_checkout_tcpcloud letsencrypt
 skip = lazy
 
-[pritunl]
+[tcpcloud/pritunl]
 checkout = git_checkout_tcpcloud pritunl
 skip = lazy
 
-[sphinx]
+[tcpcloud/sphinx]
 checkout = git_checkout_tcpcloud sphinx
 skip = lazy
 
-[freeipa]
+[tcpcloud/freeipa]
 checkout = git_checkout_tcpcloud freeipa
 skip = lazy
 
-[ceph]
+[tcpcloud/ceph]
 checkout = git_checkout_tcpcloud ceph
 skip = lazy
 
-[magnum]
+[tcpcloud/magnum]
 checkout = git_checkout_tcpcloud magnum
 skip = lazy
 
-[isc-dhcp]
+[tcpcloud/isc-dhcp]
 checkout = git_checkout_tcpcloud isc-dhcp
 skip = lazy
 
-[rsyslog]
+[tcpcloud/rsyslog]
 checkout = git_checkout_tcpcloud rsyslog
 skip = lazy
 
-[bind]
+[tcpcloud/bind]
 checkout = git_checkout_tcpcloud bind
 skip = lazy
 
-[libvirt]
+[tcpcloud/libvirt]
 checkout = git_checkout_tcpcloud libvirt
 skip = lazy
 
-[taiga]
+[tcpcloud/taiga]
 checkout = git_checkout_tcpcloud taiga
 skip = lazy
 
-[rsync]
+[tcpcloud/rsync]
 checkout = git_checkout_tcpcloud rsync
 skip = lazy
 
-[grafana]
+[tcpcloud/grafana]
 checkout = git_checkout_tcpcloud grafana
 skip = lazy
