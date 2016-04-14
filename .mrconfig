@@ -14,7 +14,8 @@ lib=
         (git clone git@github.com:openstack/salt-formula-$1.git openstack/$1 || git clone https://github.com/openstack/salt-formula-$1.git openstack/$1) &&
         cd openstack/$1 &&
         test -z "$(git config --get gitreview.username)" || git remote add gerrit ssh://$(git config --get gitreview.username)@review.openstack.org:29418/openstack/salt-formula-$1 &&
-        test -z "$(git config --get gitreview.username)" || git config gitreview.remote gerrit
+        test -z "$(git config --get gitreview.username)" || git config gitreview.remote gerrit &&
+        test -z "$(git config --get gitreview.username)" || gitdir=$(git rev-parse --git-dir); scp -p -P 29418 $(git config --get gitreview.username)@review.openstack.org:hooks/commit-msg ${gitdir}/hooks/
       }
 update = git pull --rebase
 
