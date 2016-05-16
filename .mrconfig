@@ -150,6 +150,10 @@ skip = lazy
 checkout = git_checkout_tcpcloud linux
 skip = lazy
 
+[tcpcloud/logrotate]
+checkout = git_checkout_tcpcloud logrotate
+skip = lazy
+
 [tcpcloud/memcached]
 checkout = git_checkout_tcpcloud memcached
 skip = lazy
