@@ -289,3 +289,15 @@ skip = lazy
 [tcpcloud/grafana]
 checkout = git_checkout_tcpcloud grafana
 skip = lazy
+
+[tcpcloud/logrotate]
+checkout = git_checkout_tcpcloud logrotate
+skip = lazy
+
+[tcpcloud/docker]
+checkout = git_checkout_tcpcloud docker
+skip = lazy
+
+[tcpcloud/kubernetes]
+checkout = git_checkout_tcpcloud kubernetes
+skip = lazy
