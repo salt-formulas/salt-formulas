@@ -54,6 +54,14 @@ skip = lazy
 checkout = git_checkout_openstack ceilometer
 skip = lazy
 
+[openstack/swift]
+checkout = git_checkout_openstack swift
+skip = lazy
+
+[openstack/kubernetes]
+checkout = git_checkout_openstack kubernetes
+skip = lazy
+
 [tcpcloud/openvstorage]
 checkout = git_checkout_tcpcloud openvstorage
 skip = lazy
@@ -296,8 +304,4 @@ skip = lazy
 
 [tcpcloud/docker]
 checkout = git_checkout_tcpcloud docker
-skip = lazy
-
-[tcpcloud/kubernetes]
-checkout = git_checkout_tcpcloud kubernetes
 skip = lazy
