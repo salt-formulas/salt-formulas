@@ -106,6 +106,10 @@ skip = lazy
 checkout = git_checkout_tcpcloud elasticsearch
 skip = lazy
 
+[tcpcloud/influxdb]
+checkout = git_checkout_tcpcloud influxdb
+skip = lazy
+
 [tcpcloud/foreman]
 checkout = git_checkout_tcpcloud foreman
 skip = lazy
