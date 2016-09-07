@@ -309,3 +309,11 @@ skip = lazy
 [tcpcloud/docker]
 checkout = git_checkout_tcpcloud docker
 skip = lazy
+
+[tcpcloud/artifactory]
+checkout = git_checkout_tcpcloud artifactory
+skip = lazy
+
+[tcpcloud/gerrit]
+checkout = git_checkout_tcpcloud gerrit
+skip = lazy
