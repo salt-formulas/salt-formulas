@@ -317,3 +317,7 @@ skip = lazy
 [tcpcloud/gerrit]
 checkout = git_checkout_tcpcloud gerrit
 skip = lazy
+
+[tcpcloud/bird]
+checkout = git_checkout_tcpcloud bird
+skip = lazy
