@@ -18,40 +18,44 @@ lib=
 update = git pull --rebase
 git_review = git review
 
+[openstack/ceilometer]
+checkout = git_checkout_openstack ceilometer
+skip = lazy
+
 [openstack/cinder]
 checkout = git_checkout_openstack cinder
-skip = lazy
-
-[openstack/nova]
-checkout = git_checkout_openstack nova
-skip = lazy
-
-[openstack/neutron]
-checkout = git_checkout_openstack neutron
 skip = lazy
 
 [openstack/glance]
 checkout = git_checkout_openstack glance
 skip = lazy
 
-[openstack/keystone]
-checkout = git_checkout_openstack keystone
-skip = lazy
-
-[openstack/opencontrail]
-checkout = git_checkout_openstack opencontrail
+[openstack/heat]
+checkout = git_checkout_openstack heat
 skip = lazy
 
 [openstack/horizon]
 checkout = git_checkout_openstack horizon
 skip = lazy
 
-[openstack/heat]
-checkout = git_checkout_openstack heat
+[openstack/keystone]
+checkout = git_checkout_openstack keystone
 skip = lazy
 
-[openstack/ceilometer]
-checkout = git_checkout_openstack ceilometer
+[openstack/neutron]
+checkout = git_checkout_openstack neutron
+skip = lazy
+
+[openstack/nova]
+checkout = git_checkout_openstack nova
+skip = lazy
+
+[openstack/opencontrail]
+checkout = git_checkout_openstack opencontrail
+skip = lazy
+
+[openstack/midonet]
+checkout = git_checkout_openstack midonet
 skip = lazy
 
 [openstack/swift]
@@ -106,10 +110,6 @@ skip = lazy
 checkout = git_checkout_tcpcloud elasticsearch
 skip = lazy
 
-[tcpcloud/influxdb]
-checkout = git_checkout_tcpcloud influxdb
-skip = lazy
-
 [tcpcloud/foreman]
 checkout = git_checkout_tcpcloud foreman
 skip = lazy
@@ -160,10 +160,6 @@ skip = lazy
 
 [tcpcloud/linux]
 checkout = git_checkout_tcpcloud linux
-skip = lazy
-
-[tcpcloud/logrotate]
-checkout = git_checkout_tcpcloud logrotate
 skip = lazy
 
 [tcpcloud/memcached]
@@ -310,6 +306,38 @@ skip = lazy
 checkout = git_checkout_tcpcloud docker
 skip = lazy
 
+[tcpcloud/zookeeper]
+checkout = git_checkout_tcpcloud zookeeper
+skip = lazy
+
+[tcpcloud/cassandra]
+checkout = git_checkout_tcpcloud cassandra
+skip = lazy
+
+[tcpcloud/openvpn]
+checkout = git_checkout_tcpcloud openvpn
+skip = lazy
+
+[tcpcloud/calico]
+checkout = git_checkout_tcpcloud calico
+skip = lazy
+
+[tcpcloud/influxdb]
+checkout = git_checkout_tcpcloud influxdb
+skip = lazy
+
+[tcpcloud/bird]
+checkout = git_checkout_tcpcloud bird
+skip = lazy
+
+[tcpcloud/etcd]
+checkout = git_checkout_tcpcloud etcd
+skip = lazy
+
+[tcpcloud/maas]
+checkout = git_checkout_tcpcloud maas
+skip = lazy
+
 [tcpcloud/artifactory]
 checkout = git_checkout_tcpcloud artifactory
 skip = lazy
@@ -318,6 +346,30 @@ skip = lazy
 checkout = git_checkout_tcpcloud gerrit
 skip = lazy
 
-[tcpcloud/bird]
-checkout = git_checkout_tcpcloud bird
+[tcpcloud/sahara]
+checkout = git_checkout_tcpcloud sahara
+skip = lazy
+
+[tcpcloud/nagios]
+checkout = git_checkout_tcpcloud nagios
+skip = lazy
+
+[tcpcloud/aodh]
+checkout = git_checkout_tcpcloud aodh
+skip = lazy
+
+[tcpcloud/ccp]
+checkout = git_checkout_tcpcloud ccp
+skip = lazy
+
+[tcpcloud/network]
+checkout = git_checkout_tcpcloud network
+skip = lazy
+
+[tcpcloud/chrony]
+checkout = git_checkout_tcpcloud chrony
+skip = lazy
+
+[tcpcloud/cadf]
+checkout = git_checkout_tcpcloud cadf
 skip = lazy
