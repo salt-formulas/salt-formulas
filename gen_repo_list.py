@@ -29,17 +29,11 @@ def print_repo_config(org, repo):
 g = make_github_agent()
 
 repos = []
-for repo in get_org_repos("openstack"):
-    if not repo.startswith('salt-formula-'):
-        continue
-    repos.append(repo)
-    print_repo_config("openstack", repo)
-
-for repo in get_org_repos("tcpcloud"):
+for repo in get_org_repos("salt-formulas"):
     if not repo.startswith('salt-formula-'):
         continue
     if repo not in repos:
         repos.append(repo)
-        print_repo_config("tcpcloud", repo)
+        print_repo_config("salt-formulas", repo)
     else:
         print "Repository %s present in different organization" % repo

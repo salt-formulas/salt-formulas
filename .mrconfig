@@ -2,374 +2,367 @@
 
 [DEFAULT]
 lib=
-      msg () {
+      msg() {
         echo "I: $1"
       }
-      git_checkout_tcpcloud () {
-        (git clone git@github.com:tcpcloud/salt-formula-$1.git $1 || git clone https://github.com/tcpcloud/salt-formula-$1.git $1)
-      }
-      git_checkout_openstack () {
-        (git clone git@github.com:openstack/salt-formula-$1.git $1 || git clone https://github.com/openstack/salt-formula-$1.git $1) &&
-        cd $1 &&
-        test -z "$(git config --get gitreview.username)" || git remote add gerrit ssh://$(git config --get gitreview.username)@review.openstack.org:29418/openstack/salt-formula-$1 &&
-        test -z "$(git config --get gitreview.username)" || git config gitreview.remote gerrit &&
-        test -z "$(git config --get gitreview.username)" || gitdir=$(git rev-parse --git-dir); scp -p -P 29418 $(git config --get gitreview.username)@review.openstack.org:hooks/commit-msg ${gitdir}/hooks/
+      git_checkout() {
+        (git clone git@github.com:salt-formulas/salt-formula-$1.git $1 || git clone https://github.com/salt-formulas/salt-formula-$1.git $1)
       }
 update = git pull --rebase
 git_review = git review
 
-[openstack/ceilometer]
-checkout = git_checkout_openstack ceilometer
+[salt-formulas/ceilometer]
+checkout = git_checkout ceilometer
 skip = lazy
 
-[openstack/cinder]
-checkout = git_checkout_openstack cinder
+[salt-formulas/cinder]
+checkout = git_checkout cinder
 skip = lazy
 
-[openstack/glance]
-checkout = git_checkout_openstack glance
+[salt-formulas/glance]
+checkout = git_checkout glance
 skip = lazy
 
-[openstack/heat]
-checkout = git_checkout_openstack heat
+[salt-formulas/heat]
+checkout = git_checkout heat
 skip = lazy
 
-[openstack/horizon]
-checkout = git_checkout_openstack horizon
+[salt-formulas/horizon]
+checkout = git_checkout horizon
 skip = lazy
 
-[openstack/keystone]
-checkout = git_checkout_openstack keystone
+[salt-formulas/keystone]
+checkout = git_checkout keystone
 skip = lazy
 
-[openstack/neutron]
-checkout = git_checkout_openstack neutron
+[salt-formulas/neutron]
+checkout = git_checkout neutron
 skip = lazy
 
-[openstack/nova]
-checkout = git_checkout_openstack nova
+[salt-formulas/nova]
+checkout = git_checkout nova
 skip = lazy
 
-[openstack/opencontrail]
-checkout = git_checkout_openstack opencontrail
+[salt-formulas/opencontrail]
+checkout = git_checkout opencontrail
 skip = lazy
 
-[openstack/midonet]
-checkout = git_checkout_openstack midonet
+[salt-formulas/midonet]
+checkout = git_checkout midonet
 skip = lazy
 
-[openstack/swift]
-checkout = git_checkout_openstack swift
+[salt-formulas/swift]
+checkout = git_checkout swift
 skip = lazy
 
-[openstack/kubernetes]
-checkout = git_checkout_openstack kubernetes
+[salt-formulas/kubernetes]
+checkout = git_checkout kubernetes
 skip = lazy
 
-[tcpcloud/openvstorage]
-checkout = git_checkout_tcpcloud openvstorage
+[salt-formulas/openvstorage]
+checkout = git_checkout openvstorage
 skip = lazy
 
-[tcpcloud/postfix]
-checkout = git_checkout_tcpcloud postfix
+[salt-formulas/postfix]
+checkout = git_checkout postfix
 skip = lazy
 
-[tcpcloud/dovecot]
-checkout = git_checkout_tcpcloud dovecot
+[salt-formulas/dovecot]
+checkout = git_checkout dovecot
 skip = lazy
 
-[tcpcloud/roundcube]
-checkout = git_checkout_tcpcloud roundcube
+[salt-formulas/roundcube]
+checkout = git_checkout roundcube
 skip = lazy
 
-[tcpcloud/glusterfs]
-checkout = git_checkout_tcpcloud glusterfs
+[salt-formulas/glusterfs]
+checkout = git_checkout glusterfs
 skip = lazy
 
-[tcpcloud/apache]
-checkout = git_checkout_tcpcloud apache
+[salt-formulas/apache]
+checkout = git_checkout apache
 skip = lazy
 
-[tcpcloud/aptly]
-checkout = git_checkout_tcpcloud aptly
+[salt-formulas/aptly]
+checkout = git_checkout aptly
 skip = lazy
 
-[tcpcloud/backupninja]
-checkout = git_checkout_tcpcloud backupninja
+[salt-formulas/backupninja]
+checkout = git_checkout backupninja
 skip = lazy
 
-[tcpcloud/billometer]
-checkout = git_checkout_tcpcloud billometer
+[salt-formulas/billometer]
+checkout = git_checkout billometer
 skip = lazy
 
-[tcpcloud/collectd]
-checkout = git_checkout_tcpcloud collectd
+[salt-formulas/collectd]
+checkout = git_checkout collectd
 skip = lazy
 
-[tcpcloud/elasticsearch]
-checkout = git_checkout_tcpcloud elasticsearch
+[salt-formulas/elasticsearch]
+checkout = git_checkout elasticsearch
 skip = lazy
 
-[tcpcloud/foreman]
-checkout = git_checkout_tcpcloud foreman
+[salt-formulas/foreman]
+checkout = git_checkout foreman
 skip = lazy
 
-[tcpcloud/galera]
-checkout = git_checkout_tcpcloud galera
+[salt-formulas/galera]
+checkout = git_checkout galera
 skip = lazy
 
-[tcpcloud/git]
-checkout = git_checkout_tcpcloud git
+[salt-formulas/git]
+checkout = git_checkout git
 skip = lazy
 
-[tcpcloud/gitlab]
-checkout = git_checkout_tcpcloud gitlab
+[salt-formulas/gitlab]
+checkout = git_checkout gitlab
 skip = lazy
 
-[tcpcloud/graphite]
-checkout = git_checkout_tcpcloud graphite
+[salt-formulas/graphite]
+checkout = git_checkout graphite
 skip = lazy
 
-[tcpcloud/haproxy]
-checkout = git_checkout_tcpcloud haproxy
+[salt-formulas/haproxy]
+checkout = git_checkout haproxy
 skip = lazy
 
-[tcpcloud/iptables]
-checkout = git_checkout_tcpcloud iptables
+[salt-formulas/iptables]
+checkout = git_checkout iptables
 skip = lazy
 
-[tcpcloud/java]
-checkout = git_checkout_tcpcloud java
+[salt-formulas/java]
+checkout = git_checkout java
 skip = lazy
 
-[tcpcloud/jenkins]
-checkout = git_checkout_tcpcloud jenkins
+[salt-formulas/jenkins]
+checkout = git_checkout jenkins
 skip = lazy
 
-[tcpcloud/kedb]
-checkout = git_checkout_tcpcloud kedb
+[salt-formulas/kedb]
+checkout = git_checkout kedb
 skip = lazy
 
-[tcpcloud/keepalived]
-checkout = git_checkout_tcpcloud keepalived
+[salt-formulas/keepalived]
+checkout = git_checkout keepalived
 skip = lazy
 
-[tcpcloud/kibana]
-checkout = git_checkout_tcpcloud kibana
+[salt-formulas/kibana]
+checkout = git_checkout kibana
 skip = lazy
 
-[tcpcloud/linux]
-checkout = git_checkout_tcpcloud linux
+[salt-formulas/linux]
+checkout = git_checkout linux
 skip = lazy
 
-[tcpcloud/memcached]
-checkout = git_checkout_tcpcloud memcached
+[salt-formulas/memcached]
+checkout = git_checkout memcached
 skip = lazy
 
-[tcpcloud/mongodb]
-checkout = git_checkout_tcpcloud mongodb
+[salt-formulas/mongodb]
+checkout = git_checkout mongodb
 skip = lazy
 
-[tcpcloud/mysql]
-checkout = git_checkout_tcpcloud mysql
+[salt-formulas/mysql]
+checkout = git_checkout mysql
 skip = lazy
 
-[tcpcloud/nginx]
-checkout = git_checkout_tcpcloud nginx
+[salt-formulas/nginx]
+checkout = git_checkout nginx
 skip = lazy
 
-[tcpcloud/ntp]
-checkout = git_checkout_tcpcloud ntp
+[salt-formulas/ntp]
+checkout = git_checkout ntp
 skip = lazy
 
-[tcpcloud/openssh]
-checkout = git_checkout_tcpcloud openssh
+[salt-formulas/openssh]
+checkout = git_checkout openssh
 skip = lazy
 
-[tcpcloud/postgresql]
-checkout = git_checkout_tcpcloud postgresql
+[salt-formulas/postgresql]
+checkout = git_checkout postgresql
 skip = lazy
 
-[tcpcloud/python]
-checkout = git_checkout_tcpcloud python
+[salt-formulas/python]
+checkout = git_checkout python
 skip = lazy
 
-[tcpcloud/rabbitmq]
-checkout = git_checkout_tcpcloud rabbitmq
+[salt-formulas/rabbitmq]
+checkout = git_checkout rabbitmq
 skip = lazy
 
-[tcpcloud/reclass]
-checkout = git_checkout_tcpcloud reclass
+[salt-formulas/reclass]
+checkout = git_checkout reclass
 skip = lazy
 
-[tcpcloud/redis]
-checkout = git_checkout_tcpcloud redis
+[salt-formulas/redis]
+checkout = git_checkout redis
 skip = lazy
 
-[tcpcloud/salt]
-checkout = git_checkout_tcpcloud salt
+[salt-formulas/salt]
+checkout = git_checkout salt
 skip = lazy
 
-[tcpcloud/sensu]
-checkout = git_checkout_tcpcloud sensu
+[salt-formulas/sensu]
+checkout = git_checkout sensu
 skip = lazy
 
-[tcpcloud/supervisor]
-checkout = git_checkout_tcpcloud supervisor
+[salt-formulas/supervisor]
+checkout = git_checkout supervisor
 skip = lazy
 
-[tcpcloud/heka]
-checkout = git_checkout_tcpcloud heka
+[salt-formulas/heka]
+checkout = git_checkout heka
 skip = lazy
 
-[tcpcloud/owncloud]
-checkout = git_checkout_tcpcloud owncloud
+[salt-formulas/owncloud]
+checkout = git_checkout owncloud
 skip = lazy
 
-[tcpcloud/murano]
-checkout = git_checkout_tcpcloud murano
+[salt-formulas/murano]
+checkout = git_checkout murano
 skip = lazy
 
-[tcpcloud/nfs]
-checkout = git_checkout_tcpcloud nfs
+[salt-formulas/nfs]
+checkout = git_checkout nfs
 skip = lazy
 
-[tcpcloud/varnish]
-checkout = git_checkout_tcpcloud varnish
+[salt-formulas/varnish]
+checkout = git_checkout varnish
 skip = lazy
 
-[tcpcloud/statsd]
-checkout = git_checkout_tcpcloud statsd
+[salt-formulas/statsd]
+checkout = git_checkout statsd
 skip = lazy
 
-[tcpcloud/nodejs]
-checkout = git_checkout_tcpcloud nodejs
+[salt-formulas/nodejs]
+checkout = git_checkout nodejs
 skip = lazy
 
-[tcpcloud/letsencrypt]
-checkout = git_checkout_tcpcloud letsencrypt
+[salt-formulas/letsencrypt]
+checkout = git_checkout letsencrypt
 skip = lazy
 
-[tcpcloud/pritunl]
-checkout = git_checkout_tcpcloud pritunl
+[salt-formulas/pritunl]
+checkout = git_checkout pritunl
 skip = lazy
 
-[tcpcloud/sphinx]
-checkout = git_checkout_tcpcloud sphinx
+[salt-formulas/sphinx]
+checkout = git_checkout sphinx
 skip = lazy
 
-[tcpcloud/freeipa]
-checkout = git_checkout_tcpcloud freeipa
+[salt-formulas/freeipa]
+checkout = git_checkout freeipa
 skip = lazy
 
-[tcpcloud/ceph]
-checkout = git_checkout_tcpcloud ceph
+[salt-formulas/ceph]
+checkout = git_checkout ceph
 skip = lazy
 
-[tcpcloud/magnum]
-checkout = git_checkout_tcpcloud magnum
+[salt-formulas/magnum]
+checkout = git_checkout magnum
 skip = lazy
 
-[tcpcloud/isc-dhcp]
-checkout = git_checkout_tcpcloud isc-dhcp
+[salt-formulas/isc-dhcp]
+checkout = git_checkout isc-dhcp
 skip = lazy
 
-[tcpcloud/rsyslog]
-checkout = git_checkout_tcpcloud rsyslog
+[salt-formulas/rsyslog]
+checkout = git_checkout rsyslog
 skip = lazy
 
-[tcpcloud/bind]
-checkout = git_checkout_tcpcloud bind
+[salt-formulas/bind]
+checkout = git_checkout bind
 skip = lazy
 
-[tcpcloud/libvirt]
-checkout = git_checkout_tcpcloud libvirt
+[salt-formulas/libvirt]
+checkout = git_checkout libvirt
 skip = lazy
 
-[tcpcloud/taiga]
-checkout = git_checkout_tcpcloud taiga
+[salt-formulas/taiga]
+checkout = git_checkout taiga
 skip = lazy
 
-[tcpcloud/rsync]
-checkout = git_checkout_tcpcloud rsync
+[salt-formulas/rsync]
+checkout = git_checkout rsync
 skip = lazy
 
-[tcpcloud/grafana]
-checkout = git_checkout_tcpcloud grafana
+[salt-formulas/grafana]
+checkout = git_checkout grafana
 skip = lazy
 
-[tcpcloud/logrotate]
-checkout = git_checkout_tcpcloud logrotate
+[salt-formulas/logrotate]
+checkout = git_checkout logrotate
 skip = lazy
 
-[tcpcloud/docker]
-checkout = git_checkout_tcpcloud docker
+[salt-formulas/docker]
+checkout = git_checkout docker
 skip = lazy
 
-[tcpcloud/zookeeper]
-checkout = git_checkout_tcpcloud zookeeper
+[salt-formulas/zookeeper]
+checkout = git_checkout zookeeper
 skip = lazy
 
-[tcpcloud/cassandra]
-checkout = git_checkout_tcpcloud cassandra
+[salt-formulas/cassandra]
+checkout = git_checkout cassandra
 skip = lazy
 
-[tcpcloud/openvpn]
-checkout = git_checkout_tcpcloud openvpn
+[salt-formulas/openvpn]
+checkout = git_checkout openvpn
 skip = lazy
 
-[tcpcloud/calico]
-checkout = git_checkout_tcpcloud calico
+[salt-formulas/calico]
+checkout = git_checkout calico
 skip = lazy
 
-[tcpcloud/influxdb]
-checkout = git_checkout_tcpcloud influxdb
+[salt-formulas/influxdb]
+checkout = git_checkout influxdb
 skip = lazy
 
-[tcpcloud/bird]
-checkout = git_checkout_tcpcloud bird
+[salt-formulas/bird]
+checkout = git_checkout bird
 skip = lazy
 
-[tcpcloud/etcd]
-checkout = git_checkout_tcpcloud etcd
+[salt-formulas/etcd]
+checkout = git_checkout etcd
 skip = lazy
 
-[tcpcloud/maas]
-checkout = git_checkout_tcpcloud maas
+[salt-formulas/maas]
+checkout = git_checkout maas
 skip = lazy
 
-[tcpcloud/artifactory]
-checkout = git_checkout_tcpcloud artifactory
+[salt-formulas/artifactory]
+checkout = git_checkout artifactory
 skip = lazy
 
-[tcpcloud/gerrit]
-checkout = git_checkout_tcpcloud gerrit
+[salt-formulas/gerrit]
+checkout = git_checkout gerrit
 skip = lazy
 
-[tcpcloud/sahara]
-checkout = git_checkout_tcpcloud sahara
+[salt-formulas/sahara]
+checkout = git_checkout sahara
 skip = lazy
 
-[tcpcloud/nagios]
-checkout = git_checkout_tcpcloud nagios
+[salt-formulas/nagios]
+checkout = git_checkout nagios
 skip = lazy
 
-[tcpcloud/aodh]
-checkout = git_checkout_tcpcloud aodh
+[salt-formulas/aodh]
+checkout = git_checkout aodh
 skip = lazy
 
-[tcpcloud/ccp]
-checkout = git_checkout_tcpcloud ccp
+[salt-formulas/ccp]
+checkout = git_checkout ccp
 skip = lazy
 
-[tcpcloud/network]
-checkout = git_checkout_tcpcloud network
+[salt-formulas/network]
+checkout = git_checkout network
 skip = lazy
 
-[tcpcloud/chrony]
-checkout = git_checkout_tcpcloud chrony
+[salt-formulas/chrony]
+checkout = git_checkout chrony
 skip = lazy
 
-[tcpcloud/cadf]
-checkout = git_checkout_tcpcloud cadf
+[salt-formulas/cadf]
+checkout = git_checkout cadf
 skip = lazy
