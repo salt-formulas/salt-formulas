@@ -11,54 +11,6 @@ lib=
 update = git pull --rebase
 git_review = git review
 
-[salt-formulas/ceilometer]
-checkout = git_checkout ceilometer
-skip = lazy
-
-[salt-formulas/cinder]
-checkout = git_checkout cinder
-skip = lazy
-
-[salt-formulas/glance]
-checkout = git_checkout glance
-skip = lazy
-
-[salt-formulas/heat]
-checkout = git_checkout heat
-skip = lazy
-
-[salt-formulas/horizon]
-checkout = git_checkout horizon
-skip = lazy
-
-[salt-formulas/keystone]
-checkout = git_checkout keystone
-skip = lazy
-
-[salt-formulas/neutron]
-checkout = git_checkout neutron
-skip = lazy
-
-[salt-formulas/nova]
-checkout = git_checkout nova
-skip = lazy
-
-[salt-formulas/opencontrail]
-checkout = git_checkout opencontrail
-skip = lazy
-
-[salt-formulas/midonet]
-checkout = git_checkout midonet
-skip = lazy
-
-[salt-formulas/swift]
-checkout = git_checkout swift
-skip = lazy
-
-[salt-formulas/kubernetes]
-checkout = git_checkout kubernetes
-skip = lazy
-
 [salt-formulas/openvstorage]
 checkout = git_checkout openvstorage
 skip = lazy
@@ -366,3 +318,60 @@ skip = lazy
 [salt-formulas/cadf]
 checkout = git_checkout cadf
 skip = lazy
+
+[salt-formulas/ceilometer]
+checkout = git_checkout ceilometer
+skip = lazy
+
+[salt-formulas/cinder]
+checkout = git_checkout cinder
+skip = lazy
+
+[salt-formulas/glance]
+checkout = git_checkout glance
+skip = lazy
+
+[salt-formulas/heat]
+checkout = git_checkout heat
+skip = lazy
+
+[salt-formulas/horizon]
+checkout = git_checkout horizon
+skip = lazy
+
+[salt-formulas/keystone]
+checkout = git_checkout keystone
+skip = lazy
+
+[salt-formulas/neutron]
+checkout = git_checkout neutron
+skip = lazy
+
+[salt-formulas/nova]
+checkout = git_checkout nova
+skip = lazy
+
+[salt-formulas/opencontrail]
+checkout = git_checkout opencontrail
+skip = lazy
+
+[salt-formulas/midonet]
+checkout = git_checkout midonet
+skip = lazy
+
+[salt-formulas/swift]
+checkout = git_checkout swift
+skip = lazy
+
+[salt-formulas/kubernetes]
+checkout = git_checkout kubernetes
+skip = lazy
+
+[salt-formulas/avinetworks]
+checkout = git_checkout avinetworks
+skip = lazy
+
+[salt-formulas/dekapod]
+checkout = git_checkout dekapod
+skip = lazy
+
