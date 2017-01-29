@@ -6,6 +6,14 @@ In this section, you will find documentation relevant to developing SaltStack
 formulas. How to change existing formula, how to create a new formula.
 
 
+Overview
+^^^^^^^^
+
+.. toctree::
+
+   overview.rst
+
+
 Quick start
 ^^^^^^^^^^^
 

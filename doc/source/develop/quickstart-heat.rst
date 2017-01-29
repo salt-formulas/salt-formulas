@@ -1,7 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
 SaltStack-Formulas Heat deployment
-==============================
+==================================
 
 All-in-one (AIO) deployments are a great way to setup an SaltStack-Formulas cloud for:
 

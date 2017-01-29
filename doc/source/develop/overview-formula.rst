@@ -58,6 +58,15 @@ Core services needed for basic infrastructure operation.
    *  - salt
       - https://github.com/salt-formulas/salt-formula-salt
 
+.. toctree::
+
+   ../_files/formulas/git/README.rst
+   ../_files/formulas/glusterfs/README.rst
+   ../_files/formulas/linux/README.rst
+   ../_files/formulas/openssh/README.rst
+   ../_files/formulas/reclass/README.rst
+   ../_files/formulas/salt/README.rst
+
 
 Supplemental services
 ---------------------

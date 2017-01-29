@@ -1,6 +1,6 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Chapter 3. Testing
+Chapter 4. Testing
 ==================
 
 .. toctree::
@@ -8,6 +8,7 @@ Chapter 3. Testing
    testing-coding-style.rst
    testing-metadata.rst
    testing-integration.rst
+
 
 --------------
 

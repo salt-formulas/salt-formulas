@@ -4,12 +4,15 @@
 [submodule "formulas/cinder"]
 	path = formulas/cinder
 	url = https://github.com/salt-formulas/salt-formula-cinder
+[submodule "formulas/git"]
+	path = formulas/git
+	url = https://github.com/salt-formulas/salt-formula-git
 [submodule "formulas/glance"]
 	path = formulas/glance
 	url = https://github.com/salt-formulas/salt-formula-glance
-[submodule "formulas/git"]
-	path = formulas/keystone
-	url = https://github.com/salt-formulas/salt-formula-git
+[submodule "formulas/glusterfs"]
+	path = formulas/glusterfs
+	url = https://github.com/salt-formulas/salt-formula-glusterfs
 [submodule "formulas/heat"]
 	path = formulas/heat
 	url = https://github.com/salt-formulas/salt-formula-heat
@@ -20,7 +23,7 @@
 	path = formulas/keystone
 	url = https://github.com/salt-formulas/salt-formula-keystone
 [submodule "formulas/linux"]
-	path = formulas/keystone
+	path = formulas/linux
 	url = https://github.com/salt-formulas/salt-formula-linux
 [submodule "formulas/midonet"]
 	path = formulas/midonet
@@ -37,6 +40,9 @@
 [submodule "formulas/openssh"]
 	path = formulas/openssh
 	url = https://github.com/salt-formulas/salt-formula-openssh
+[submodule "formulas/reclass"]
+	path = formulas/reclass
+	url = https://github.com/salt-formulas/salt-formula-reclass
 [submodule "formulas/salt"]
 	path = formulas/salt
 	url = https://github.com/salt-formulas/salt-formula-salt

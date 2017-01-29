@@ -1,5 +1,4 @@
 
 * `Documentation Home <../index.html>`_
-* `Installation Manual <../install/index.html>`_
-* `Operations Manual <index.html>`_
+* `Installation and Operations Manual <index.html>`_
 * `Development Documentation <../develop/index.html>`_

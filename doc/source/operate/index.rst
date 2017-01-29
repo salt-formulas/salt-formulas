@@ -1,9 +1,9 @@
 
-=================
-Operations manual
-=================
+==================================
+Installation and operations manual
+==================================
 
-`Home <index.html>`_ SaltStack-Formulas Operations Manual
+`Home <index.html>`_ SaltStack-Formulas Installation Manual
 
 
 Overview
@@ -12,6 +12,23 @@ Overview
 .. toctree::
 
    overview.rst
+
+
+Configuration
+^^^^^^^^^^^^^
+
+.. toctree::
+
+   configure.rst
+
+
+Installation
+^^^^^^^^^^^^
+
+.. toctree::
+
+   install-config.rst
+   install-infrastructure.rst
 
 
 Monitoring

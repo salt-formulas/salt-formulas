@@ -20,7 +20,6 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   install/index
    operate/index
    develop/index
 
