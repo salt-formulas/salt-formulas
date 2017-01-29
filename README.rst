@@ -74,3 +74,18 @@ In most cases, you want to build html or pdf so you can use these two
     make pdf
 
 Results will be in ``doc/build`` directory.
+
+Add new formula
+===============
+
+To add new formula into the ecosystems, follow these steps:
+
+1. Request creation of repository on Github salt-formulas organization,
+   include link to current version of formula for review
+2. Push your code into new repository, you can also tag new version
+3. Run ``./scripts/add_repo.sh formula_name`` to add new Git submodule
+4. Re-generate ``.mrconfig`` with ``./scripts/gen_mrconfig.py``, that script
+   will scrape ``github.com/salt-formulas`` and generate up-to-date
+   `.mrconfig` file
+5. Create pull request with ``formulas/new_formula_name`` (new submodule) and
+   updated ``.mrconfig``
