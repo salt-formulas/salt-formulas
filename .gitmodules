@@ -73,3 +73,132 @@
 [submodule "formulas/swift"]
 	path = formulas/swift
 	url = https://github.com/salt-formulas/salt-formula-swift
+[submodule "formulas/home-assistant"]
+	path = formulas/home-assistant
+	url = https://github.com/salt-formulas/salt-formula-home-assistant
+[submodule "formulas/mosquitto"]
+	path = formulas/mosquitto
+	url = https://github.com/salt-formulas/salt-formula-mosquitto
+[submodule "formulas/ffmpeg"]
+	path = formulas/ffmpeg
+	url = https://github.com/salt-formulas/salt-formula-ffmpeg
+[submodule "formulas/kodi"]
+	path = formulas/kodi
+	url = https://github.com/salt-formulas/salt-formula-kodi
+[submodule "formulas/octoprint"]
+	path = formulas/octoprint
+	url = https://github.com/salt-formulas/salt-formula-octoprint
+[submodule "formulas/python"]
+	path = formulas/python
+	url = https://github.com/salt-formulas/salt-formula-python
+[submodule "formulas/nginx"]
+	path = formulas/nginx
+	url = https://github.com/salt-formulas/salt-formula-nginx
+[submodule "formulas/apache"]
+	path = formulas/apache
+	url = https://github.com/salt-formulas/salt-formula-apache
+[submodule "formulas/haproxy"]
+	path = formulas/haproxy
+	url = https://github.com/salt-formulas/salt-formula-haproxy
+[submodule "formulas/sphinx"]
+	path = formulas/sphinx
+	url = https://github.com/salt-formulas/salt-formula-sphinx
+[submodule "formulas/supervisor"]
+	path = formulas/supervisor
+	url = https://github.com/salt-formulas/salt-formula-supervisor
+[submodule "formulas/bind"]
+	path = formulas/bind
+	url = https://github.com/salt-formulas/salt-formula-bind
+[submodule "formulas/dovecot"]
+	path = formulas/dovecot
+	url = https://github.com/salt-formulas/salt-formula-dovecot
+[submodule "formulas/elasticsearch"]
+	path = formulas/elasticsearch
+	url = https://github.com/salt-formulas/salt-formula-elasticsearch
+[submodule "formulas/galera"]
+	path = formulas/galera
+	url = https://github.com/salt-formulas/salt-formula-galera
+[submodule "formulas/mysql"]
+	path = formulas/mysql
+	url = https://github.com/salt-formulas/salt-formula-mysql
+[submodule "formulas/mongodb"]
+	path = formulas/mongodb
+	url = https://github.com/salt-formulas/salt-formula-mongodb
+[submodule "formulas/postfix"]
+	path = formulas/postfix
+	url = https://github.com/salt-formulas/salt-formula-postfix
+[submodule "formulas/postgresql"]
+	path = formulas/postgresql
+	url = https://github.com/salt-formulas/salt-formula-postgresql
+[submodule "formulas/redis"]
+	path = formulas/redis
+	url = https://github.com/salt-formulas/salt-formula-redis
+[submodule "formulas/varnish"]
+	path = formulas/varnish
+	url = https://github.com/salt-formulas/salt-formula-varnish
+[submodule "formulas/java"]
+	path = formulas/java
+	url = https://github.com/salt-formulas/salt-formula-java
+[submodule "formulas/php"]
+	path = formulas/php
+	url = https://github.com/salt-formulas/salt-formula-php
+[submodule "formulas/nodejs"]
+	path = formulas/nodejs
+	url = https://github.com/salt-formulas/salt-formula-nodejs
+[submodule "formulas/ruby"]
+	path = formulas/ruby
+	url = https://github.com/salt-formulas/salt-formula-ruby
+[submodule "formulas/collectd"]
+	path = formulas/collectd
+	url = https://github.com/salt-formulas/salt-formula-collectd
+[submodule "formulas/heka"]
+	path = formulas/heka
+	url = https://github.com/salt-formulas/salt-formula-heka
+[submodule "formulas/graphite"]
+	path = formulas/graphite
+	url = https://github.com/salt-formulas/salt-formula-graphite
+[submodule "formulas/kibana"]
+	path = formulas/kibana
+	url = https://github.com/salt-formulas/salt-formula-kibana
+[submodule "formulas/grafana"]
+	path = formulas/grafana
+	url = https://github.com/salt-formulas/salt-formula-grafana
+[submodule "formulas/influxdb"]
+	path = formulas/influxdb
+	url = https://github.com/salt-formulas/salt-formula-influxdb
+[submodule "formulas/sensu"]
+	path = formulas/sensu
+	url = https://github.com/salt-formulas/salt-formula-sensu
+[submodule "formulas/statsd"]
+	path = formulas/statsd
+	url = https://github.com/salt-formulas/salt-formula-statsd
+[submodule "formulas/aptly"]
+	path = formulas/aptly
+	url = https://github.com/salt-formulas/salt-formula-aptly
+[submodule "formulas/gerrit"]
+	path = formulas/gerrit
+	url = https://github.com/salt-formulas/salt-formula-gerrit
+[submodule "formulas/gitlab"]
+	path = formulas/gitlab
+	url = https://github.com/salt-formulas/salt-formula-gitlab
+[submodule "formulas/jenkins"]
+	path = formulas/jenkins
+	url = https://github.com/salt-formulas/salt-formula-jenkins
+[submodule "formulas/owncloud"]
+	path = formulas/owncloud
+	url = https://github.com/salt-formulas/salt-formula-owncloud
+[submodule "formulas/roundcube"]
+	path = formulas/roundcube
+	url = https://github.com/salt-formulas/salt-formula-roundcube
+[submodule "formulas/nagios"]
+	path = formulas/nagios
+	url = https://github.com/salt-formulas/salt-formula-nagios
+[submodule "formulas/aodh"]
+	path = formulas/aodh
+	url = https://github.com/salt-formulas/salt-formula-aodh
+[submodule "formulas/magnum"]
+	path = formulas/magnum
+	url = https://github.com/salt-formulas/salt-formula-magnum
+[submodule "formulas/murano"]
+	path = formulas/murano
+	url = https://github.com/salt-formulas/salt-formula-murano

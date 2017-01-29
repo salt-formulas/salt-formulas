@@ -45,6 +45,8 @@ Core services needed for basic infrastructure operation.
       - https://github.com/salt-formulas/salt-formula-glusterfs
    *  - iptables
       - https://github.com/salt-formulas/salt-formula-iptables
+   *  - letsecrypt
+      - https://github.com/salt-formulas/salt-formula-letsecrypt
    *  - linux
       - https://github.com/salt-formulas/salt-formula-linux
    *  - maas
@@ -57,6 +59,8 @@ Core services needed for basic infrastructure operation.
       - https://github.com/salt-formulas/salt-formula-reclass
    *  - salt
       - https://github.com/salt-formulas/salt-formula-salt
+   *  - sphinx
+      - https://github.com/salt-formulas/salt-formula-sphinx
 
 .. toctree::
 
@@ -65,12 +69,14 @@ Core services needed for basic infrastructure operation.
    ../_files/formulas/git/README.rst
    ../_files/formulas/glusterfs/README.rst
    ../_files/formulas/iptables/README.rst
+   ../_files/formulas/letsencrypt/README.rst
    ../_files/formulas/linux/README.rst
    ../_files/formulas/maas/README.rst
    ../_files/formulas/ntp/README.rst
    ../_files/formulas/openssh/README.rst
    ../_files/formulas/reclass/README.rst
    ../_files/formulas/salt/README.rst
+   ../_files/formulas/sphinx/README.rst
 
 
 Supplemental services
@@ -99,10 +105,14 @@ Support services as databases, proxies, application servers.
       - https://github.com/salt-formulas/salt-formula-haproxy
    *  - keepalived
       - https://github.com/salt-formulas/salt-formula-keepalived
+   *  - knot
+      - https://github.com/salt-formulas/salt-formula-knot
    *  - letsencrypt
       - https://github.com/salt-formulas/salt-formula-letsencrypt
    *  - memcached
       - https://github.com/salt-formulas/salt-formula-memcached
+   *  - mosquitto
+      - https://github.com/salt-formulas/salt-formula-mosquitto
    *  - mongodb
       - https://github.com/salt-formulas/salt-formula-mongodb
    *  - mysql
@@ -113,6 +123,8 @@ Support services as databases, proxies, application servers.
       - https://github.com/salt-formulas/salt-formula-postfix
    *  - postgresql
       - https://github.com/salt-formulas/salt-formula-postgresql
+   *  - powerdns
+      - https://github.com/salt-formulas/salt-formula-powerdns
    *  - rabbitmq
       - https://github.com/salt-formulas/salt-formula-rabbitmq
    *  - redis
@@ -121,6 +133,94 @@ Support services as databases, proxies, application servers.
       - https://github.com/salt-formulas/salt-formula-supervisor
    *  - varnish
       - https://github.com/salt-formulas/salt-formula-varnish
+
+.. toctree::
+
+   ../_files/formulas/apache/README.rst
+   ../_files/formulas/bind/README.rst
+   ../_files/formulas/dovecot/README.rst
+   ../_files/formulas/elasticsearch/README.rst
+   ../_files/formulas/galera/README.rst
+   ../_files/formulas/haproxy/README.rst
+   ../_files/formulas/keepalived/README.rst
+   ../_files/formulas/knot/README.rst
+   ../_files/formulas/letsecrypt/README.rst
+   ../_files/formulas/memcached/README.rst
+   ../_files/formulas/mongodb/README.rst
+   ../_files/formulas/mosquitto/README.rst
+   ../_files/formulas/mysql/README.rst
+   ../_files/formulas/nginx/README.rst
+   ../_files/formulas/postfix/README.rst
+   ../_files/formulas/postgresql/README.rst
+   ../_files/formulas/powerdns/README.rst
+   ../_files/formulas/rabbitmq/README.rst
+   ../_files/formulas/redis/README.rst
+   ../_files/formulas/supervisor/README.rst
+   ../_files/formulas/varnish/README.rst
+
+
+Programming languages
+---------------------
+
+Support programming languages, libraries, environments.
+
+.. list-table::
+   :widths: 33 66
+   :header-rows: 1
+   :stub-columns: 1
+
+   *  - Formula
+      - Repository
+   *  - java
+      - https://github.com/salt-formulas/salt-formula-java
+   *  - nodejs
+      - https://github.com/salt-formulas/salt-formula-nodejs
+   *  - php
+      - https://github.com/salt-formulas/salt-formula-php
+   *  - python
+      - https://github.com/salt-formulas/salt-formula-python
+   *  - ruby
+      - https://github.com/salt-formulas/salt-formula-ruby
+
+.. toctree::
+
+   ../_files/formulas/java/README.rst
+   ../_files/formulas/nodejs/README.rst
+   ../_files/formulas/php/README.rst
+   ../_files/formulas/python/README.rst
+   ../_files/formulas/ruby/README.rst
+
+
+IoT services
+------------
+
+Support for Internet of Things services.
+
+.. list-table::
+   :widths: 33 66
+   :header-rows: 1
+   :stub-columns: 1
+
+   *  - Formula
+      - Repository
+   *  - ffmpeg
+      - https://github.com/salt-formulas/salt-formula-ffmpeg
+   *  - kodi
+      - https://github.com/salt-formulas/salt-formula-kodi
+   *  - home-assistant
+      - https://github.com/salt-formulas/salt-formula-home-assistant
+   *  - motion
+      - https://github.com/salt-formulas/salt-formula-motion
+   *  - octoprint
+      - https://github.com/salt-formulas/salt-formula-octoprint
+
+.. toctree::
+
+   ../_files/formulas/ffmpeg/README.rst
+   ../_files/formulas/kodi/README.rst
+   ../_files/formulas/home-assistant/README.rst
+   ../_files/formulas/motion/README.rst
+   ../_files/formulas/octoprint/README.rst
 
 
 OpenStack services
@@ -135,6 +235,8 @@ All supported OpenStack cloud platform services.
 
    *  - Formula
       - Repository
+   *  - aodh
+      - https://github.com/salt-formulas/salt-formula-aodh
    *  - ceilometer
       - https://github.com/salt-formulas/salt-formula-ceilometer
    *  - cinder
@@ -162,6 +264,24 @@ All supported OpenStack cloud platform services.
    *  - swift
       - https://github.com/salt-formulas/salt-formula-swift
 
+.. toctree::
+
+   ../_files/formulas/aodh/README.rst
+   ../_files/formulas/ceilometer/README.rst
+   ../_files/formulas/cinder/README.rst
+   ../_files/formulas/glance/README.rst
+   ../_files/formulas/heat/README.rst
+   ../_files/formulas/horizon/README.rst
+   ../_files/formulas/keystone/README.rst
+   ../_files/formulas/magnum/README.rst
+   ../_files/formulas/midonet/README.rst
+   ../_files/formulas/murano/README.rst
+   ../_files/formulas/opencontrail/README.rst
+   ../_files/formulas/neutron/README.rst
+   ../_files/formulas/nova/README.rst
+   ../_files/formulas/opencontrail/README.rst
+   ../_files/formulas/swift/README.rst
+
 
 Monitoring services
 -------------------
@@ -177,24 +297,41 @@ Monitoring, metering and log collecting tools implementing complete monitoring s
       - Repository
    *  - collectd
       - https://github.com/salt-formulas/salt-formula-collectd
+   *  - grafana
+      - https://github.com/salt-formulas/salt-formula-grafana
    *  - graphite
       - https://github.com/salt-formulas/salt-formula-graphite
    *  - heka
       - https://github.com/salt-formulas/salt-formula-heka
+   *  - influxdb
+      - https://github.com/salt-formulas/salt-formula-influxdb
    *  - kibana
       - https://github.com/salt-formulas/salt-formula-kibana
+   *  - nagios
+      - https://github.com/salt-formulas/salt-formula-nagios
    *  - sensu
       - https://github.com/salt-formulas/salt-formula-sensu
-   *  - sphinx
-      - https://github.com/salt-formulas/salt-formula-sphinx
    *  - statsd
-      - https://github.com/salt-formulas/salt-formula-sensu
+      - https://github.com/salt-formulas/salt-formula-statsd
+
+.. toctree::
+
+   ../_files/formulas/collectd/README.rst
+   ../_files/formulas/grafana/README.rst
+   ../_files/formulas/graphite/README.rst
+   ../_files/formulas/heka/README.rst
+   ../_files/formulas/influxdb/README.rst
+   ../_files/formulas/kibana/README.rst
+   ../_files/formulas/nagios/README.rst
+   ../_files/formulas/sensu/README.rst
+   ../_files/formulas/statsd/README.rst
 
 
 Integration services
 --------------------
 
-Continuous integration services for automated integration and delivery pipelines.
+Continuous integration services for automated integration and delivery
+pipelines.
 
 .. list-table::
    :widths: 33 66
@@ -215,3 +352,17 @@ Continuous integration services for automated integration and delivery pipelines
       - https://github.com/salt-formulas/salt-formula-owncloud
    *  - roundcube
       - https://github.com/salt-formulas/salt-formula-roundcube
+
+.. toctree::
+
+   ../_files/formulas/aptly/README.rst
+   ../_files/formulas/gerrit/README.rst
+   ../_files/formulas/gitlab/README.rst
+   ../_files/formulas/jenkins/README.rst
+   ../_files/formulas/owncloud/README.rst
+   ../_files/formulas/roundcube/README.rst
+
+
+--------------
+
+.. include:: navigation.txt
