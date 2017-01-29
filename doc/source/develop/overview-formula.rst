@@ -60,9 +60,14 @@ Core services needed for basic infrastructure operation.
 
 .. toctree::
 
+   ../_files/formulas/foreman/README.rst
+   ../_files/formulas/freeipa/README.rst
    ../_files/formulas/git/README.rst
    ../_files/formulas/glusterfs/README.rst
+   ../_files/formulas/iptables/README.rst
    ../_files/formulas/linux/README.rst
+   ../_files/formulas/maas/README.rst
+   ../_files/formulas/ntp/README.rst
    ../_files/formulas/openssh/README.rst
    ../_files/formulas/reclass/README.rst
    ../_files/formulas/salt/README.rst
@@ -90,8 +95,6 @@ Support services as databases, proxies, application servers.
       - https://github.com/salt-formulas/salt-formula-elasticsearch
    *  - galera
       - https://github.com/salt-formulas/salt-formula-galera
-   *  - git
-      - https://github.com/salt-formulas/salt-formula-git
    *  - haproxy
       - https://github.com/salt-formulas/salt-formula-haproxy
    *  - keepalived

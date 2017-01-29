@@ -4,6 +4,12 @@
 [submodule "formulas/cinder"]
 	path = formulas/cinder
 	url = https://github.com/salt-formulas/salt-formula-cinder
+[submodule "formulas/foreman"]
+	path = formulas/foreman
+	url = https://github.com/salt-formulas/salt-formula-foreman
+[submodule "formulas/freeipa"]
+	path = formulas/freeipa
+	url = https://github.com/salt-formulas/salt-formula-freeipa
 [submodule "formulas/git"]
 	path = formulas/git
 	url = https://github.com/salt-formulas/salt-formula-git
@@ -19,12 +25,27 @@
 [submodule "formulas/horizon"]
 	path = formulas/horizon
 	url = https://github.com/salt-formulas/salt-formula-horizon
+[submodule "formulas/iptables"]
+	path = formulas/iptables
+	url = https://github.com/salt-formulas/salt-formula-iptables
+[submodule "formulas/keepalived"]
+	path = formulas/keepalived
+	url = https://github.com/salt-formulas/salt-formula-keepalived
 [submodule "formulas/keystone"]
 	path = formulas/keystone
 	url = https://github.com/salt-formulas/salt-formula-keystone
+[submodule "formulas/letsencrypt"]
+	path = formulas/letsencrypt
+	url = https://github.com/salt-formulas/salt-formula-letsencrypt
 [submodule "formulas/linux"]
 	path = formulas/linux
 	url = https://github.com/salt-formulas/salt-formula-linux
+[submodule "formulas/maas"]
+	path = formulas/maas
+	url = https://github.com/salt-formulas/salt-formula-maas
+[submodule "formulas/memcached"]
+	path = formulas/memcached
+	url = https://github.com/salt-formulas/salt-formula-memcached
 [submodule "formulas/midonet"]
 	path = formulas/midonet
 	url = https://github.com/salt-formulas/salt-formula-midonet
@@ -34,6 +55,9 @@
 [submodule "formulas/nova"]
 	path = formulas/nova
 	url = https://github.com/salt-formulas/salt-formula-nova
+[submodule "formulas/ntp"]
+	path = formulas/ntp
+	url = https://github.com/salt-formulas/salt-formula-ntp
 [submodule "formulas/opencontrail"]
 	path = formulas/opencontrail
 	url = https://github.com/salt-formulas/salt-formula-opencontrail

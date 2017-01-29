@@ -1,7 +1,7 @@
 cookiecutter-salt-formula
 =========================
 
-A cookiecutter_ template for Salt Formula.
+A cookiecutter template for Salt Formula.
 
 Installation
 ============

@@ -7,6 +7,7 @@ Chapter 3. Extending
 
    extending-cookiecutter.rst
    extending-formulas.rst
+   extending-deployments.rst
    extending-contribute.rst
 
 
