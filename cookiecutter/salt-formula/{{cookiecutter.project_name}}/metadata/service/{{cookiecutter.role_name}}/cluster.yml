@@ -1,0 +1,10 @@
+applications:
+- {{cookiecutter.service_name}}
+classes:
+- service.{{cookiecutter.service_name}}.support
+parameters:
+  {{cookiecutter.service_name}}:
+    {{cookiecutter.role_name}}:
+      enabled: true
+      bind:
+        address: 0.0.0.0

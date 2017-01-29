@@ -1,0 +1,12 @@
+{{ '{%-' }} from "{{cookiecutter.service_name}}/map.jinja" import {{cookiecutter.role_name}} with context {{ '%}' }}
+# Fill in documentation details
+doc:
+  name: {{cookiecutter.service_name}}
+  description: Some service info
+  role:
+    {{cookiecutter.role_name}}:
+      name: {{cookiecutter.role_name}}
+      param:
+        some_param:
+          name: "Some name"
+          value: "some value"

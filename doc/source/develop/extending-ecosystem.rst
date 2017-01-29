@@ -36,27 +36,27 @@ Core services needed for basic infrastructure operation.
    *  - Formula
       - Repository
    *  - foreman
-      - https://github.com/tcpcloud/salt-formula-foreman
+      - https://github.com/salt-formulas/salt-formula-foreman
    *  - freeipa
-      - https://github.com/tcpcloud/salt-formula-freeipa
+      - https://github.com/salt-formulas/salt-formula-freeipa
    *  - git
-      - https://github.com/tcpcloud/salt-formula-git
+      - https://github.com/salt-formulas/salt-formula-git
    *  - glusterfs
-      - https://github.com/tcpcloud/salt-formula-glusterfs
+      - https://github.com/salt-formulas/salt-formula-glusterfs
    *  - iptables
-      - https://github.com/tcpcloud/salt-formula-iptables
+      - https://github.com/salt-formulas/salt-formula-iptables
    *  - linux
-      - https://github.com/tcpcloud/salt-formula-linux
+      - https://github.com/salt-formulas/salt-formula-linux
    *  - maas
-      - https://git.tcpcloud.eu/salt-formulas/maas-formula
+      - https://github.com/salt-formulas/salt-formula-maas
    *  - ntp
-      - https://github.com/tcpcloud/salt-formula-ntp
+      - https://github.com/salt-formulas/salt-formula-ntp
    *  - openssh
-      - https://github.com/tcpcloud/salt-formula-openssh
+      - https://github.com/salt-formulas/salt-formula-openssh
    *  - reclass
-      - https://github.com/tcpcloud/salt-formula-reclass
+      - https://github.com/salt-formulas/salt-formula-reclass
    *  - salt
-      - https://github.com/tcpcloud/salt-formula-salt
+      - https://github.com/salt-formulas/salt-formula-salt
 
 
 Supplemental services
@@ -72,43 +72,43 @@ Support services as databases, proxies, application servers.
    *  - Formula
       - Repository
    *  - apache
-      - https://github.com/tcpcloud/salt-formula-apache
+      - https://github.com/salt-formulas/salt-formula-apache
    *  - bind
-      - https://github.com/tcpcloud/salt-formula-bind
+      - https://github.com/salt-formulas/salt-formula-bind
    *  - dovecot
-      - https://github.com/tcpcloud/salt-formula-dovecot
+      - https://github.com/salt-formulas/salt-formula-dovecot
    *  - elasticsearch
-      - https://github.com/tcpcloud/salt-formula-elasticsearch
+      - https://github.com/salt-formulas/salt-formula-elasticsearch
    *  - galera
-      - https://github.com/tcpcloud/salt-formula-galera
+      - https://github.com/salt-formulas/salt-formula-galera
    *  - git
-      - https://github.com/tcpcloud/salt-formula-git
+      - https://github.com/salt-formulas/salt-formula-git
    *  - haproxy
-      - https://github.com/tcpcloud/salt-formula-haproxy
+      - https://github.com/salt-formulas/salt-formula-haproxy
    *  - keepalived
-      - https://github.com/tcpcloud/salt-formula-keepalived
+      - https://github.com/salt-formulas/salt-formula-keepalived
    *  - letsencrypt
-      - https://github.com/tcpcloud/salt-formula-letsencrypt
+      - https://github.com/salt-formulas/salt-formula-letsencrypt
    *  - memcached
-      - https://github.com/tcpcloud/salt-formula-memcached
+      - https://github.com/salt-formulas/salt-formula-memcached
    *  - mongodb
-      - https://github.com/tcpcloud/salt-formula-mongodb
+      - https://github.com/salt-formulas/salt-formula-mongodb
    *  - mysql
-      - https://github.com/tcpcloud/salt-formula-mysql
+      - https://github.com/salt-formulas/salt-formula-mysql
    *  - nginx
-      - https://github.com/tcpcloud/salt-formula-nginx
+      - https://github.com/salt-formulas/salt-formula-nginx
    *  - postfix
-      - https://github.com/tcpcloud/salt-formula-postfix
+      - https://github.com/salt-formulas/salt-formula-postfix
    *  - postgresql
-      - https://github.com/tcpcloud/salt-formula-postgresql
+      - https://github.com/salt-formulas/salt-formula-postgresql
    *  - rabbitmq
-      - https://github.com/tcpcloud/salt-formula-rabbitmq
+      - https://github.com/salt-formulas/salt-formula-rabbitmq
    *  - redis
-      - https://github.com/tcpcloud/salt-formula-redis
+      - https://github.com/salt-formulas/salt-formula-redis
    *  - supervisor
-      - https://github.com/tcpcloud/salt-formula-supervisor
+      - https://github.com/salt-formulas/salt-formula-supervisor
    *  - varnish
-      - https://github.com/tcpcloud/salt-formula-varnish
+      - https://github.com/salt-formulas/salt-formula-varnish
 
 
 OpenStack services
@@ -124,31 +124,31 @@ All supported OpenStack cloud platform services.
    *  - Formula
       - Repository
    *  - ceilometer
-      - https://github.com/openstack/salt-formula-ceilometer
+      - https://github.com/salt-formulas/salt-formula-ceilometer
    *  - cinder
-      - https://github.com/openstack/salt-formula-cinder
+      - https://github.com/salt-formulas/salt-formula-cinder
    *  - glance
-      - https://github.com/openstack/salt-formula-glance
+      - https://github.com/salt-formulas/salt-formula-glance
    *  - heat
-      - https://github.com/openstack/salt-formula-heat
+      - https://github.com/salt-formulas/salt-formula-heat
    *  - horizon
-      - https://github.com/openstack/salt-formula-horizon
+      - https://github.com/salt-formulas/salt-formula-horizon
    *  - keystone
-      - https://github.com/openstack/salt-formula-keystone
+      - https://github.com/salt-formulas/salt-formula-keystone
    *  - magnum
-      - https://github.com/tcpcloud/salt-formula-magnum
+      - https://github.com/salt-formulas/salt-formula-magnum
    *  - midonet
-      - https://github.com/openstack/salt-formula-midonet
+      - https://github.com/salt-formulas/salt-formula-midonet
    *  - murano
-      - https://github.com/tcpcloud/salt-formula-murano
+      - https://github.com/salt-formulas/salt-formula-murano
    *  - neutron
-      - https://github.com/openstack/salt-formula-neutron
+      - https://github.com/salt-formulas/salt-formula-neutron
    *  - nova
-      - https://github.com/openstack/salt-formula-nova
+      - https://github.com/salt-formulas/salt-formula-nova
    *  - opencontrail
-      - https://github.com/openstack/salt-formula-opencontrail
+      - https://github.com/salt-formulas/salt-formula-opencontrail
    *  - swift
-      - https://github.com/openstack/salt-formula-swift
+      - https://github.com/salt-formulas/salt-formula-swift
 
 
 Monitoring services
@@ -164,19 +164,19 @@ Monitoring, metering and log collecting tools implementing complete monitoring s
    *  - Formula
       - Repository
    *  - collectd
-      - https://github.com/tcpcloud/salt-formula-collectd
+      - https://github.com/salt-formulas/salt-formula-collectd
    *  - graphite
-      - https://github.com/tcpcloud/salt-formula-graphite
+      - https://github.com/salt-formulas/salt-formula-graphite
    *  - heka
-      - https://github.com/tcpcloud/salt-formula-heka
+      - https://github.com/salt-formulas/salt-formula-heka
    *  - kibana
-      - https://github.com/tcpcloud/salt-formula-kibana
+      - https://github.com/salt-formulas/salt-formula-kibana
    *  - sensu
-      - https://github.com/tcpcloud/salt-formula-sensu
+      - https://github.com/salt-formulas/salt-formula-sensu
    *  - sphinx
-      - https://github.com/tcpcloud/salt-formula-sphinx
+      - https://github.com/salt-formulas/salt-formula-sphinx
    *  - statsd
-      - https://github.com/tcpcloud/salt-formula-sensu
+      - https://github.com/salt-formulas/salt-formula-sensu
 
 
 Integration services
@@ -192,19 +192,14 @@ Continuous integration services for automated integration and delivery pipelines
    *  - Formula
       - Repository
    *  - aptly
-      - https://github.com/tcpcloud/salt-formula-aptly
+      - https://github.com/salt-formulas/salt-formula-aptly
    *  - gerrit
-      - https://git.tcpcloud.eu/salt-formulas/gerrit-formula
+      - https://github.com/salt-formulas/salt-formula-gerrit
    *  - gitlab
-      - https://github.com/tcpcloud/salt-formula-gitlab
+      - https://github.com/salt-formulas/salt-formula-gitlab
    *  - jenkins
-      - https://github.com/tcpcloud/salt-formula-jenkins
+      - https://github.com/salt-formulas/salt-formula-jenkins
    *  - owncloud
-      - https://github.com/tcpcloud/salt-formula-owncloud
+      - https://github.com/salt-formulas/salt-formula-owncloud
    *  - roundcube
-      - https://github.com/tcpcloud/salt-formula-roundcube
-
-
---------------
-
-.. include:: navigation.txt
+      - https://github.com/salt-formulas/salt-formula-roundcube

@@ -1,0 +1,29 @@
+{% raw %}
+{%- set {% endraw %}source_engine = salt['pillar.get']('{{cookiecutter.service_name}}:{{cookiecutter.role_name}}:source:engine'){% raw %} %}
+
+{%- load_yaml as base_defaults %}
+{%- if source_engine == 'git' %}
+{% endraw %}Debian:
+  pkgs:
+  - python-psycopg2
+  dir:
+    base: /srv/{{cookiecutter.service_name}}/venv
+    home: /var/lib/{{cookiecutter.service_name}}
+    workspace: /srv/{{cookiecutter.service_name}}/workspace
+RedHat:
+  pkgs:
+  - python-psycopg2
+  dir:
+    base: /srv/{{cookiecutter.service_name}}/venv
+    home: /var/lib/{{cookiecutter.service_name}}
+    workspace: /srv/{{cookiecutter.service_name}}/workspace
+{% raw %}{%- else %}{% endraw %}
+Debian:
+  pkgs:
+  - {{cookiecutter.service_name}}
+  dir:
+    base: /usr/lib/{{cookiecutter.service_name}}
+{% raw %}{%- endif %}
+{%- endload %}
+
+{%-{% endraw %} set {{cookiecutter.role_name}} = salt['grains.filter_by'](base_defaults, merge=salt['pillar.get']('{{cookiecutter.service_name}}:{{cookiecutter.role_name}}')) {% raw %}%}{% endraw %}
