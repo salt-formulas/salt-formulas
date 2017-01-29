@@ -1,0 +1,79 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+boxes = {
+  'ubuntu/trusty64' => {
+    'name'  => 'ubuntu/trusty64',
+    'url'   => 'ubuntu/trusty64'
+  },
+}
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define :openstack_config do |openstack_config|
+
+    openstack_config.vm.hostname = 'config.openstack.local'
+    openstack_config.vm.box = 'ubuntu/trusty64'
+    openstack_config.vm.box_url = boxes['ubuntu/trusty64']['url']
+    openstack_config.vm.network :private_network, ip: "10.10.10.200"
+
+    openstack_config.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", 512]
+      vb.customize ["modifyvm", :id, "--cpus", 1]
+      vb.name = 'openstack-config'
+      vb.gui = false
+    end
+
+    openstack_config.vm.provision :salt do |salt|
+      salt.minion_config = "minions/config.conf"
+      salt.colorize = true
+      salt.bootstrap_options = "-F -c /tmp -P"
+    end
+  
+  end
+
+  config.vm.define :openstack_control do |openstack_control|
+
+    openstack_control.vm.hostname = 'control.openstack.local'
+    openstack_control.vm.box = 'ubuntu/trusty64'
+    openstack_control.vm.box_url = boxes['ubuntu/trusty64']['url']
+    openstack_control.vm.network :private_network, ip: "10.10.10.201"
+
+    openstack_control.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", 4096]
+      vb.customize ["modifyvm", :id, "--cpus", 1]
+      vb.name = 'openstack-control'
+      vb.gui = false
+    end
+
+    openstack_control.vm.provision :salt do |salt|
+      salt.minion_config = "minions/control.conf"
+      salt.colorize = true
+      salt.bootstrap_options = "-F -c /tmp -P"
+    end
+  
+  end
+
+  config.vm.define :openstack_compute do |openstack_compute|
+
+    openstack_compute.vm.hostname = 'compute.openstack.local'
+    openstack_compute.vm.box = 'ubuntu/trusty64'
+    openstack_compute.vm.box_url = boxes['ubuntu/trusty64']['url']
+    openstack_compute.vm.network :private_network, ip: "10.10.10.202"
+
+    openstack_compute.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", 1024]
+      vb.customize ["modifyvm", :id, "--cpus", 1]
+      vb.name = 'openstack-compute'
+      vb.gui = false
+    end
+
+    openstack_compute.vm.provision :salt do |salt|
+      salt.minion_config = "minions/compute.conf"
+      salt.colorize = true
+      salt.bootstrap_options = "-F -c /tmp -P"
+    end
+  
+  end
+
+end

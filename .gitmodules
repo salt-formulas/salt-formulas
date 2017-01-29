@@ -1,0 +1,45 @@
+[submodule "formulas/ceilometer"]
+	path = formulas/ceilometer
+	url = https://github.com/salt-formulas/salt-formula-ceilometer
+[submodule "formulas/cinder"]
+	path = formulas/cinder
+	url = https://github.com/salt-formulas/salt-formula-cinder
+[submodule "formulas/glance"]
+	path = formulas/glance
+	url = https://github.com/salt-formulas/salt-formula-glance
+[submodule "formulas/git"]
+	path = formulas/keystone
+	url = https://github.com/salt-formulas/salt-formula-git
+[submodule "formulas/heat"]
+	path = formulas/heat
+	url = https://github.com/salt-formulas/salt-formula-heat
+[submodule "formulas/horizon"]
+	path = formulas/horizon
+	url = https://github.com/salt-formulas/salt-formula-horizon
+[submodule "formulas/keystone"]
+	path = formulas/keystone
+	url = https://github.com/salt-formulas/salt-formula-keystone
+[submodule "formulas/linux"]
+	path = formulas/keystone
+	url = https://github.com/salt-formulas/salt-formula-linux
+[submodule "formulas/midonet"]
+	path = formulas/midonet
+	url = https://github.com/salt-formulas/salt-formula-midonet
+[submodule "formulas/neutron"]
+	path = formulas/neutron
+	url = https://github.com/salt-formulas/salt-formula-neutron
+[submodule "formulas/nova"]
+	path = formulas/nova
+	url = https://github.com/salt-formulas/salt-formula-nova
+[submodule "formulas/opencontrail"]
+	path = formulas/opencontrail
+	url = https://github.com/salt-formulas/salt-formula-opencontrail
+[submodule "formulas/openssh"]
+	path = formulas/openssh
+	url = https://github.com/salt-formulas/salt-formula-openssh
+[submodule "formulas/salt"]
+	path = formulas/salt
+	url = https://github.com/salt-formulas/salt-formula-salt
+[submodule "formulas/swift"]
+	path = formulas/swift
+	url = https://github.com/salt-formulas/salt-formula-swift

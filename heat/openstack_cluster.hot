@@ -1,0 +1,463 @@
+heat_template_version: 2013-05-23
+description: Base Heat stack with simple OS setup
+parameters:
+  key_name:
+    type: string
+    default: openstack_salt_key
+  key_value:
+    type: string
+  salt_source:
+    type: string
+    default: pkg
+  salt_version:
+    type: string
+    default: latest
+  formula_source:
+    type: string
+    default: git
+  formula_path:
+    type: string
+    default: /usr/share/salt-formulas
+  formula_branch:
+    type: string
+    default: master
+  reclass_address:
+    type: string
+    default: https://github.com/tcpcloud/openstack-salt-model.git
+  reclass_branch:
+    type: string
+    default: master
+  os_version:
+    type: string
+    default: kilo
+  os_distribution:
+    type: string
+    default: ubuntu
+  os_networking:
+    type: string
+    default: opencontrail
+  os_deployment:
+    type: string
+    default: single
+  config_hostname:
+    type: string
+    default: config
+  config_domain:
+    type: string
+    default: openstack-ha.local
+  config_address:
+    type: string
+    default: 10.10.10.200
+  ctl01_name:
+    type: string
+    default: control01
+  ctl02_name:
+    type: string
+    default: control02
+  ctl03_name:
+    type: string
+    default: control03
+  cmp01_name:
+    type: string
+    default: compute01
+  cmp02_name:
+    type: string
+    default: compute02
+  prx01_name:
+    type: string
+    default: proxy
+  cluster_vip_address:
+    type: string
+    default: 10.10.10.254
+  instance_flavor:
+    type: string
+    description: Instance type for servers
+    default: m1.small
+    constraints:
+      - allowed_values: [m1.tiny, m1.small, m1.medium, m1.large]
+        description: instance_type must be a valid instance type
+  config_image:
+    type: string
+    description: Image name to use for Salt master.
+    default: ubuntu-14-04-x64-1452267252
+  instance_image:
+    type: string
+    description: Image name to use for the servers.
+    default: ubuntu-14-04-x64-1452267252
+  public_net_id:
+    type: string
+    description: ID or name of public network for which floating IP addresses will be allocated
+  router_name:
+    type: string
+    description: Name of router to be created
+    default: openstack-salt-router
+  private_net_name:
+    type: string
+    description: Name of private network to be created
+    default: openstack-salt-net
+  private_net_cidr:
+    type: string
+    description: Private network address (CIDR notation)
+    default: 10.10.10.0/24
+  instance_flavor_controller:
+    type: string
+    description: Instance type for controllers
+    default: m1.large
+    constraints:
+      - allowed_values: [m1.tiny, m1.small, m1.medium, m1.large]
+        description: instance_type must be a valid instance type
+  instance_flavor_compute:
+    type: string
+    description: Instance type for compute nodes
+    default: m1.medium
+    constraints:
+      - allowed_values: [m1.tiny, m1.small, m1.medium, m1.large]
+        description: instance_type must be a valid instance type
+  instance_flavor_support:
+    type: string
+    description: Instance type for support nodes (web, monitoring, etc.)
+    default: m1.small
+    constraints:
+      - allowed_values: [m1.tiny, m1.small, m1.medium, m1.large]
+        description: instance_type must be a valid instance type
+resources:
+  keypair:
+    type: OS::Nova::KeyPair
+    properties:
+      name: { get_param: key_name }
+      public_key: { get_param: key_value }
+      save_private_key: false
+  private_net:
+    type: OS::Neutron::Net
+    properties:
+      name: { get_param: private_net_name }
+  private_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      name: { get_param: private_net_name }
+      network_id: { get_resource: private_net }
+      cidr: { get_param: private_net_cidr }
+  router:
+    type: OS::Neutron::Router
+    properties:
+      name: { get_param: router_name }
+      external_gateway_info:
+        network: { get_param: public_net_id }
+  router_interface:
+    type: OS::Neutron::RouterInterface
+    properties:
+      router_id: { get_resource: router }
+      subnet_id: { get_resource: private_subnet }
+  security_group:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      name: { get_param: router_name }
+      rules:
+        - protocol: tcp
+          remote_ip_prefix: 0.0.0.0/0
+        - protocol: icmp
+          remote_ip_prefix: 0.0.0.0/0
+  cfg01_floating_ip:
+    type: OS::Nova::FloatingIP
+    properties:
+      pool: { get_param: public_net_id }
+  cfg01_floating_ip_association:
+    type: OS::Nova::FloatingIPAssociation
+    properties:
+      floating_ip: { get_resource: cfg01_floating_ip }
+      server_id: { get_resource: cfg01_instance }
+  cfg01_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_resource: private_net }
+      fixed_ips:
+        - ip_address: 10.10.10.200
+      security_groups:
+        - default
+        - { get_resource: security_group }
+  cfg01_instance:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: config_image }
+      flavor: { get_param: instance_flavor }
+      key_name: { get_resource: keypair }
+      name: { list_join: [ '.', [ { get_param: config_hostname }, { get_param: config_domain } ]] }
+      networks:
+      - port: { get_resource: cfg01_port }
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/bash
+
+            export SALT_SOURCE=$SALT_SOURCE
+            export SALT_VERSION=$SALT_VERSION
+            export FORMULA_SOURCE=$FORMULA_SOURCE
+            export FORMULA_PATH=$FORMULA_PATH
+            export FORMULA_BRANCH=$FORMULA_BRANCH
+            export RECLASS_ADDRESS=$RECLASS_ADDRESS
+            export RECLASS_BRANCH=$RECLASS_BRANCH
+            export RECLASS_SYSTEM=$RECLASS_SYSTEM
+            export CONFIG_HOSTNAME=$CONFIG_HOSTNAME
+            export CONFIG_DOMAIN=$CONFIG_DOMAIN
+            export CONFIG_HOST=$CONFIG_HOST
+            export CONFIG_ADDRESS=$CONFIG_ADDRESS
+
+            BOOTSTRAP
+          params:
+            $SALT_SOURCE: { get_param: salt_source }
+            $SALT_VERSION: { get_param: salt_version }
+            $FORMULA_SOURCE: { get_param: formula_source }
+            $FORMULA_PATH: { get_param: formula_path }
+            $FORMULA_BRANCH: { get_param: formula_branch }
+            $RECLASS_ADDRESS: { get_param: reclass_address }
+            $RECLASS_BRANCH: { get_param: reclass_branch }
+            $RECLASS_SYSTEM: { list_join: [ '_', [ { get_param: os_version }, { get_param: os_distribution }, { get_param: os_networking }, { get_param: os_deployment } ]] }
+            $CONFIG_HOSTNAME: { get_param: config_hostname }
+            $CONFIG_DOMAIN: { get_param: config_domain }
+            $CONFIG_HOST: { list_join: [ '.', [ { get_param: config_hostname }, { get_param: config_domain } ]] }
+            $CONFIG_ADDRESS: { get_param: config_address }
+            BOOTSTRAP: { get_file: bootstrap/bootstrap-salt-master.sh }
+  ctl01_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_resource: private_net }
+      fixed_ips:
+        - ip_address: 10.10.10.201
+      allowed_address_pairs:
+        - ip_address: { get_param: cluster_vip_address }
+      security_groups:
+        - default
+        - { get_resource: security_group }
+  ctl01_instance:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: instance_image }
+      flavor: { get_param: instance_flavor_controller }
+      key_name: { get_resource: keypair }
+      name: { list_join: [ '.', [ { get_param: ctl01_name }, { get_param: config_domain } ]] }
+      networks:
+      - port: { get_resource: ctl01_port }
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/bash
+            export SALT_SOURCE=$SALT_SOURCE
+            export SALT_VERSION=$SALT_VERSION
+            export MINION_MASTER=$MINION_MASTER
+            export MINION_HOSTNAME=$MINION_HOSTNAME
+            export MINION_ID=$MINION_ID
+
+            BOOTSTRAP
+
+          params:
+            $SALT_SOURCE: { get_param: salt_source }
+            $SALT_VERSION: { get_param: salt_version }
+            $MINION_MASTER: { get_param: config_address }
+            $MINION_HOSTNAME: { get_param: ctl01_name }
+            $MINION_ID: { list_join: [ '.', [ { get_param: ctl01_name }, { get_param: config_domain } ]] }
+            BOOTSTRAP: { get_file: bootstrap/bootstrap-salt-minion.sh }       
+  ctl02_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_resource: private_net }
+      fixed_ips:
+        - ip_address: 10.10.10.202
+      allowed_address_pairs:
+        - ip_address: { get_param: cluster_vip_address }
+      security_groups:
+        - default
+        - { get_resource: security_group }
+  ctl02_instance:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: instance_image }
+      flavor: { get_param: instance_flavor_controller }
+      key_name: { get_resource: keypair }
+      name: { list_join: [ '.', [ { get_param: ctl02_name }, { get_param: config_domain } ]] }
+      networks:
+      - port: { get_resource: ctl02_port }
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/bash
+            export SALT_SOURCE=$SALT_SOURCE
+            export SALT_VERSION=$SALT_VERSION
+            export MINION_MASTER=$MINION_MASTER
+            export MINION_HOSTNAME=$MINION_HOSTNAME
+            export MINION_ID=$MINION_ID
+
+            BOOTSTRAP
+
+          params:
+            $SALT_SOURCE: { get_param: salt_source }
+            $SALT_VERSION: { get_param: salt_version }
+            $MINION_MASTER: { get_param: config_address }
+            $MINION_HOSTNAME: { get_param: ctl02_name }
+            $MINION_ID: { list_join: [ '.', [ { get_param: ctl02_name }, { get_param: config_domain } ]] }
+            BOOTSTRAP: { get_file: bootstrap/bootstrap-salt-minion.sh }
+  ctl03_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_resource: private_net }
+      fixed_ips:
+        - ip_address: 10.10.10.203
+      allowed_address_pairs:
+        - ip_address: { get_param: cluster_vip_address }
+      security_groups:
+        - default
+        - { get_resource: security_group }
+  ctl03_instance:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: instance_image }
+      flavor: { get_param: instance_flavor_controller }
+      key_name: { get_resource: keypair }
+      name: { list_join: [ '.', [ { get_param: ctl03_name }, { get_param: config_domain } ]] }
+      networks:
+      - port: { get_resource: ctl03_port }
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/bash
+            export SALT_SOURCE=$SALT_SOURCE
+            export SALT_VERSION=$SALT_VERSION
+            export MINION_MASTER=$MINION_MASTER
+            export MINION_HOSTNAME=$MINION_HOSTNAME
+            export MINION_ID=$MINION_ID
+
+            BOOTSTRAP
+
+          params:
+            $SALT_SOURCE: { get_param: salt_source }
+            $SALT_VERSION: { get_param: salt_version }
+            $MINION_MASTER: { get_param: config_address }
+            $MINION_HOSTNAME: { get_param: ctl03_name }
+            $MINION_ID: { list_join: [ '.', [ { get_param: ctl03_name }, { get_param: config_domain } ]] }
+            BOOTSTRAP: { get_file: bootstrap/bootstrap-salt-minion.sh }
+  cmp01_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_resource: private_net }
+      fixed_ips:
+        - ip_address: 10.10.10.211
+      security_groups:
+        - default
+        - { get_resource: security_group }
+  cmp01_instance:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: instance_image }
+      flavor: { get_param: instance_flavor_compute }
+      key_name: { get_resource: keypair }
+      name: { list_join: [ '.', [ { get_param: cmp01_name }, { get_param: config_domain } ]] }
+      networks:
+      - port: { get_resource: cmp01_port }
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/bash
+            export SALT_SOURCE=$SALT_SOURCE
+            export SALT_VERSION=$SALT_VERSION
+            export MINION_MASTER=$MINION_MASTER
+            export MINION_HOSTNAME=$MINION_HOSTNAME
+            export MINION_ID=$MINION_ID
+
+            BOOTSTRAP
+
+          params:
+            $SALT_SOURCE: { get_param: salt_source }
+            $SALT_VERSION: { get_param: salt_version }
+            $MINION_MASTER: { get_param: config_address }
+            $MINION_HOSTNAME: { get_param: cmp01_name }
+            $MINION_ID: { list_join: [ '.', [ { get_param: cmp01_name }, { get_param: config_domain } ]] }
+            BOOTSTRAP: { get_file: bootstrap/bootstrap-salt-minion.sh }
+  cmp02_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_resource: private_net }
+      fixed_ips:
+        - ip_address: 10.10.10.212
+      security_groups:
+        - default
+        - { get_resource: security_group }
+  cmp02_instance:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: instance_image }
+      flavor: { get_param: instance_flavor_compute }
+      key_name: { get_resource: keypair }
+      name: { list_join: [ '.', [ { get_param: cmp02_name }, { get_param: config_domain } ]] }
+      networks:
+      - port: { get_resource: cmp02_port }
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/bash
+            export SALT_SOURCE=$SALT_SOURCE
+            export SALT_VERSION=$SALT_VERSION
+            export MINION_MASTER=$MINION_MASTER
+            export MINION_HOSTNAME=$MINION_HOSTNAME
+            export MINION_ID=$MINION_ID
+
+            BOOTSTRAP
+
+          params:
+            $SALT_SOURCE: { get_param: salt_source }
+            $SALT_VERSION: { get_param: salt_version }
+            $MINION_MASTER: { get_param: config_address }
+            $MINION_HOSTNAME: { get_param: cmp02_name }
+            $MINION_ID: { list_join: [ '.', [ { get_param: cmp02_name }, { get_param: config_domain } ]] }
+            BOOTSTRAP: { get_file: bootstrap/bootstrap-salt-minion.sh }
+  prx01_floating_ip:
+    type: OS::Nova::FloatingIP
+    properties:
+      pool: { get_param: public_net_id }
+  prx01_floating_ip_association:
+    type: OS::Nova::FloatingIPAssociation
+    properties:
+      floating_ip: { get_resource: prx01_floating_ip }
+      server_id: { get_resource: prx01_instance }
+  prx01_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_resource: private_net }
+      fixed_ips:
+        - ip_address: 10.10.10.204
+      security_groups:
+        - default
+        - { get_resource: security_group }
+  prx01_instance:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: instance_image }
+      flavor: { get_param: instance_flavor_support }
+      key_name: { get_resource: keypair }
+      name: { list_join: [ '.', [ { get_param: prx01_name }, { get_param: config_domain } ]] }
+      networks:
+      - port: { get_resource: prx01_port }
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/bash
+            export SALT_SOURCE=$SALT_SOURCE
+            export SALT_VERSION=$SALT_VERSION
+            export MINION_MASTER=$MINION_MASTER
+            export MINION_HOSTNAME=$MINION_HOSTNAME
+            export MINION_ID=$MINION_ID
+
+            BOOTSTRAP
+
+          params:
+            $SALT_SOURCE: { get_param: salt_source }
+            $SALT_VERSION: { get_param: salt_version }
+            $MINION_MASTER: { get_param: config_address }
+            $MINION_HOSTNAME: { get_param: prx01_name }
+            $MINION_ID: { list_join: [ '.', [ { get_param: prx01_name }, { get_param: config_domain } ]] }
+            BOOTSTRAP: { get_file: bootstrap/bootstrap-salt-minion.sh }
