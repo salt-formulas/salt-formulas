@@ -1,9 +1,0 @@
-#!/bin/bash -e
-
-if [ -z $1 ]; then
-    mr --trust-all --force checkout
-else
-    for repo in $@; do
-        mr --trust-all --force -d $repo checkout
-    done
-fi

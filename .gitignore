@@ -46,6 +46,7 @@ Icon?
 ehthumbs.db
 Thumbs.db
 .eggs
+.ropeproject
 
 # User driven backup files #
 ############################
