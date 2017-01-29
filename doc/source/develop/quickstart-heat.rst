@@ -112,7 +112,7 @@ tested versions of clients into activated environment.
 The summary of clients for OpenStack. Following clients were tested with Juno and Kilo
 Openstack versions.  
 
-.. literalinclude:: ../../../scripts/requirements/heat.txt
+.. literalinclude:: ../../../deploy/scripts/requirements/heat.txt
    :language: python
 
 

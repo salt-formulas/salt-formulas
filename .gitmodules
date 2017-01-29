@@ -202,3 +202,93 @@
 [submodule "formulas/murano"]
 	path = formulas/murano
 	url = https://github.com/salt-formulas/salt-formula-murano
+[submodule "formulas/artifactory"]
+	path = formulas/artifactory
+	url = https://github.com/salt-formulas/salt-formula-artifactory
+[submodule "formulas/avinetworks"]
+	path = formulas/avinetworks
+	url = https://github.com/salt-formulas/salt-formula-avinetworks
+[submodule "formulas/backupninja"]
+	path = formulas/backupninja
+	url = https://github.com/salt-formulas/salt-formula-backupninja
+[submodule "formulas/billometer"]
+	path = formulas/billometer
+	url = https://github.com/salt-formulas/salt-formula-billometer
+[submodule "formulas/bird"]
+	path = formulas/bird
+	url = https://github.com/salt-formulas/salt-formula-bird
+[submodule "formulas/cadf"]
+	path = formulas/cadf
+	url = https://github.com/salt-formulas/salt-formula-cadf
+[submodule "formulas/calico"]
+	path = formulas/calico
+	url = https://github.com/salt-formulas/salt-formula-calico
+[submodule "formulas/cassandra"]
+	path = formulas/cassandra
+	url = https://github.com/salt-formulas/salt-formula-cassandra
+[submodule "formulas/ccp"]
+	path = formulas/ccp
+	url = https://github.com/salt-formulas/salt-formula-ccp
+[submodule "formulas/ceph"]
+	path = formulas/ceph
+	url = https://github.com/salt-formulas/salt-formula-ceph
+[submodule "formulas/chrony"]
+	path = formulas/chrony
+	url = https://github.com/salt-formulas/salt-formula-chrony
+[submodule "formulas/dekapod"]
+	path = formulas/dekapod
+	url = https://github.com/salt-formulas/salt-formula-dekapod
+[submodule "formulas/docker"]
+	path = formulas/docker
+	url = https://github.com/salt-formulas/salt-formula-docker
+[submodule "formulas/etcd"]
+	path = formulas/etcd
+	url = https://github.com/salt-formulas/salt-formula-etcd
+[submodule "formulas/isc-dhcp"]
+	path = formulas/isc-dhcp
+	url = https://github.com/salt-formulas/salt-formula-isc-dhcp
+[submodule "formulas/kedb"]
+	path = formulas/kedb
+	url = https://github.com/salt-formulas/salt-formula-kedb
+[submodule "formulas/kubernetes"]
+	path = formulas/kubernetes
+	url = https://github.com/salt-formulas/salt-formula-kubernetes
+[submodule "formulas/libvirt"]
+	path = formulas/libvirt
+	url = https://github.com/salt-formulas/salt-formula-libvirt
+[submodule "formulas/logrotate"]
+	path = formulas/logrotate
+	url = https://github.com/salt-formulas/salt-formula-logrotate
+[submodule "formulas/network"]
+	path = formulas/network
+	url = https://github.com/salt-formulas/salt-formula-network
+[submodule "formulas/nfs"]
+	path = formulas/nfs
+	url = https://github.com/salt-formulas/salt-formula-nfs
+[submodule "formulas/openvpn"]
+	path = formulas/openvpn
+	url = https://github.com/salt-formulas/salt-formula-openvpn
+[submodule "formulas/openvstorage"]
+	path = formulas/openvstorage
+	url = https://github.com/salt-formulas/salt-formula-openvstorage
+[submodule "formulas/pritunl"]
+	path = formulas/pritunl
+	url = https://github.com/salt-formulas/salt-formula-pritunl
+[submodule "formulas/rabbitmq"]
+	path = formulas/rabbitmq
+	url = https://github.com/salt-formulas/salt-formula-rabbitmq
+[submodule "formulas/rsync"]
+	path = formulas/rsync
+	url = https://github.com/salt-formulas/salt-formula-rsync
+[submodule "formulas/rsyslog"]
+	path = formulas/rsyslog
+	url = https://github.com/salt-formulas/salt-formula-rsyslog
+[submodule "formulas/sahara"]
+	path = formulas/sahara
+	url = https://github.com/salt-formulas/salt-formula-sahara
+[submodule "formulas/taiga"]
+	path = formulas/taiga
+	url = https://github.com/salt-formulas/salt-formula-taiga
+[submodule "formulas/zookeeper"]
+	path = formulas/zookeeper
+	url = https://github.com/salt-formulas/salt-formula-zookeeper
