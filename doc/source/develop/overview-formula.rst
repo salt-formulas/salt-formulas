@@ -3,7 +3,9 @@
 Formula ecosystem
 =================
 
-The SaltStack-Formulas formulas are divided into several groups according to their purpose. Formulas share same structure and metadata definions, expose vital information into the Salt Mine for monitoring and audit.
+The SaltStack-Formulas formulas are divided into several groups according to
+their purpose. Formulas share same structure and metadata definions, expose
+vital information into the Salt Mine for monitoring and audit.
 
 **Infrastructure services**
   Core services needed for basic infrastructure operation.
@@ -15,12 +17,15 @@ The SaltStack-Formulas formulas are divided into several groups according to the
   All supported OpenStack cloud platform services.
 
 **Monitoring services**
-  Monitoring, metering and log collecting tools implementing complete monitoring stack.
+  Monitoring, metering and log collecting tools implementing complete
+  monitoring stack.
 
 **Integration services**
-  Continuous integration services for automated integration and delivery pipelines.
+  Continuous integration services for automated integration and delivery
+  pipelines.
 
-Each of the service groups contain of several individual service formulas, listed in following tables.
+Each of the service groups contain of several individual service formulas,
+listed in following tables.
 
 
 Infrastructure services
@@ -67,6 +72,8 @@ Core services needed for basic infrastructure operation.
       - https://github.com/salt-formulas/salt-formula-salt
    *  - sphinx
       - https://github.com/salt-formulas/salt-formula-sphinx
+   *  - squid
+      - https://github.com/salt-formulas/salt-formula-squid
 
 .. toctree::
 
@@ -86,6 +93,7 @@ Core services needed for basic infrastructure operation.
    ../_files/formulas/reclass/README.rst
    ../_files/formulas/salt/README.rst
    ../_files/formulas/sphinx/README.rst
+   ../_files/formulas/squid/README.rst
 
 
 Supplemental services
@@ -297,8 +305,12 @@ All supported OpenStack cloud platform services.
       - https://github.com/salt-formulas/salt-formula-opencontrail
    *  - openvstorage
       - https://github.com/salt-formulas/salt-formula-openvstorage
+   *  - rally
+      - https://github.com/salt-formulas/salt-formula-rally
    *  - swift
       - https://github.com/salt-formulas/salt-formula-swift
+   *  - tempest
+      - https://github.com/salt-formulas/salt-formula-tempest
 
 .. toctree::
 
@@ -318,13 +330,16 @@ All supported OpenStack cloud platform services.
    ../_files/formulas/neutron/README.rst
    ../_files/formulas/nova/README.rst
    ../_files/formulas/opencontrail/README.rst
+   ../_files/formulas/rally/README.rst
    ../_files/formulas/swift/README.rst
+   ../_files/formulas/tempest/README.rst
 
 
 Monitoring services
 -------------------
 
-Monitoring, metering and log collecting tools implementing complete monitoring stack.
+Monitoring, metering and log collecting tools implementing complete monitoring
+stack.
 
 .. list-table::
    :widths: 33 66
@@ -335,6 +350,8 @@ Monitoring, metering and log collecting tools implementing complete monitoring s
       - Repository
    *  - collectd
       - https://github.com/salt-formulas/salt-formula-collectd
+   *  - fluentd
+      - https://github.com/salt-formulas/salt-formula-fluentd
    *  - grafana
       - https://github.com/salt-formulas/salt-formula-grafana
    *  - graphite
@@ -359,6 +376,7 @@ Monitoring, metering and log collecting tools implementing complete monitoring s
 .. toctree::
 
    ../_files/formulas/collectd/README.rst
+   ../_files/formulas/fluentd/README.rst
    ../_files/formulas/grafana/README.rst
    ../_files/formulas/graphite/README.rst
    ../_files/formulas/heka/README.rst
@@ -392,10 +410,14 @@ pipelines.
       - https://github.com/salt-formulas/salt-formula-gerrit
    *  - gitlab
       - https://github.com/salt-formulas/salt-formula-gitlab
+   *  - gource
+      - https://github.com/salt-formulas/salt-formula-gource
    *  - jenkins
       - https://github.com/salt-formulas/salt-formula-jenkins
    *  - owncloud
       - https://github.com/salt-formulas/salt-formula-owncloud
+   *  - packer
+      - https://github.com/salt-formulas/salt-formula-packer
    *  - roundcube
       - https://github.com/salt-formulas/salt-formula-roundcube
 
@@ -405,8 +427,10 @@ pipelines.
    ../_files/formulas/artifactory/README.rst
    ../_files/formulas/gerrit/README.rst
    ../_files/formulas/gitlab/README.rst
+   ../_files/formulas/gource/README.rst
    ../_files/formulas/jenkins/README.rst
    ../_files/formulas/owncloud/README.rst
+   ../_files/formulas/packer/README.rst
    ../_files/formulas/roundcube/README.rst
 
 
@@ -422,6 +446,8 @@ Deployment services for automated delivery pipelines.
 
    *  - Formula
       - Repository
+   *  - gateone
+      - https://github.com/salt-formulas/salt-formula-gateone
    *  - foreman
       - https://github.com/salt-formulas/salt-formula-foreman
    *  - isc-dhcp
@@ -430,13 +456,26 @@ Deployment services for automated delivery pipelines.
       - https://github.com/salt-formulas/salt-formula-libvirt
    *  - maas
       - https://github.com/salt-formulas/salt-formula-maas
+   *  - stackstorm
+      - https://github.com/salt-formulas/salt-formula-stackstorm
+   *  - tftpd-hpa
+      - https://github.com/salt-formulas/salt-formula-tftpd-hpa
+   *  - vagrant
+      - https://github.com/salt-formulas/salt-formula-vagrant
+   *  - virtualbox
+      - https://github.com/salt-formulas/salt-formula-virtualbox
 
 .. toctree::
 
+   ../_files/formulas/gateone/README.rst
    ../_files/formulas/foreman/README.rst
    ../_files/formulas/isc-dhcp/README.rst
    ../_files/formulas/libvirt/README.rst
    ../_files/formulas/maas/README.rst
+   ../_files/formulas/stackstorm/README.rst
+   ../_files/formulas/tftpd-hpa/README.rst
+   ../_files/formulas/vagrant/README.rst
+   ../_files/formulas/virtualbox/README.rst
 
 
 Container services
@@ -480,12 +519,24 @@ Automated management of web-based applications.
 
    *  - Formula
       - Repository
+   *  - flower
+      - https://github.com/salt-formulas/salt-formula-flower
+   *  - jupyter
+      - https://github.com/salt-formulas/salt-formula-jupyter
    *  - leonardo
       - https://github.com/salt-formulas/salt-formula-leonardo
+   *  - mayan
+      - https://github.com/salt-formulas/salt-formula-mayan
    *  - moodle
       - https://github.com/salt-formulas/salt-formula-moodle
+   *  - openode
+      - https://github.com/salt-formulas/salt-formula-openode
    *  - redmine
       - https://github.com/salt-formulas/salt-formula-redmine
+   *  - sentry
+      - https://github.com/salt-formulas/salt-formula-sentry
+   *  - suitecrm
+      - https://github.com/salt-formulas/salt-formula-suitecrm
    *  - taiga
       - https://github.com/salt-formulas/salt-formula-taiga
    *  - wordpress
@@ -493,9 +544,14 @@ Automated management of web-based applications.
 
 .. toctree::
 
+   ../_files/formulas/flower/README.rst
+   ../_files/formulas/jupyter/README.rst
    ../_files/formulas/leonardo/README.rst
+   ../_files/formulas/mayan/README.rst
    ../_files/formulas/moodle/README.rst
    ../_files/formulas/redmine/README.rst
+   ../_files/formulas/sentry/README.rst
+   ../_files/formulas/suitecrm/README.rst
    ../_files/formulas/taiga/README.rst
    ../_files/formulas/wordpress/README.rst
 

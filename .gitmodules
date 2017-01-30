@@ -292,3 +292,57 @@
 [submodule "formulas/zookeeper"]
 	path = formulas/zookeeper
 	url = https://github.com/salt-formulas/salt-formula-zookeeper
+[submodule "formulas/gateone"]
+	path = formulas/gateone
+	url = https://github.com/salt-formulas/salt-formula-gateone
+[submodule "formulas/leonardo"]
+	path = formulas/leonardo
+	url = https://github.com/salt-formulas/salt-formula-leonardo
+[submodule "formulas/wordpress"]
+	path = formulas/wordpress
+	url = https://github.com/salt-formulas/salt-formula-wordpress
+[submodule "formulas/moodle"]
+	path = formulas/moodle
+	url = https://github.com/salt-formulas/salt-formula-moodle
+[submodule "formulas/suitecrm"]
+	path = formulas/suitecrm
+	url = https://github.com/salt-formulas/salt-formula-suitecrm
+[submodule "formulas/mayan"]
+	path = formulas/mayan
+	url = https://github.com/salt-formulas/salt-formula-mayan
+[submodule "formulas/openode"]
+	path = formulas/openode
+	url = https://github.com/salt-formulas/salt-formula-openode
+[submodule "formulas/redmine"]
+	path = formulas/redmine
+	url = https://github.com/salt-formulas/salt-formula-redmine
+[submodule "formulas/gource"]
+	path = formulas/gource
+	url = https://github.com/salt-formulas/salt-formula-gource
+[submodule "formulas/flower"]
+	path = formulas/flower
+	url = https://github.com/salt-formulas/salt-formula-flower
+[submodule "formulas/virtualbox"]
+	path = formulas/virtualbox
+	url = https://github.com/salt-formulas/salt-formula-virtualbox
+[submodule "formulas/sentry"]
+	path = formulas/sentry
+	url = git@github.com:salt-formulas/salt-formula-sentry.git
+[submodule "formulas/vagrant"]
+	path = formulas/vagrant
+	url = git@github.com:salt-formulas/salt-formula-vagrant.git
+[submodule "formulas/packer"]
+	path = formulas/packer
+	url = git@github.com:salt-formulas/salt-formula-packer.git
+[submodule "formulas/tempest"]
+	path = formulas/tempest
+	url = git@github.com:salt-formulas/salt-formula-tempest.git
+[submodule "formulas/rally"]
+	path = formulas/rally
+	url = git@github.com:salt-formulas/salt-formula-rally.git
+[submodule "formulas/tftpd-hpa"]
+	path = formulas/tftpd-hpa
+	url = git@github.com:salt-formulas/salt-formula-tftpd-hpa.git
+[submodule "formulas/jupyter"]
+	path = formulas/jupyter
+	url = git@github.com:salt-formulas/salt-formula-jupyter.git
