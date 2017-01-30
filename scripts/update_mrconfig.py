@@ -22,7 +22,7 @@ def get_org_repos(gh, org_name):
 def gen_repo_config(org, repo):
     formula_name = re.match('^salt-formula-(.*)?', repo).group(1)
     config = {
-        '%s/%s' % (org, formula_name): {
+        'formulas/%s' % (formula_name): {
             'checkout': 'git_checkout %s' % (formula_name),
             'skip': 'lazy'
         }

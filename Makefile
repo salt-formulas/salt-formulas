@@ -5,11 +5,15 @@ help:
 	@echo "html          Build html documentation"
 	@echo "pdf           Build pdf documentation"
 
-submodules:
+pull:
+	git pull --rebase
+
+submodules: pull
 	git submodule init
 	git submodule update
 
-update:
+update: submodules
+	(for formula in formulas/*; do FORMULA=`basename $$formula` && cd $$formula && git remote set-url --push origin git@github.com:salt-formulas/salt-formula-$$FORMULA.git && cd ../..; done)
 	mr --trust-all -j4 run git checkout master
 	mr --trust-all -j4 update
 

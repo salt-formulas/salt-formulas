@@ -9,407 +9,495 @@ lib =
 update = git pull --rebase
 git_review = git review
 
-[salt-formulas/openvstorage]
+[formulas/openvstorage]
 skip = lazy
 checkout = git_checkout openvstorage
 
-[salt-formulas/postfix]
+[formulas/postfix]
 skip = lazy
 checkout = git_checkout postfix
 
-[salt-formulas/dovecot]
+[formulas/dovecot]
 skip = lazy
 checkout = git_checkout dovecot
 
-[salt-formulas/roundcube]
+[formulas/roundcube]
 skip = lazy
 checkout = git_checkout roundcube
 
-[salt-formulas/glusterfs]
+[formulas/glusterfs]
 skip = lazy
 checkout = git_checkout glusterfs
 
-[salt-formulas/apache]
+[formulas/apache]
 skip = lazy
 checkout = git_checkout apache
 
-[salt-formulas/aptly]
+[formulas/aptly]
 skip = lazy
 checkout = git_checkout aptly
 
-[salt-formulas/backupninja]
+[formulas/backupninja]
 skip = lazy
 checkout = git_checkout backupninja
 
-[salt-formulas/billometer]
+[formulas/billometer]
 skip = lazy
 checkout = git_checkout billometer
 
-[salt-formulas/collectd]
+[formulas/collectd]
 skip = lazy
 checkout = git_checkout collectd
 
-[salt-formulas/elasticsearch]
+[formulas/elasticsearch]
 skip = lazy
 checkout = git_checkout elasticsearch
 
-[salt-formulas/foreman]
+[formulas/foreman]
 skip = lazy
 checkout = git_checkout foreman
 
-[salt-formulas/galera]
+[formulas/galera]
 skip = lazy
 checkout = git_checkout galera
 
-[salt-formulas/git]
+[formulas/git]
 skip = lazy
 checkout = git_checkout git
 
-[salt-formulas/gitlab]
+[formulas/gitlab]
 skip = lazy
 checkout = git_checkout gitlab
 
-[salt-formulas/graphite]
+[formulas/graphite]
 skip = lazy
 checkout = git_checkout graphite
 
-[salt-formulas/haproxy]
+[formulas/haproxy]
 skip = lazy
 checkout = git_checkout haproxy
 
-[salt-formulas/iptables]
+[formulas/iptables]
 skip = lazy
 checkout = git_checkout iptables
 
-[salt-formulas/java]
+[formulas/java]
 skip = lazy
 checkout = git_checkout java
 
-[salt-formulas/jenkins]
+[formulas/jenkins]
 skip = lazy
 checkout = git_checkout jenkins
 
-[salt-formulas/kedb]
+[formulas/kedb]
 skip = lazy
 checkout = git_checkout kedb
 
-[salt-formulas/keepalived]
+[formulas/keepalived]
 skip = lazy
 checkout = git_checkout keepalived
 
-[salt-formulas/kibana]
+[formulas/kibana]
 skip = lazy
 checkout = git_checkout kibana
 
-[salt-formulas/linux]
+[formulas/linux]
 skip = lazy
 checkout = git_checkout linux
 
-[salt-formulas/memcached]
+[formulas/memcached]
 skip = lazy
 checkout = git_checkout memcached
 
-[salt-formulas/mongodb]
+[formulas/mongodb]
 skip = lazy
 checkout = git_checkout mongodb
 
-[salt-formulas/mysql]
+[formulas/mysql]
 skip = lazy
 checkout = git_checkout mysql
 
-[salt-formulas/nginx]
+[formulas/nginx]
 skip = lazy
 checkout = git_checkout nginx
 
-[salt-formulas/ntp]
+[formulas/ntp]
 skip = lazy
 checkout = git_checkout ntp
 
-[salt-formulas/openssh]
+[formulas/openssh]
 skip = lazy
 checkout = git_checkout openssh
 
-[salt-formulas/postgresql]
+[formulas/postgresql]
 skip = lazy
 checkout = git_checkout postgresql
 
-[salt-formulas/python]
+[formulas/python]
 skip = lazy
 checkout = git_checkout python
 
-[salt-formulas/rabbitmq]
+[formulas/rabbitmq]
 skip = lazy
 checkout = git_checkout rabbitmq
 
-[salt-formulas/reclass]
+[formulas/reclass]
 skip = lazy
 checkout = git_checkout reclass
 
-[salt-formulas/redis]
+[formulas/redis]
 skip = lazy
 checkout = git_checkout redis
 
-[salt-formulas/salt]
+[formulas/salt]
 skip = lazy
 checkout = git_checkout salt
 
-[salt-formulas/sensu]
+[formulas/sensu]
 skip = lazy
 checkout = git_checkout sensu
 
-[salt-formulas/supervisor]
+[formulas/supervisor]
 skip = lazy
 checkout = git_checkout supervisor
 
-[salt-formulas/heka]
+[formulas/heka]
 skip = lazy
 checkout = git_checkout heka
 
-[salt-formulas/owncloud]
+[formulas/owncloud]
 skip = lazy
 checkout = git_checkout owncloud
 
-[salt-formulas/murano]
+[formulas/murano]
 skip = lazy
 checkout = git_checkout murano
 
-[salt-formulas/nfs]
+[formulas/nfs]
 skip = lazy
 checkout = git_checkout nfs
 
-[salt-formulas/varnish]
+[formulas/varnish]
 skip = lazy
 checkout = git_checkout varnish
 
-[salt-formulas/statsd]
+[formulas/statsd]
 skip = lazy
 checkout = git_checkout statsd
 
-[salt-formulas/nodejs]
+[formulas/nodejs]
 skip = lazy
 checkout = git_checkout nodejs
 
-[salt-formulas/letsencrypt]
+[formulas/letsencrypt]
 skip = lazy
 checkout = git_checkout letsencrypt
 
-[salt-formulas/pritunl]
+[formulas/pritunl]
 skip = lazy
 checkout = git_checkout pritunl
 
-[salt-formulas/sphinx]
+[formulas/sphinx]
 skip = lazy
 checkout = git_checkout sphinx
 
-[salt-formulas/freeipa]
+[formulas/freeipa]
 skip = lazy
 checkout = git_checkout freeipa
 
-[salt-formulas/ceph]
+[formulas/ceph]
 skip = lazy
 checkout = git_checkout ceph
 
-[salt-formulas/magnum]
+[formulas/magnum]
 skip = lazy
 checkout = git_checkout magnum
 
-[salt-formulas/isc-dhcp]
+[formulas/isc-dhcp]
 skip = lazy
 checkout = git_checkout isc-dhcp
 
-[salt-formulas/rsyslog]
+[formulas/rsyslog]
 skip = lazy
 checkout = git_checkout rsyslog
 
-[salt-formulas/bind]
+[formulas/bind]
 skip = lazy
 checkout = git_checkout bind
 
-[salt-formulas/libvirt]
+[formulas/libvirt]
 skip = lazy
 checkout = git_checkout libvirt
 
-[salt-formulas/taiga]
+[formulas/taiga]
 skip = lazy
 checkout = git_checkout taiga
 
-[salt-formulas/rsync]
+[formulas/rsync]
 skip = lazy
 checkout = git_checkout rsync
 
-[salt-formulas/grafana]
+[formulas/grafana]
 skip = lazy
 checkout = git_checkout grafana
 
-[salt-formulas/logrotate]
+[formulas/logrotate]
 skip = lazy
 checkout = git_checkout logrotate
 
-[salt-formulas/docker]
+[formulas/docker]
 skip = lazy
 checkout = git_checkout docker
 
-[salt-formulas/zookeeper]
+[formulas/zookeeper]
 skip = lazy
 checkout = git_checkout zookeeper
 
-[salt-formulas/cassandra]
+[formulas/cassandra]
 skip = lazy
 checkout = git_checkout cassandra
 
-[salt-formulas/openvpn]
+[formulas/openvpn]
 skip = lazy
 checkout = git_checkout openvpn
 
-[salt-formulas/calico]
+[formulas/calico]
 skip = lazy
 checkout = git_checkout calico
 
-[salt-formulas/influxdb]
+[formulas/influxdb]
 skip = lazy
 checkout = git_checkout influxdb
 
-[salt-formulas/bird]
+[formulas/bird]
 skip = lazy
 checkout = git_checkout bird
 
-[salt-formulas/etcd]
+[formulas/etcd]
 skip = lazy
 checkout = git_checkout etcd
 
-[salt-formulas/maas]
+[formulas/maas]
 skip = lazy
 checkout = git_checkout maas
 
-[salt-formulas/artifactory]
+[formulas/artifactory]
 skip = lazy
 checkout = git_checkout artifactory
 
-[salt-formulas/gerrit]
+[formulas/gerrit]
 skip = lazy
 checkout = git_checkout gerrit
 
-[salt-formulas/sahara]
+[formulas/sahara]
 skip = lazy
 checkout = git_checkout sahara
 
-[salt-formulas/nagios]
+[formulas/nagios]
 skip = lazy
 checkout = git_checkout nagios
 
-[salt-formulas/aodh]
+[formulas/aodh]
 skip = lazy
 checkout = git_checkout aodh
 
-[salt-formulas/ccp]
+[formulas/ccp]
 skip = lazy
 checkout = git_checkout ccp
 
-[salt-formulas/network]
+[formulas/network]
 skip = lazy
 checkout = git_checkout network
 
-[salt-formulas/chrony]
+[formulas/chrony]
 skip = lazy
 checkout = git_checkout chrony
 
-[salt-formulas/cadf]
+[formulas/cadf]
 skip = lazy
 checkout = git_checkout cadf
 
-[salt-formulas/ceilometer]
+[formulas/ceilometer]
 skip = lazy
 checkout = git_checkout ceilometer
 
-[salt-formulas/cinder]
+[formulas/cinder]
 skip = lazy
 checkout = git_checkout cinder
 
-[salt-formulas/glance]
+[formulas/glance]
 skip = lazy
 checkout = git_checkout glance
 
-[salt-formulas/heat]
+[formulas/heat]
 skip = lazy
 checkout = git_checkout heat
 
-[salt-formulas/horizon]
+[formulas/horizon]
 skip = lazy
 checkout = git_checkout horizon
 
-[salt-formulas/keystone]
+[formulas/keystone]
 skip = lazy
 checkout = git_checkout keystone
 
-[salt-formulas/neutron]
+[formulas/neutron]
 skip = lazy
 checkout = git_checkout neutron
 
-[salt-formulas/nova]
+[formulas/nova]
 skip = lazy
 checkout = git_checkout nova
 
-[salt-formulas/opencontrail]
+[formulas/opencontrail]
 skip = lazy
 checkout = git_checkout opencontrail
 
-[salt-formulas/midonet]
+[formulas/midonet]
 skip = lazy
 checkout = git_checkout midonet
 
-[salt-formulas/swift]
+[formulas/swift]
 skip = lazy
 checkout = git_checkout swift
 
-[salt-formulas/kubernetes]
+[formulas/kubernetes]
 skip = lazy
 checkout = git_checkout kubernetes
 
-[salt-formulas/avinetworks]
+[formulas/avinetworks]
 skip = lazy
 checkout = git_checkout avinetworks
 
-[salt-formulas/dekapod]
+[formulas/decapod]
 skip = lazy
-checkout = git_checkout dekapod
+checkout = git_checkout decapod
 
-[salt-formulas/home-assistant]
+[formulas/home-assistant]
 skip = lazy
 checkout = git_checkout home-assistant
 
-[salt-formulas/mosquitto]
+[formulas/mosquitto]
 skip = lazy
 checkout = git_checkout mosquitto
 
-[salt-formulas/ffmpeg]
+[formulas/ffmpeg]
 skip = lazy
 checkout = git_checkout ffmpeg
 
-[salt-formulas/kodi]
+[formulas/kodi]
 skip = lazy
 checkout = git_checkout kodi
 
-[salt-formulas/motion]
+[formulas/motion]
 skip = lazy
 checkout = git_checkout motion
 
-[salt-formulas/octoprint]
+[formulas/octoprint]
 skip = lazy
 checkout = git_checkout octoprint
 
-[salt-formulas/php]
+[formulas/php]
 skip = lazy
 checkout = git_checkout php
 
-[salt-formulas/ruby]
+[formulas/ruby]
 skip = lazy
 checkout = git_checkout ruby
 
-[salt-formulas/knot]
+[formulas/knot]
 skip = lazy
 checkout = git_checkout knot
 
-[salt-formulas/powerdns]
+[formulas/powerdns]
 skip = lazy
 checkout = git_checkout powerdns
+
+[formulas/gateone]
+skip = lazy
+checkout = git_checkout gateone
+
+[formulas/leonardo]
+skip = lazy
+checkout = git_checkout leonardo
+
+[formulas/wordpress]
+skip = lazy
+checkout = git_checkout wordpress
+
+[formulas/redmine]
+skip = lazy
+checkout = git_checkout redmine
+
+[formulas/moodle]
+skip = lazy
+checkout = git_checkout moodle
+
+[formulas/suitecrm]
+skip = lazy
+checkout = git_checkout suitecrm
+
+[formulas/openode]
+skip = lazy
+checkout = git_checkout openode
+
+[formulas/mayan]
+skip = lazy
+checkout = git_checkout mayan
+
+[formulas/stackstorm]
+skip = lazy
+checkout = git_checkout stackstorm
+
+[formulas/flower]
+skip = lazy
+checkout = git_checkout flower
+
+[formulas/gource]
+skip = lazy
+checkout = git_checkout gource
+
+[formulas/virtualbox]
+skip = lazy
+checkout = git_checkout virtualbox
+
+[formulas/vagrant]
+skip = lazy
+checkout = git_checkout vagrant
+
+[formulas/packer]
+skip = lazy
+checkout = git_checkout packer
+
+[formulas/sentry]
+skip = lazy
+checkout = git_checkout sentry
+
+[formulas/squid]
+skip = lazy
+checkout = git_checkout squid
+
+[formulas/tftpd-hpa]
+skip = lazy
+checkout = git_checkout tftpd-hpa
+
+[formulas/tempest]
+skip = lazy
+checkout = git_checkout tempest
+
+[formulas/rally]
+skip = lazy
+checkout = git_checkout rally
+
+[formulas/jupyter]
+skip = lazy
+checkout = git_checkout jupyter
+
+[formulas/tvheadend]
+skip = lazy
+checkout = git_checkout tvheadend
+
+[formulas/fluentd]
+skip = lazy
+checkout = git_checkout fluentd
 
