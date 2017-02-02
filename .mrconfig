@@ -297,6 +297,10 @@ checkout = git_checkout sahara
 skip = lazy
 checkout = git_checkout nagios
 
+[formulas/designate]
+skip = lazy
+checkout = git_checkout designate
+
 [formulas/aodh]
 skip = lazy
 checkout = git_checkout aodh

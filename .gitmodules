@@ -346,3 +346,6 @@
 [submodule "formulas/jupyter"]
 	path = formulas/jupyter
 	url = git@github.com:salt-formulas/salt-formula-jupyter.git
+[submodule "formulas/designate"]
+	path = formulas/designate
+	url = https://github.com/salt-formulas/salt-formula-designate
