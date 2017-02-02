@@ -501,3 +501,12 @@ checkout = git_checkout tvheadend
 skip = lazy
 checkout = git_checkout fluentd
 
+[formulas/designate]
+skip = lazy
+checkout = git_checkout designate
+
+# ENABLE, once transferred
+#[formulas/shibboleth]
+#skip = lazy
+#checkout = git_checkout shibboleth
+
