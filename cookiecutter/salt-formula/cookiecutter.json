@@ -4,4 +4,9 @@
     "copyright_year": "2017",
     "copyright_holder": "Your Name et al.",
     "author_contact": "name@domain.com"
+
+    "kitchen_driver": "docker",
+    "kitchen_verifier": "inspec",
+    "kitchen_formula": "{{ cookiecutter.service_name }}",
+    "kitchen_suites": ""
 }
