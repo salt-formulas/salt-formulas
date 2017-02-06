@@ -4,9 +4,9 @@ Upstream-Contact:
 Source: https://github.com/tcpcloud/salt-formula-{{cookiecutter.service_name}}
 
 Files: *
-Copyright: 2014-2015 {{cookiecutter.license_holder}}
+Copyright: 2014-2015 {{cookiecutter.copyright_holder}}
 License: Apache-2.0
-  Copyright (C) 2014-2015 {{cookiecutter.license_holder}}
+  Copyright (C) 2014-2015 {{cookiecutter.copyright_holder}}
   .
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.

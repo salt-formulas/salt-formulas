@@ -36,7 +36,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'salt-formula-{{cookiecutter.service_name}}'
-copyright = u'2016, {{cookiecutter.license_holder}}'
+copyright = u'2016, {{cookiecutter.copyright_holder}}'
 
 # If true, '()' will be appended to :func: etc. cross-reference text.
 add_function_parentheses = True
