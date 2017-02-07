@@ -205,9 +205,6 @@
 [submodule "formulas/artifactory"]
 	path = formulas/artifactory
 	url = https://github.com/salt-formulas/salt-formula-artifactory
-[submodule "formulas/avinetworks"]
-	path = formulas/avinetworks
-	url = https://github.com/salt-formulas/salt-formula-avinetworks
 [submodule "formulas/backupninja"]
 	path = formulas/backupninja
 	url = https://github.com/salt-formulas/salt-formula-backupninja
