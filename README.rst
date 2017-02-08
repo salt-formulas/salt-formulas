@@ -81,11 +81,43 @@ Add new formula
 To add new formula into the ecosystems, follow these steps:
 
 1. Request creation of repository on Github salt-formulas organization,
-   include link to current version of formula for review
+   include link to current version of formula for review. To do this, join
+   mailing list and use it to let others know
+   (salt-formulas@freelists.org)
 2. Push your code into new repository, you can also tag new version
 3. Run ``./scripts/add_repo.sh formula_name`` to add new Git submodule
 4. Re-generate ``.mrconfig`` with ``./scripts/gen_mrconfig.py``, that script
    will scrape ``github.com/salt-formulas`` and generate up-to-date
    `.mrconfig` file
-5. Create pull request with ``formulas/new_formula_name`` (new submodule) and
+5. Include new formula readme in ``doc/source/develop/overview-formula.rst``
+6. Create pull request with ``formulas/new_formula_name`` (new submodule) and
    updated ``.mrconfig``
+
+Documentation and Bugs
+======================
+
+To learn how to install and update salt-formulas, consult the documentation
+available online at:
+
+    http://salt-formulas.readthedocs.io/
+
+In the unfortunate event that bugs are discovered, they should be reported to
+the appropriate issue tracker. Use Github issue tracker for specific salt
+formula.
+
+For feature requests, bug reports or blueprints affecting entire ecosystem,
+use Launchpad salt-formulas project:
+
+    https://launchpad.net/salt-formulas
+
+Developers wishing to work on the salt-formulas projects should always base
+their work on master branch and submit pull request against specific formula.
+
+You should also subscribe to mailing list (salt-formulas@freelists.org):
+
+    https://www.freelists.org/list/salt-formulas
+
+Any questions or feedback is always welcome so feel free to join our IRC
+channel:
+
+    #salt-formulas @ irc.freenode.net
