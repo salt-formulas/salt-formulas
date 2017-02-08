@@ -1,5 +1,3 @@
-JOBS?=4
-
 help:
 	@echo "submodules    Get submodules"
 	@echo "update        Checkout master, get submodules and pull all formulas"
@@ -13,15 +11,15 @@ pull:
 
 submodules: pull
 	git submodule init
-	git submodule update --jobs=$(JOBS)
+	git submodule update
 
 update: submodules
 	(for formula in formulas/*; do FORMULA=`basename $$formula` && cd $$formula && git remote set-url --push origin git@github.com:salt-formulas/salt-formula-$$FORMULA.git && cd ../..; done)
-	mr --trust-all -j$(JOBS) run git checkout master
-	mr --trust-all -j$(JOBS) update
+	mr --trust-all -j4 run git checkout master
+	mr --trust-all -j4 update
 
 release:
-	mr --trust-all -j$(JOBS) run make release-major
+	mr --trust-all -j4 run make release-major
 
 mrconfig:
 	./scripts/update_mrconfig.py
