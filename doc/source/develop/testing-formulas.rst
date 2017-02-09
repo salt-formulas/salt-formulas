@@ -208,41 +208,35 @@ An example steps to install user side ruby and prerequisites:
 
 .. code-block:: shell
 
-  # get rbenv
-  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-
-  # configure
-  cd ~/.rbenv && src/configure && make -C src     # don't worry if it fails
-  echo 'export PATH="$HOME/.rbenv/bin:$PATH"'>> ~/.bash_profile
-  # Note: On Ubuntu desktop: Modify your ~/.bashrc instead of ~/.bash_profile.
-
-  cd ~/.rbenv; git fetch
-
-  # install ruby-build, which provides the rbenv install command
-  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+  # Use package manager to install rbenv and ruby-build
+  sudo apt-get install rbenv ruby-build
 
   # list all available versions:
   rbenv install -l
 
-  # install a Ruby version
-  # maybe you will need additional packages: libssl-dev, libreadline-dev, zlib1g-dev
-  rbenv install 2.0.0-p648
+  # install a Ruby version of your choice or pick latest
+  rbenv install $(rbenv install -l|grep -E '^[ ]*[0-9]\.[0-9]+'|tail -1)
 
   # activate
-  rbenv local 2.0.0-p648
+  rbenv local 2.4.0
+
+  # it's usually a good idea to update rubygems first
+  rbenv exec gem update --system
 
   # install test kitchen
-  gem install bundler
-  gem install test-kitchen
+  rbenv exec gem install bundler
+  rbenv exec gem install test-kitchen
 
 Continue with the optional ``Gemfile`` in the formula main directory to fetch fine tuned dependencies.
-If you use Gemfile and Bundler for local dependencies prepend all command with ``bundle exec`` and possibly set
-an alias in your ~/.bashrc, etc.
+If you use Gemfile and Bundler for local dependencies prepend all command with
+``rbenv exec bundler exec`` and possibly set an alias in your ~/.bashrc, etc.
 
 .. code-block:: shell
 
-  cat >> ~/${SHELL}rc <<-EOF
-		alias kitchen="bundle exec kitchen"
+  cat >> ~/.${SHELL}rc <<-EOF
+		alias kitchen="rbenv exec bundler exec kitchen"
   EOF
 
+With such alias set, you should be able to execute ``rbenv exec bundler exec
+make kitchen`` and see test results.
 
