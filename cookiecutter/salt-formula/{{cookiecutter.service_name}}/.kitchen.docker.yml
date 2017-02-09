@@ -2,7 +2,6 @@
 driver:
   name: docker
   hostname: {{ cookiecutter.kitchen_formula }}.ci.local
-  #socket: tcp://127.0.0.1:2376
   use_sudo: false
 
 
@@ -13,8 +12,10 @@ provisioner:
   salt_bootstrap_url: https://bootstrap.saltstack.com
   salt_version: latest
   require_chef: false
+  log_level: error
   formula: {{ cookiecutter.kitchen_formula }}
-  log_level: info
+  grains:
+    noservices: {{ 'True' if cookiecutter.kitchen_driver =='docker' else 'False' }}
   state_top:
     base:
       "*":
@@ -24,22 +25,22 @@ provisioner:
       base:
         "*":
           - {{ cookiecutter.kitchen_formula }}
-  grains:
-    noservices: {{ 'True' if cookiecutter.kitchen_driver =='docker' else 'False' }}
-
-{%- if cookiecutter.kitchen_driver =='docker' %}
-
-
-platforms:
-  - name: ubuntu-14.04
-  - name: ubuntu-16.04
-  - name: centos-7.1
-
 
 verifier:
   name: {{ cookiecutter.kitchen_verifier }}
   sudo: true
 
+{%- if cookiecutter.kitchen_driver =='docker' %}
+platforms:
+  - name: ubuntu-trusty
+    driver_config:
+      image: trevorj/salty-whales:trusty
+      platform: ubuntu
+
+  - name: ubuntu-xenial
+    driver_config:
+      image: trevorj/salty-whales:xenial
+      platform: ubuntu
 
 suites:
   {%- if cookiecutter.kitchen_suites == "" %}
@@ -58,5 +59,4 @@ suites:
   {%- endif %}
 
 {%- endif %}
-
 # vim: ft=yaml sw=2 ts=2 sts=2 tw=125
