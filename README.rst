@@ -6,6 +6,11 @@ SaltStack-Formulas
     :target: http://salt-formulas.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
+.. image:: https://badges.gitter.im/Join%20Chat.svg
+    :target: https://gitter.im/salt-formulas/Lobby
+    :alt: Join Chat on Gitter.im
+
+
 This repository contains tools and documentation for using and extending Salt
 formula project ecosystem.
 
