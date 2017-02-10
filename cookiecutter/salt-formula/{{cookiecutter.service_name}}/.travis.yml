@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+
+install:
+  - pip install PyYAML
+  - pip install virtualenv
+  - |
+    test -e Gemfile || cat <<EOF > Gemfile
+    source 'https://rubygems.org'
+    gem 'rake'
+    gem 'test-kitchen'
+    gem 'kitchen-docker'
+    gem 'kitchen-inspec'
+    gem 'inspec'
+    gem 'kitchen-salt', :git => 'https://github.com/epcim/kitchen-salt.git', :branch => 'dependencis-pkg-repo2'
+    #Waiting for PR#78
+    #gem 'kitchen-salt', '>=0.2.25'
+  - bundle install
+
+before_script:
+  - make test
+
+script:
+  - test ! -e .kitchen.yml || bundle exec kitchen test
