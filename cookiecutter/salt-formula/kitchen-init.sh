@@ -72,6 +72,12 @@ test -e .kitchen.yml || \
     envtpl < <(curl -skL  "${SOURCE_REPO_URI}/.kitchen.openstack.yml" -- | sed 's/cookiecutter\.kitchen_//g') > .kitchen.openstack.yml
 }
 
+# .TRAVIS.YML
+###################################
+
+test -e .travis.yml || \
+  curl -skL  "${SOURCE_REPO_URI}/.travis.yml" -o .travis.yml
+
 
 # ADD CHANGES
 #############
@@ -84,6 +90,7 @@ echo 'curl -skL  "${SOURCE_REPO_URI}/tests/run_tests.sh" -o tests/run_tests.sh'
 
 git add \
   .gitignore \
-  .kitchen.yml
+  .kitchen.yml \
+  .travis.yml
 
 git status
