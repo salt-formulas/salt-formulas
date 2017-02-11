@@ -26,7 +26,7 @@ which envtpl &> /dev/null || {
 # INIT
 ###################################
 test ! -e .kitchen.yml || {
-  kitchen init -D kitchen-docker -P kitchen-salt --no-create-gemfile
+  kitchen init -D kitchen-${driver} -P kitchen-salt --no-create-gemfile
   echo .kitchen >> .gitignore
   echo .bundle  >> .gitignore
   echo .vendor  >> .gitignore
@@ -84,6 +84,6 @@ echo 'curl -skL  "${SOURCE_REPO_URI}/tests/run_tests.sh" -o tests/run_tests.sh'
 
 git add \
   .gitignore \
-  .kitchen.${driver}.yml
+  .kitchen.yml
 
 git status
