@@ -13,7 +13,9 @@
 export APT_REPOSITORY_URL=${APT_REPOSITORY_URL:-http://apt.tcpcloud.eu/}
 export APT_REPOSITORY_GPG=${APT_REPOSITORY_GPG:-http://apt.tcpcloud.eu/public.gpg}
 export APT_REPOSITORY_TAGS=${APT_REPOSITORY_TAGS:-main tcp tcp-salt}
-export APT_REPOSITORY="deb [arch=amd64] ${APT_REPOSITORY_URL}${APT_REPOSITORY_BRANCH:-nightly} ${APT_REPOSITORY_CODENM:-$(lsb_release -cs)} ${APT_REPOSITORY_TAGS:-main}"
+test -e /etc/lsb-release && eval $(cat /etc/lsb-release)
+which lsb_release && DISTRIB_CODENAME={DISTRIB_CODENAME:-$(lsb_release -cs)}
+export APT_REPOSITORY="deb [arch=amd64] ${APT_REPOSITORY_URL}${APT_REPOSITORY_BRANCH:-nightly} ${APT_REPOSITORY_CODENM:-$DISTRIB_CODENAME} ${APT_REPOSITORY_TAGS:-main}"
 
 # reclass
 export RECLASS_ADDRESS=${RECLASS_ADDRESS:-https://github.com/salt-formulas/openstack-salt.git} # https/git
