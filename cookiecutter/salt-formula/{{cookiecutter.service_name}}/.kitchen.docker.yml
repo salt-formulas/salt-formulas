@@ -4,8 +4,6 @@ driver:
   hostname: {{ cookiecutter.kitchen_formula }}.ci.local
   use_sudo: false
 
-
-
 provisioner:
   name: salt_solo
   salt_install: bootstrap
@@ -30,7 +28,7 @@ verifier:
   name: {{ cookiecutter.kitchen_verifier }}
   sudo: true
 
-{%- if cookiecutter.kitchen_driver =='docker' %}
+{% if cookiecutter.kitchen_driver =='docker' %}
 platforms:
   - name: ubuntu-trusty
     driver_config:
