@@ -346,3 +346,6 @@
 [submodule "formulas/designate"]
 	path = formulas/designate
 	url = https://github.com/salt-formulas/salt-formula-designate
+[submodule "formulas/avinetworks"]
+	path = formulas/avinetworks
+	url = git@github.com:salt-formulas/salt-formula-avinetworks.git
