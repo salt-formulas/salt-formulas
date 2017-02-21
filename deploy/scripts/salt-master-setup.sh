@@ -9,22 +9,23 @@
 # - support for spm/yum
 
 # DEAULTS
-# repository
-export APT_REPOSITORY_URL=${APT_REPOSITORY_URL:-http://apt.tcpcloud.eu/}
-export APT_REPOSITORY_GPG=${APT_REPOSITORY_GPG:-http://apt.tcpcloud.eu/public.gpg}
-export APT_REPOSITORY_TAGS=${APT_REPOSITORY_TAGS:-main tcp tcp-salt}
+# salt apt repository
 test -e /etc/lsb-release && eval $(cat /etc/lsb-release)
-which lsb_release && DISTRIB_CODENAME={DISTRIB_CODENAME:-$(lsb_release -cs)}
-export APT_REPOSITORY="deb [arch=amd64] ${APT_REPOSITORY_URL}${APT_REPOSITORY_BRANCH:-nightly} ${APT_REPOSITORY_CODENM:-$DISTRIB_CODENAME} ${APT_REPOSITORY_TAGS:-main}"
+which lsb_release && DISTRIB_CODENAME=${DISTRIB_CODENAME:-$(lsb_release -cs)}
+#
+#export APT_REPOSITORY="deb [arch=amd64] http://apt-mk.mirantis.com/${DISTRIB_CODENAME} nightly salt salt-latest"
+#export APT_REPOSITORY_GPG=${APT_REPOSITORY_GPG:-http://apt-mk.mirantis.com/public.gpg}
+export APT_REPOSITORY="deb [arch=amd64] http://apt.tcpcloud.eu/nightly ${DISTRIB_CODENAME} tcp tcp-salt"
+export APT_REPOSITORY_GPG=${APT_REPOSITORY_GPG:-http://apt.tcpcloud.eu/public.gpg}
 
 # reclass
 export RECLASS_ADDRESS=${RECLASS_ADDRESS:-https://github.com/salt-formulas/openstack-salt.git} # https/git
 
 # formula
-export FORMULA_SOURCE=${FORMULA_SOURCE:-pkg} # pkg/git
-export FORMULA_PATH=${FORMULA_PATH:-/usr/share/salt-formulas}
-export FORMULA_GIT_BRANCH=${FORMULA_GIT_BRANCH:-master}
-export FORMULA_GIT_BASE_URL=${FORMULA_GIT_BASE_URL:-https://github.com/salt-formulas}
+export FORMULAS_BASE=${FORMULAS_BASE:-https://github.com/salt-formulas}
+export FORMULAS_PATH=${FORMULAS_PATH:-/usr/share/salt-formulas}
+export FORMULAS_BRANCH=${FORMULAS_BRANCH:-master}
+export FORMULAS_SOURCE=${FORMULAS_SOURCE:-git} # pkg/git
 
 # system / host
 export HOSTNAME=${HOSTNAME:-cfg01}
@@ -36,17 +37,13 @@ export MINION_ID=${MINION_ID:-${HOSTNAME}.${DOMAIN}}
 
 
 # ENVIRONMENT
-####
-
-
-SUDO=${SUDO:-sudo}
-
+#############
 SALT_SOURCE=${SALT_SOURCE:-pkg}
 SALT_VERSION=${SALT_VERSION:-latest}
 
-if [ "$FORMULA_SOURCE" == "git" ]; then
+if [ "$FORMULAS_SOURCE" == "git" ]; then
   SALT_ENV=${SALT_ENV:-dev}
-elif [ "$FORMULA_SOURCE" == "pkg" ]; then
+elif [ "$FORMULAS_SOURCE" == "pkg" ]; then
   SALT_ENV=${SALT_ENV:-prd}
 fi
 
@@ -75,7 +72,7 @@ export PKGTOOL
 export SVCTOOL
 
 # FUNCTIONS
-####
+###########
 configure_pkg_repo()
 {
 
@@ -86,7 +83,7 @@ configure_pkg_repo()
             $SUDO add-apt-repository -y ppa:${APT_REPOSITORY_PPA}
           else
             echo -e  "$APT_REPOSITORY " | $SUDO tee /etc/apt/sources.list.d/bootstrap.list >/dev/null
-            wget -O - $APT_REPOSITORY_GPG | $SUDO apt-key add -
+            curl -sL $APT_REPOSITORY_GPG | $SUDO apt-key add -
           fi
           $SUDO apt-get clean
           $SUDO apt-get update
@@ -98,21 +95,6 @@ configure_pkg_repo()
     esac
 
 }
-
-# DEPRECATED
-#purge_system()
-#{
-
-  ## debian
-  #if [ -x "`which invoke-rc.d 2>/dev/null`" -a -x "/etc/init.d/salt-minion" ] ; then
-    #$SUDO apt-get purge -y salt-minion salt-common && $SUDO apt-get autoremove -y
-  #fi
-
-  ## rhel
-  #if [ -x "`which invoke-rc.d 2>/dev/null`" -a -x "/etc/init.d/salt-minion" ] ; then
-    #$SUDO yum remove -y salt-minion salt-common && $SUDO yum autoremove -y
-  #fi
-#}
 
 configure_salt_master()
 {
@@ -169,15 +151,15 @@ EOF
 	classes:
 	- service.git.client
 	- system.linux.system.single
-	- system.openssh.client.lab
+	#- system.openssh.client.lab
 	- system.salt.master.single
-	- system.salt.master.formula.$FORMULA_SOURCE
+	- system.salt.master.$FORMULAS_SOURCE
 	- system.reclass.storage.salt
 	parameters:
 	  _param:
 	    reclass_data_repository: "$RECLASS_ADDRESS"
 	    reclass_data_revision: ${RECLASS_BRANCH:-master}
-	    salt_formula_branch: ${FORMULA_GIT_BRANCH:-master}
+	    salt_formula_branch: ${SALT_FORMULAS_BRANCH:-master}
 	    reclass_config_master: $SALT_MASTER
 	    single_address: $SALT_MASTER
 	    salt_master_host: $SALT_MASTER
@@ -246,6 +228,12 @@ install_salt_master_pkg()
         ;;
     esac
 
+    which reclass-salt || {
+      test -e /usr/share/reclass/reclass-salt && {
+        ln -fs /usr/share/reclass/reclass-salt /usr/bin
+      }
+    }
+
     configure_salt_master
 
     echo -e "\nRestarting services ...\n"
@@ -274,8 +262,14 @@ install_salt_master_pip()
       pip install salt==$SALT_VERSION
     fi
 
-    wget -O /etc/init.d/salt-master https://anonscm.debian.org/cgit/pkg-salt/salt.git/plain/debian/salt-master.init && chmod 755 /etc/init.d/salt-master
+    curl -Lo /etc/init.d/salt-master https://anonscm.debian.org/cgit/pkg-salt/salt.git/plain/debian/salt-master.init && chmod 755 /etc/init.d/salt-master
     ln -s /usr/local/bin/salt-master /usr/bin/salt-master
+
+    which reclass-salt || {
+      test -e /usr/share/reclass/reclass-salt && {
+        ln -fs /usr/share/reclass/reclass-salt /usr/bin
+      }
+    }
 
     configure_salt_master
 
@@ -321,7 +315,7 @@ install_salt_minion_pip()
 {
     echo -e "\nInstalling salt minion ...\n"
 
-    wget -O /etc/init.d/salt-minion https://anonscm.debian.org/cgit/pkg-salt/salt.git/plain/debian/salt-minion.init && chmod 755 /etc/init.d/salt-minion
+    curl -Lo /etc/init.d/salt-minion https://anonscm.debian.org/cgit/pkg-salt/salt.git/plain/debian/salt-minion.init && chmod 755 /etc/init.d/salt-minion
     ln -s /usr/local/bin/salt-minion /usr/bin/salt-minion
 
     configure_salt_minion
@@ -342,10 +336,10 @@ install_salt_formula_pkg()
           declare -a formula_services=("linux" "reclass" "salt" "openssh" "ntp" "git" "nginx" "collectd" "sensu" "heka" "sphinx" "mysql" "grafana" "libvirt" "rsyslog")
           for formula_service in "${formula_services[@]}"; do
               echo -e "\nConfiguring salt formula ${formula_service} ...\n"
-              [ ! -d "${FORMULA_PATH}/env/${formula_service}" ] && \
+              [ ! -d "${FORMULAS_PATH}/env/${formula_service}" ] && \
                   $SUDO apt-get install -y salt-formula-${formula_service}
               [ ! -L "/srv/salt/reclass/classes/service/${formula_service}" ] && \
-                  ln -s ${FORMULA_PATH}/reclass/service/${formula_service} /srv/salt/reclass/classes/service/${formula_service}
+                  ln -s ${FORMULAS_PATH}/reclass/service/${formula_service} /srv/salt/reclass/classes/service/${formula_service}
           done
         ;;
       rhel)
@@ -354,7 +348,7 @@ install_salt_formula_pkg()
     esac
 
     [ ! -d /srv/salt/env ] && mkdir -p /srv/salt/env || echo ""
-    [ ! -L /srv/salt/env/prd ] && ln -s ${FORMULA_PATH}/env /srv/salt/env/prd || echo ""
+    [ ! -L /srv/salt/env/prd ] && ln -s ${FORMULAS_PATH}/env /srv/salt/env/prd || echo ""
 }
 
 install_salt_formula_git()
@@ -366,38 +360,33 @@ install_salt_formula_git()
     declare -a formula_services=("linux" "reclass" "salt" "openssh" "ntp" "git" "nginx" "collectd" "sensu" "heka" "sphinx" "mysql" "grafana" "libvirt" "rsyslog")
     for formula_service in "${formula_services[@]}"; do
         echo -e "\nConfiguring salt formula ${formula_service} ...\n"
-        _BRANCH=${FORMULA_BRANCH}
-        [ ! -d "${FORMULA_PATH}/env/_formulas/${formula_service}" ] && {
-            if ! git ls-remote --exit-code --heads ${FORMULA_GIT_BASE_URL}/salt-formula-${formula_service}.git ${_BRANCH}; then
+        _BRANCH=${FORMULAS_BRANCH}
+        [ ! -d "${FORMULAS_PATH}/env/_formulas/${formula_service}" ] && {
+            if ! git ls-remote --exit-code --heads ${FORMULAS_BASE}/salt-formula-${formula_service}.git ${_BRANCH}; then
               # Fallback to the master branch if the branch doesn't exist for this repository
               _BRANCH=master
             fi
-            git clone ${FORMULA_GIT_BASE_URL}/salt-formula-${formula_service}.git ${FORMULA_PATH}/env/_formulas/${formula_service} -b ${_BRANCH}
+            git clone ${FORMULAS_BASE}/salt-formula-${formula_service}.git ${FORMULAS_PATH}/env/_formulas/${formula_service} -b ${_BRANCH}
           } || {
-            cd ${FORMULA_PATH}/env/_formulas/${formula_service};
+            cd ${FORMULAS_PATH}/env/_formulas/${formula_service};
             git fetch origin/${_BRANCH} || git fetch --all
             git checkout ${_BRANCH} && git pull || git pull;
             cd -
         }
         [ ! -L "/usr/share/salt-formulas/env/${formula_service}" ] && \
-            ln -s ${FORMULA_PATH}/env/_formulas/${formula_service}/${formula_service} /usr/share/salt-formulas/env/${formula_service}
+            ln -s ${FORMULAS_PATH}/env/_formulas/${formula_service}/${formula_service} /usr/share/salt-formulas/env/${formula_service}
         [ ! -L "/srv/salt/reclass/classes/service/${formula_service}" ] && \
-            ln -s ${FORMULA_PATH}/env/_formulas/${formula_service}/metadata/service /srv/salt/reclass/classes/service/${formula_service}
+            ln -s ${FORMULAS_PATH}/env/_formulas/${formula_service}/metadata/service /srv/salt/reclass/classes/service/${formula_service}
     done
 
     [ ! -d /srv/salt/env ] && mkdir -p /srv/salt/env || echo ""
     [ ! -L /srv/salt/env/dev ] && ln -s /usr/share/salt-formulas/env /srv/salt/env/dev || echo ""
 }
 
-
-
-
-
 # MAIN
 ####
-
-# detect if file is being sourced
 [[ "$0" != "$BASH_SOURCE" ]] || {
+# unless file is being sourced
 
   # DEBUGING
   #set -x
@@ -406,13 +395,13 @@ install_salt_formula_git()
 
   # CLI
   while [ x"$1" != x"" ]; do
-    which wget &>/dev/null || $PKGTOOL -y install wget &>/dev/null
+    which curl &>/dev/null || $PKGTOOL -y install curl &>/dev/null
 
     case $1 in
         master )
           install_salt_master_$SALT_SOURCE
           install_salt_minion_$SALT_SOURCE
-          install_salt_formula_$FORMULA_SOURCE
+          install_salt_formula_$FORMULAS_SOURCE
           ;;
         minion )
           install_salt_minion_$SALT_SOURCE
@@ -421,5 +410,4 @@ install_salt_formula_git()
     shift
   done
   echo DONE
-
 }

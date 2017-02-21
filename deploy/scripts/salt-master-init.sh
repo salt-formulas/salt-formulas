@@ -11,7 +11,6 @@ fi
 ## Env Options
 options() {
     export LC_ALL=C
-    SUDO=${SUDO:-}
     SALT_LOG_LEVEL="--state-verbose=false -linfo"
     SALT_OPTS="${SALT_OPTS:- --state-output=changes --retcode-passthrough --force-color $SALT_LOG_LEVEL }"
     RECLASS_ROOT=${RECLASS_ROOT:-/srv/salt/reclass}
@@ -66,6 +65,12 @@ system_config() {
 
     curl -L https://bootstrap.saltstack.com | $SUDO sh -s -- -M stable 2016.3 &>/dev/null
     $SUDO apt install -qqq -y python-psutil &>/dev/null
+
+    which reclass-salt || {
+      test -e /usr/share/reclass/reclass-salt && {
+        ln -fs /usr/share/reclass/reclass-salt /usr/bin
+      }
+    }
 }
 
 
@@ -95,15 +100,20 @@ saltmaster_bootstrap() {
     #HOSTNAME=$(${MASTER_HOSTNAME} | awk -F. '{print $1}')
     #DOMAIN=$(${MASTER_HOSTNAME}   | awk -F. '{print $ARGV[1..]}')
 
-    test -e salt-master-setup.sh || \
-        curl -skL "https://raw.githubusercontent.com/salt-formulas/salt-formulas/master/deploy/scripts/salt-master-setup.sh" |$SUDO tee salt-master-setup.sh >/dev/null; $SUDO chmod +x *.sh;
-    test -e ~/.salt-master-setup.sh.passed || {
+
+    SCRIPTS=$(dirname $0)
+    test -e ${SCRIPTS}/salt-master-setup.sh || \
+        curl -sL "https://raw.githubusercontent.com/salt-formulas/salt-formulas/master/deploy/scripts/salt-master-setup.sh" |$SUDO tee ${SCRIPTS}/salt-master-setup.sh >/dev/null; 
+        $SUDO chmod +x *.sh;
+    test -e ${SCRIPTS}/.salt-master-setup.sh.passed || {
         export SALT_MASTER=localhost
         export MINION_ID=${MASTER_HOSTNAME}
-        if $SUDO ./salt-master-setup.sh master &>/dev/null ; then
-          $SUDO touch ~/.salt-master-setup.sh.passed
+        $SUDO ${SCRIPTS}/salt-master-setup.sh master &> /tmp/salt-master-setup.log || cat /tmp/salt-master-setup.log
+        ret=$?
+        if [ ${ret} -gt 0 ]; then
+          log_err "salt-master-setup.sh exited with: ${ret}."
         else
-          log_err "salt-master-setup.sh exited with: $?."
+          $SUDO touch ${SCRIPTS}/.salt-master-setup.sh.passed
         fi
     }
 
@@ -126,32 +136,26 @@ init_salt_master() {
 
     log_info "Runing saltmaster states"
     set -x
+    set -e
     $SUDO salt-call saltutil.sync_all >/dev/null
 
     log_info "Reclass-salt SaltMaster node check, prior salt-master is fully initialized"
-    $SUDO reclass-salt -p ${MASTER_HOSTNAME} &> ${MASTER_HOSTNAME}_pre.out || cat ${MASTER_HOSTNAME}_pre.out
+    $SUDO reclass-salt -p ${MASTER_HOSTNAME} &> /tmp/${MASTER_HOSTNAME}.pillar || cat /tmp/${MASTER_HOSTNAME}.pillar
 
-    #$SUDO reclass-salt -p ${MASTER_HOSTNAME} >  ${MASTER_HOSTNAME}.tmp  || (tail -n 50 ${MASTER_HOSTNAME}.tmp; false)
-    if [[ $MASTER_INIT_STATES =~ ^(True|true|1|yes)$ ]]; then
-        $SUDO salt-call ${SALT_OPTS} state.apply salt.master || log_warn "Friendly errors may pass"
-    else
-        $SUDO salt-call ${SALT_OPTS} state.apply salt.master.env || log_warn "Friendly errors may pass"
-        $SUDO salt-call ${SALT_OPTS} state.apply salt.master.pillar pillar='{"reclass":{"storage":{"data_source":{"engine":"local"}}}}'
-                                                            # sikp reclass data dir states
-                                                            # in order to avoid pull from configured repo/branch
-        $SUDO salt-call ${SALT_OPTS} state.apply reclass.storage.node
-    fi
+    $SUDO salt-call ${SALT_OPTS} state.apply salt.master.env || log_warn "Friendly errors may pass"
+    $SUDO salt-call ${SALT_OPTS} state.apply salt.master.pillar pillar='{"reclass":{"storage":{"data_source":{"engine":"local"}}}}'
+    # Note: sikp reclass data dir states
+    #       in order to avoid pull from configured repo/branch
+
+    git checkout -- /srv/salt/reclass/nodes
+    $SUDO salt-call ${SALT_OPTS} state.apply reclass.storage.node
 
     $SUDO service salt-minion restart >/dev/null
     $SUDO salt-call ${SALT_OPTS} saltutil.sync_all >/dev/null
     set +x
+    set +e
 
-    # Instantinate Salt Master
-    if [[ $MASTER_INIT_STATES =~ ^(True|true|1|yes)$ ]]; then
-    #  salt-call ${SALT_OPTS} state.apply reclass
-        $SUDO salt-call ${SALT_OPTS} state.apply salt
-        $SUDO sed -i 's/^master:.*/master: localhost/' /etc/salt/minion.d/minion.conf
-    fi
+    $SUDO sed -i 's/^master:.*/master: localhost/' /etc/salt/minion.d/minion.conf
 }
 
 
@@ -159,9 +163,9 @@ function verify_salt_master() {
     #set -e
 
     log_info "Verify Salt master"
-    $SUDO reclass-salt -p ${MASTER_HOSTNAME} >  ${MASTER_HOSTNAME}.out
-    $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} state.show_lowstate >>  ${MASTER_HOSTNAME}.out
-    $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} grains.item roles   >>  ${MASTER_HOSTNAME}.out
+    $SUDO reclass-salt -p ${MASTER_HOSTNAME} |tee ${MASTER_HOSTNAME}.pillar_verify | tail -n 50
+    $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} state.show_lowstate >>  /tmp/${MASTER_HOSTNAME}.pillar_verify
+    $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} grains.item roles   >>  /tmp/${MASTER_HOSTNAME}.pillar_verify
     #salt-call --no-color grains.items
     #salt-call --no-color pillar.data
 }
@@ -189,9 +193,9 @@ function verify_salt_minions() {
         if [[ "${node//.*}" =~ "01" || "${node//.*}" =~ "02"  ]] ;then
   
             log_info "Verifying ${node}"
-            $SUDO reclass-salt -p ${node} >  ${node}.out || continue
-            $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate  >>  ${node}.out || continue
-            $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles    >>  ${node}.out || continue
+            $SUDO reclass-salt -p ${node} >  /tmp/${node}.out || continue
+            $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate  >>  /tmp/${node}.out || continue
+            $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles    >>  /tmp/${node}.out || continue
             # || (tail -n 50 $node.out; false)
         else
             echo Skipped $node.
@@ -212,11 +216,10 @@ function verify_salt_minions() {
     test ! -e /tmp/reclass || kitchen_bootstrap
 
     saltmaster_bootstrap
-    init_salt_master        > ${MASTER_HOSTNAME}.tmp  || (tail -n 50 ${MASTER_HOSTNAME}.tmp; false)
+    init_salt_master        > /tmp/${MASTER_HOSTNAME}.init  || (tail -n 50 /tmp/${MASTER_HOSTNAME}.init; false)
 
     verify_salt_master
     verify_salt_minions
 
-    if not [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then rm -f *.out *.tmp; fi
     log_info "Don't forget to remove /etc/apt/sources.list.d/bootstrap.list once not required"
 }
