@@ -3,7 +3,7 @@
     "role_name": "server",
     "copyright_year": "2017",
     "copyright_holder": "Your Name et al.",
-    "author_contact": "name@domain.com"
+    "author_contact": "name@domain.com",
 
     "kitchen_driver": "docker",
     "kitchen_verifier": "inspec",
