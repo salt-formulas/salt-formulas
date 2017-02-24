@@ -47,7 +47,6 @@ _atexit() {
     else
         log_info "Execution successful"
     fi
-
     return $RETVAL
 }
 
@@ -190,7 +189,7 @@ function verify_salt_minions() {
         node=$(basename $node .yml)
 
         # filter first in cluster.. ctl-01, mon-01, etc..
-        if [[ "${node//.*}" =~ "01" || "${node//.*}" =~ "02"  ]] ;then
+        if [[ "${node//.*}" =~ 01 || "${node//.*}" =~ 02  ]] ;then
   
             log_info "Verifying ${node}"
             $SUDO reclass-salt -p ${node} >  /tmp/${node}.out || continue
@@ -204,7 +203,8 @@ function verify_salt_minions() {
     done
     # fail on failures
     total=$(echo $NODES | xargs -n1 echo |wc -l)
-    test ! $passed -lt $total || (log_err "Results: $passed of $total passed."; exit 1)
+    test ! $passed -lt $total || log_err "Results: $passed of $total passed."
+    test ! $passed -lt $total || return 1
 }
 
 
@@ -215,11 +215,11 @@ options
     system_config
     test ! -e /tmp/reclass || kitchen_bootstrap
 
-    saltmaster_bootstrap
-    saltmaster_init        > /tmp/${MASTER_HOSTNAME}.init  || (tail -n 50 /tmp/${MASTER_HOSTNAME}.init; false)
+    saltmaster_bootstrap &&\
+    saltmaster_init        > /tmp/${MASTER_HOSTNAME}.init  || (tail -n 50 /tmp/${MASTER_HOSTNAME}.init; exit 1) &&\
 
-    verify_salt_master
-    verify_salt_minions
+    verify_salt_master &&\
+    verify_salt_minions &&\
 
     log_info "Don't forget to remove /etc/apt/sources.list.d/bootstrap.list once not required"
 }
