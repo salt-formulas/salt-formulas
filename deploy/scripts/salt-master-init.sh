@@ -86,8 +86,8 @@ kitchen_bootstrap() {
         /tmp/reclass /srv/salt/
     #}
     cd /srv/salt/reclass;
-    #export RECLASS_ADDRESS=file:///tmp/reclass
-    export RECLASS_ADDRESS=${RECLASS_ADDRESS:-$(git remote get-url origin)}
+    #export RECLASS_REPOSITORY=file:///tmp/reclass
+    export RECLASS_REPOSITORY=${RECLASS_REPOSITORY:-$(git remote get-url origin)}
     export RECLASS_BRANCH=${RECLASS_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}
 }
 
@@ -132,7 +132,7 @@ saltmaster_bootstrap() {
 }
 
 # Init salt master
-init_salt_master() {
+saltmaster_init() {
 
     log_info "Runing saltmaster states"
     set -x
@@ -208,15 +208,15 @@ function verify_salt_minions() {
 }
 
 
+options
 # detect if file is being sourced
 [[ "$0" != "$BASH_SOURCE"  ]] || {
     trap _atexit INT TERM EXIT
-    options
     system_config
     test ! -e /tmp/reclass || kitchen_bootstrap
 
     saltmaster_bootstrap
-    init_salt_master        > /tmp/${MASTER_HOSTNAME}.init  || (tail -n 50 /tmp/${MASTER_HOSTNAME}.init; false)
+    saltmaster_init        > /tmp/${MASTER_HOSTNAME}.init  || (tail -n 50 /tmp/${MASTER_HOSTNAME}.init; false)
 
     verify_salt_master
     verify_salt_minions
