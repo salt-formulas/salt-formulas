@@ -151,7 +151,6 @@ EOF
 	classes:
 	- service.git.client
 	- system.linux.system.single
-	#- system.openssh.client.lab
 	- system.salt.master.single
 	- system.salt.master.$FORMULAS_SOURCE
 	- system.reclass.storage.salt
@@ -168,6 +167,7 @@ EOF
 	    system:
 	      name: $MINION_ID
 	      domain: $DOMAIN
+	# ########
 EOF
 
     if [ "$SALT_VERSION" == "latest" ]; then
@@ -187,6 +187,8 @@ EOF
 		      source:
 		        engine: $SALT_SOURCE
 		        $VERSION
+		# ########
+		# vim: ft=yaml sw=2 ts=2 sts=2
 EOF
   }
 }
