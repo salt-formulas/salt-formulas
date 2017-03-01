@@ -11,7 +11,7 @@ fi
 ## Env Options
 options() {
     export LC_ALL=C
-    SALT_LOG_LEVEL="--state-verbose=false -linfo"
+    SALT_LOG_LEVEL="--state-verbose=false -lerror"
     SALT_OPTS="${SALT_OPTS:- --state-output=changes --retcode-passthrough --force-color $SALT_LOG_LEVEL }"
     RECLASS_ROOT=${RECLASS_ROOT:-/srv/salt/reclass}
 
@@ -20,7 +20,10 @@ options() {
     if ls /*.env ; then source /*.env else echo "No /*.env was found."; fi
     if ls .*.env ; then source .*.env else echo "No .*.env was found."; fi
 
+    export MAGENTA='\033[0;95m'
     export YELLOW='\033[1;33m'
+    export BLUE='\033[0;35m'
+    export CYAN='\033[0;96m'
     export RED='\033[0;31m'
     export NC='\033[0m' # No Color'
 }
@@ -31,7 +34,7 @@ log_info() {
 }
 
 log_warn() {
-    echo -e "\n[WARN] $*"
+    echo -e "${MAGENTA}[WARN] $* ${NC}"
 }
 
 log_err() {
@@ -138,15 +141,22 @@ saltmaster_init() {
     set -e
     $SUDO salt-call saltutil.sync_all >/dev/null
 
-    log_info "Reclass-salt SaltMaster node check, prior salt-master is fully initialized"
-    $SUDO reclass-salt -p ${MASTER_HOSTNAME} &> /tmp/${MASTER_HOSTNAME}.pillar || cat /tmp/${MASTER_HOSTNAME}.pillar
+    log_info "Verify SaltMaster, before salt-master is fully initialized"
+    $SUDO reclass-salt -p ${MASTER_HOSTNAME} &> /tmp/${MASTER_HOSTNAME}.pillar ||\
+      ( log_err "Pillar verification failed."; cat /tmp/${MASTER_HOSTNAME}.pillar; exit 1)
 
-    $SUDO salt-call ${SALT_OPTS} state.apply salt.master.env || log_warn "Friendly errors may pass"
+    log_info "State: salt.master.env"
+    $SUDO salt-call ${SALT_OPTS} -linfo state.apply salt.master.env ||\
+      log_warn "State salt.master.env failed, keep your eyes wide open."
+
+    log_info "State: salt.master.pillar"
     $SUDO salt-call ${SALT_OPTS} state.apply salt.master.pillar pillar='{"reclass":{"storage":{"data_source":{"engine":"local"}}}}'
     # Note: sikp reclass data dir states
     #       in order to avoid pull from configured repo/branch
 
     git checkout -- /srv/salt/reclass/nodes
+
+    log_info "State: salt.master.storage.node"
     $SUDO salt-call ${SALT_OPTS} state.apply reclass.storage.node
 
     $SUDO service salt-minion restart >/dev/null
