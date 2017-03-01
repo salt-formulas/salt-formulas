@@ -137,7 +137,6 @@ saltmaster_bootstrap() {
 saltmaster_init() {
 
     log_info "Runing saltmaster states"
-    set -x
     set -e
     $SUDO salt-call saltutil.sync_all >/dev/null
 
@@ -161,7 +160,6 @@ saltmaster_init() {
 
     $SUDO service salt-minion restart >/dev/null
     $SUDO salt-call ${SALT_OPTS} saltutil.sync_all >/dev/null
-    set +x
     set +e
 
     $SUDO sed -i 's/^master:.*/master: localhost/' /etc/salt/minion.d/minion.conf
