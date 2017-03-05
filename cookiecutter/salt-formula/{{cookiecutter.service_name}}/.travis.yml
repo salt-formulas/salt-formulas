@@ -18,8 +18,12 @@ install:
     #gem 'kitchen-salt', '>=0.2.25'
   - bundle install
 
+env:
+    - PLATFORM=trevorj/salty-whales:trusty
+    - PLATFORM=trevorj/salty-whales:xenial
+
 before_script:
-  - make test
+    - make test | tail
 
 script:
-  - test ! -e .kitchen.yml || bundle exec kitchen test
+  - test ! -e .kitchen.yml || bundle exec kitchen test -t tests/integration
