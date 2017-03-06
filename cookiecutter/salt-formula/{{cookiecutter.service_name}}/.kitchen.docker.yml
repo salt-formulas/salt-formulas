@@ -30,14 +30,9 @@ verifier:
 
 {% if cookiecutter.kitchen_driver =='docker' %}
 platforms:
-  - name: ubuntu-trusty
+  - name: <%=ENV['PLATFORM'] || 'ubuntu-xenial'%>
     driver_config:
-      image: trevorj/salty-whales:trusty
-      platform: ubuntu
-
-  - name: ubuntu-xenial
-    driver_config:
-      image: trevorj/salty-whales:xenial
+      image: <%=ENV['PLATFORM'] || 'trevorj/salty-whales:xenial'%>
       platform: ubuntu
 
 suites:
