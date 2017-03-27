@@ -349,3 +349,6 @@
 [submodule "formulas/avinetworks"]
 	path = formulas/avinetworks
 	url = git@github.com:salt-formulas/salt-formula-avinetworks.git
+[submodule "formulas/aptcacher"]
+	path = formulas/aptcacher
+	url = https://github.com/salt-formulas/salt-formula-aptcacher

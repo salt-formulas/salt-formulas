@@ -33,6 +33,10 @@ checkout = git_checkout glusterfs
 skip = lazy
 checkout = git_checkout apache
 
+[formulas/aptcacher]
+skip = lazy
+checkout = git_checkout aptcacher
+
 [formulas/aptly]
 skip = lazy
 checkout = git_checkout aptly
