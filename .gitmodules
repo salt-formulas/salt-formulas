@@ -352,3 +352,6 @@
 [submodule "formulas/aptcacher"]
 	path = formulas/aptcacher
 	url = https://github.com/salt-formulas/salt-formula-aptcacher
+[submodule "formulas/openldap"]
+	path = formulas/openldap
+	url = https://github.com/salt-formulas/salt-formula-openldap

@@ -129,6 +129,10 @@ checkout = git_checkout nginx
 skip = lazy
 checkout = git_checkout ntp
 
+[formulas/openldap]
+skip = lazy
+checkout = git_checkout openldap
+
 [formulas/openssh]
 skip = lazy
 checkout = git_checkout openssh
