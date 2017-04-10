@@ -324,31 +324,31 @@
 	url = https://github.com/salt-formulas/salt-formula-virtualbox
 [submodule "formulas/sentry"]
 	path = formulas/sentry
-	url = git@github.com:salt-formulas/salt-formula-sentry.git
+	url = https://github.com/salt-formulas/salt-formula-sentry.git
 [submodule "formulas/vagrant"]
 	path = formulas/vagrant
-	url = git@github.com:salt-formulas/salt-formula-vagrant.git
+	url = https://github.com/salt-formulas/salt-formula-vagrant.git
 [submodule "formulas/packer"]
 	path = formulas/packer
-	url = git@github.com:salt-formulas/salt-formula-packer.git
+	url = https://github.com/salt-formulas/salt-formula-packer.git
 [submodule "formulas/tempest"]
 	path = formulas/tempest
-	url = git@github.com:salt-formulas/salt-formula-tempest.git
+	url = https://github.com/salt-formulas/salt-formula-tempest.git
 [submodule "formulas/rally"]
 	path = formulas/rally
-	url = git@github.com:salt-formulas/salt-formula-rally.git
+	url = https://github.com/salt-formulas/salt-formula-rally.git
 [submodule "formulas/tftpd-hpa"]
 	path = formulas/tftpd-hpa
-	url = git@github.com:salt-formulas/salt-formula-tftpd-hpa.git
+	url = https://github.com/salt-formulas/salt-formula-tftpd-hpa.git
 [submodule "formulas/jupyter"]
 	path = formulas/jupyter
-	url = git@github.com:salt-formulas/salt-formula-jupyter.git
+	url = https://github.com/salt-formulas/salt-formula-jupyter.git
 [submodule "formulas/designate"]
 	path = formulas/designate
 	url = https://github.com/salt-formulas/salt-formula-designate
 [submodule "formulas/avinetworks"]
 	path = formulas/avinetworks
-	url = git@github.com:salt-formulas/salt-formula-avinetworks.git
+	url = https://github.com/salt-formulas/salt-formula-avinetworks.git
 [submodule "formulas/aptcacher"]
 	path = formulas/aptcacher
 	url = https://github.com/salt-formulas/salt-formula-aptcacher
