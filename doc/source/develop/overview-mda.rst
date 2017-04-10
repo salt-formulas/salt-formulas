@@ -1,9 +1,11 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Model-driven architectures
-==========================
+Model-driven architectures with Salt formulas
+=============================================
 
-Model Driven Architecture (MDA) is an answer to growing complexity of systems controlled by configuration management tools. It provides unified node classification with atomic service definitions.
+Model Driven Architecture (MDA) is an answer to growing complexity of systems
+controlled by configuration management tools. It provides unified node
+classification with atomic service definitions.
 
 Core principles for deploying model-driven architectures. 
 
@@ -17,7 +19,9 @@ Core principles for deploying model-driven architectures.
 Sample MDA Scenario
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Following image show example system that has reasonable amount of services with some outsourced by 3rd party providers. The OpenStack architecture is too big to fit here.
+Following image show example system that has reasonable amount of services
+with some outsourced by 3rd party providers. The OpenStack architecture is too
+big to fit here.
 
 .. figure:: /_images/openstack_system.png
   :width: 100%
@@ -33,7 +37,8 @@ We can identify several layers within the largers application systems.
   :width: 100%
   :align: center
 
-Application systems are supported by shared subsystems that span across multiple application systems. These usually are:
+Application systems are supported by shared subsystems that span across
+multiple application systems. These usually are:
 
 - Access & control system - SSH access, orchestration engine access, user authentication
 - Monitoring system - Events and metric collections
@@ -48,7 +53,9 @@ The following chapter shows service decomposition of GitLab all-in-one box.
 Server level
 ^^^^^^^^^^^^^^^^^^^^
 
-Servers contain one or more systems that bring business value and several maintenance systems that are common to any node. Following list shows basic systems at almost any node.
+Servers contain one or more systems that bring business value and several
+maintenance systems that are common to any node. Following list shows basic
+systems at almost any node.
 
 - Application systems - Business Logic implementations
 - Access & control system - SSH access, orchestration engine access, user authentication
