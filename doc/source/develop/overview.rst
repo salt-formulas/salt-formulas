@@ -9,6 +9,7 @@ Chapter 1. Overview
    overview-formula.rst
    overview-pillar.rst
    overview-salt.rst
+   overview-packaging.rst
 
 
 --------------
