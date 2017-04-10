@@ -1,17 +1,18 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-========================
-Salt Formulae Guidelines
-========================
+=======================
+Salt formula guidelines
+=======================
 
-This document contains  guidelines to salt formulas creation and maintenance.
+Salt formulas encapsulate specific services. This document contains guidelines
+to salt formula creation and maintenance.
 
 .. contents::
     :backlinks: none
     :local:
 
-Directory Structure
-===================
+Formula directory structure
+===========================
 
 Formulas follow the same directory structure as Salt official `conventions <ht
 tp://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html
@@ -67,22 +68,36 @@ Every formula should have the following directory layout:
 
 Content of the formula directories in more detail.
 
-* **_grains/** - Optional grain modules
-* **_modules/** - Optional execution modules
-* **_states/** - Optional state modules
-* **service/** - Salt state files
-* **debian/** - APT Package metadata
-* **metadata/** - Reclass metadata
+**_grains/**
+  Optional grain modules
 
-Salt States Files
-=================
+**_modules/**
+  Optional execution modules
+
+**_states/**
+  Optional state modules
+
+**service/**
+  Salt state files
+
+**debian/**
+  APT Package metadata
+
+**metadata/**
+  Reclass metadata
+
+
+Salt state files
+================
 
 Salt state files are located in ``service`` directory.
+
 
 ``service/map.jinja``
 ---------------------
 
-Map helps to clean the differences among operating systems.
+Map file helps to clean the differences among operating systems and provides
+default values so there's no need to provide default value in state files.
 
 Following snippet uses YAML to serialize the data and is the recommended way
 to write ``map.jinja`` file as YAML can be easily extended in place.
@@ -122,7 +137,8 @@ Following snippet uses JSON to serialize the data and was favored in past.
         },
     }, merge=salt['pillar.get']('salt:api')) %}
 
-Following snippet sets different common role parameters according to ``service:role:source:engine`` pillar variable of given service role.
+Following snippet sets different common role parameters according to
+``service:role:source:engine`` pillar variable of given service role.
 
 .. code-block:: text
 
@@ -146,10 +162,17 @@ Following snippet sets different common role parameters according to ``service:r
     {%- endif %}
     {%- endload %}
 
+
 ``service/init.sls``
 --------------------
 
-Conditional include of individual service roles.
+Conditional include of individual service roles. Basically this is essential
+piece that makes the usage of formulas truly model-driven. You have catalog of
+services and this determines according to present metadata what roles get
+started. 
+
+Using ``service/init.sls`` file allows the service catalog to be role
+independent.
 
 .. code-block:: text
 
@@ -161,9 +184,21 @@ Conditional include of individual service roles.
     - service.role2
     {% endif %}
 
-For simple roles use one file as ``role1.sls``, for more complex roles use individual directories as ``role2``.
+You can use one file as ``role1.sls`` for simple roles. For more complex roles
+handling many resources, use individual directories as ``role2``.
 
-``service/init.sls`` file allows the node catalog to be role agnostic.
+.. code-block:: text
+
+    service-formula/
+    `-- service/
+        |-- role1.sls
+        `-- role2/
+            |-- init.sls
+            |-- service.sls
+            |-- resource1.sls
+            `-- resource2.sls
+
+Then you can verify the full service catalog on node by following command:
 
 .. code-block:: bash
 
@@ -187,7 +222,7 @@ For simple roles use one file as ``role1.sls``, for more complex roles use indiv
             - redis
             - ruby
 
-Service metadata will are stored as ``services`` grain.
+Service metadata are stored also as ``services`` grain.
 
 .. code-block:: bash
 
@@ -210,7 +245,7 @@ Service metadata will are stored as ``services`` grain.
             - redis
             - ruby
 
-And individual service roles metadata are stored as detailed ``roles`` grain.
+And each service roles metadata is stored as detailed ``roles`` grain.
 
 .. code-block:: bash
 
@@ -239,7 +274,8 @@ And individual service roles metadata are stored as detailed ``roles`` grain.
 
    It is recommended to run ``state.sls salt`` prior the ``state.highstate``
    command as grains may not be generated properly and some configuration
-   parameters not set at all.
+   parameters may not be set at all.
+
 
 ``service/role1.sls``
 ---------------------
@@ -284,6 +320,7 @@ For development purposes other installation than s
    role from execution with default parametes, the single error is thrown
    instead. You can optionaly add ``else`` statement to disable or completely
    remove given service role.
+
    
 ``service/role2/init.sls``
 --------------------------
@@ -313,11 +350,13 @@ Coding styles for state files
 
 Good styling practices for writing salt state declarations.
 
+
 Line length above 80 characters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As a 'standard code width limit' and for historical reasons - IBM punch card
 had exactly 80 columns.
+
 
 Single line declaration
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -341,12 +380,14 @@ The correct example:
     python:
       pkg.installed
 
+
 No newline at the end of the file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Each line should be terminated in a newline character, including the last one.
 Some programs have problems processing the last line of a file if it isn't
 newline terminated.
+
 
 Trailing whitespace characters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -355,7 +396,7 @@ Trailing whitespaces take more spaces than necessary, any regexp based
 searches won't return lines as a result due to trailing whitespace(s).
 
 
-Reclass Metadata Files
+Reclass metadata files
 ======================
 
 Each of these files serve as default metadata set for given deployment. Each
@@ -366,8 +407,9 @@ has following deployments:
 * metadata/rabbitmq/server/single.yml
 * metadata/rabbitmq/server/cluster.yml
 
+
 ``metadata/service/role1/local.yml``
---------------------------------------
+------------------------------------
 
 .. code-block:: yaml
 
@@ -390,8 +432,9 @@ has following deployments:
             name: ${_param:rabbitmq_admin_user}
             password: ${_param:rabbitmq_admin_password}
 
+
 ``metadata/service/role1/single.yml``
---------------------------------------
+-------------------------------------
 
 .. code-block:: yaml
 
@@ -413,6 +456,7 @@ has following deployments:
           admin:
             name: ${_param:rabbitmq_admin_user}
             password: ${_param:rabbitmq_admin_password}
+
 
 ``metadata/service/role1/cluster.yml``
 --------------------------------------
@@ -460,18 +504,18 @@ has following deployments:
 
 
 Parameters like ``${_param:rabbitmq_secret_key}`` are interpolation of common
-parameter passed at system or node level.
+parameter passed from higher system or cluster levels.
 
-Debian Packaging
+
+Debian packaging
 ================
 
 Use of debian packaging is preferable way for deploying production salt
-masters and it's formulas.
+masters and it's formulas. Take basic structure of ``debian`` directory from
+some existing formula and modify to suit your formula.
 
-Take basic structure of ``debian`` directory from some existing formula and
-modify to suit your formula.
+Description of most important files follows.
 
-Follows description of most important ones.
 
 ``debian/changelog``
 --------------------
@@ -508,6 +552,7 @@ Licensing informations of the package.
     On a Debian system you can find a copy of this license in
     /usr/share/common-licenses/Apache-2.0.
 
+
 ``debian/docs``
 ---------------
 
@@ -515,11 +560,13 @@ Files listed here will be available in ``/usr/share/doc``.
 Don't put COPYRIGHT or LICENSE files here as they are handled in a different
 way.
 
+
 ::
 
   README.rst
   CHANGELOG.rst
   VERSION
+
 
 ``debian/install``
 ------------------
@@ -530,6 +577,7 @@ Defines what is going to be installed in which location.
 
   salt/*                  /usr/share/salt-formulas/env/salt/
   metadata/service/*      /usr/share/salt-formulas/reclass/service/salt/
+
 
 ``debian/control``
 ------------------
@@ -554,8 +602,10 @@ This file keeps metadata of source and binary package.
    Description: Salt salt formula
     Install and configure Salt masters and minions.
 
-Supplemental Files
+Supplemental files
 ==================
+
+Files that are required to complete information about given formula.
 
 ``README.rst``
 --------------
@@ -568,7 +618,7 @@ A sample skeleton of the ``README.rst`` file:
     service
     =======
 
-    Install and configure the Service service.
+    Install and configure the Specific service.
 
     .. note::
 
@@ -722,7 +772,7 @@ and distribute the files of the underlying directories.
 
 .. code-block:: text
 
-      Copyright (c) 2014-2015 tcp cloud a. s.
+      Copyright (c) 2014-2015 Your name
 
       Licensed under the Apache License, Version 2.0 (the "License");
       you may not use this file except in compliance with the License.
@@ -736,6 +786,7 @@ and distribute the files of the underlying directories.
       See the License for the specific language governing permissions and
       limitations under the License.
 
+
 ``VERSION``
 -----------
 
@@ -744,6 +795,7 @@ Latest version number, git repository tag, package version as well.
 .. code-block:: text
 
     0.0.2
+
 
 ``CHANGELOG.rst``
 -----------------
@@ -771,6 +823,7 @@ A sample skeleton of the `CHANGELOG.rst` file:
 
     - Initial formula setup
 
+
 Versioning
 ~~~~~~~~~~
 
@@ -791,82 +844,16 @@ Formula versions are tracked using Git tags as well as the ``VERSION`` file in
 the formula repository. The ``VERSION`` file should contain the currently
 released version of the particular formula.
 
-Storing Common Data
-===================
 
-Secure data refers to any information that you would not wish to share with
-anyone accessing a server. This could include data such as passwords, keys, or
-other information.
-
-``service_database_host``
-------------------------------
-
-.. code-block:: yaml
-
-    parameters:
-      _param:
-        service_database_host: hostname.domain.com
-
-All of these values are preferably scalar and can be referenced as
-``${_param:service_database_host}`` parameter.
-
-Storing Secure Data
-===================
-
-For sensitive data we use the GPG renderer on salt master to cipher all sensitive data.
-
-To generate a cipher from a secret use following command
-
-.. code-block:: bash
-
-    $ echo -n "supersecret" | gpg --homedir --armor --encrypt -r <KEY-name>
-
-The ciphered secret is stored in block of text within ``PGP MESSAGE``
-delimiters, which are part of cipher.
-
-.. code-block:: text
-
-      -----BEGIN PGP MESSAGE-----
-      Version: GnuPG v1
-      -----END PGP MESSAGE-----
-
-Following example shows full use of generated cipher for virtually any secret.
-
-.. code-block:: yaml
-
-    parameters:
-      _param:
-        rabbitmq_secret_key: |
-          -----BEGIN PGP MESSAGE-----
-          Version: GnuPG v1
-
-          hQEMAweRHKaPCfNeAQf9GLTN16hCfXAbPwU6BbBK0unOc7i9/etGuVc5CyU9Q6um
-          QuetdvQVLFO/HkrC4lgeNQdM6D9E8PKonMlgJPyUvC8ggxhj0/IPFEKmrsnv2k6+
-          cnEfmVexS7o/U1VOVjoyUeliMCJlAz/30RXaME49Cpi6No2+vKD8a4q4nZN1UZcG
-          RhkhC0S22zNxOXQ38TBkmtJcqxnqT6YWKTUsjVubW3bVC+u2HGqJHu79wmwuN8tz
-          m4wBkfCAd8Eyo2jEnWQcM4TcXiF01XPL4z4g1/9AAxh+Q4d8RIRP4fbw7ct4nCJv
-          Gr9v2DTF7HNigIMl4ivMIn9fp+EZurJNiQskLgNbktJGAeEKYkqX5iCuB1b693hJ
-          FKlwHiJt5yA8X2dDtfk8/Ph1Jx2TwGS+lGjlZaNqp3R1xuAZzXzZMLyZDe5+i3RJ
-          skqmFTbOiA==
-          =Eqsm
-          -----END PGP MESSAGE-----
-      rabbitmq:
-        server:
-          secret_key: ${_param:rabbitmq_secret_key}
-          ...
-
-As you can see the GPG encrypted parameters can be further referenced with
-reclass interpolation ``${_param:rabbitmq_secret_key}`` statement.
-
-Testing Formulas
-================
+Formula unit testing
+====================
 
 A smoke-test for invalid Jinja, invalid YAML, or an invalid Salt state
 structure can be performed by with the ``state.show_sls`` function:
 
 .. code-block:: bash
 
-    salt '*' state.show_sls service
+    salt '*' state.show_sls service-name
 
 Salt Formulas can then be tested by running each ``.sls`` file via
 ``state.sls`` and checking the output for the success or failure of each state
@@ -874,10 +861,11 @@ in the Formula. This should be done for each supported platform.
 
 .. code-block:: bash
 
-    salt '*' state.sls sls test=True
+    salt '*' state.sls sls-file-name test
 
-Resources
-=========
+
+More information
+================
 
 * http://docs.saltstack.com/en/latest/topics/best_practices.html
 * http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html

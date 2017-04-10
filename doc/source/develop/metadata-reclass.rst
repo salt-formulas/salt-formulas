@@ -85,7 +85,6 @@ server.
            - node02
            - node03
 
-
 Example `metadata/service/server/cluster.yml` for the single PostgreSQL
 server.
 
@@ -117,7 +116,6 @@ server.
           - '127.0.0.1'
 
 
-
 System level (Business function units)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -134,41 +132,42 @@ service ‘haproxy’ several new ports, extending the service model and getting
 the system components integrated with each other.
 
 .. code-block:: text
+
     system/
-	`-- business-system/
-	    |-- role1/
-	    |   |-- deployment1.yml
-	    |   `-- deployment2.yml
-	    `-- role2/
-	        `-- deployment3.yml
+    `-- business-system/
+        |-- role1/
+        |   |-- deployment1.yml
+        |   `-- deployment2.yml
+        `-- role2/
+            `-- deployment3.yml
 
 For example Graphite server with Carbon collector.
 
 .. code-block:: text
-    system/
-	`-- graphite/
-	    |-- server/
-	    |   |-- single.yml
-	    |   `-- cluster.yml
-	    `-- collector/
-	        |-- single.yml
-	        `-- cluster.yml
 
+    system/
+    `-- graphite/
+        |-- server/
+        |   |-- single.yml
+        |   `-- cluster.yml
+        `-- collector/
+            |-- single.yml
+            `-- cluster.yml
 
 Example `classes/system/graphite/collector/single.yml` for the standalone
 Graphite Carbon installation.
 
 .. code-block:: yaml
 
-	classes:
-	- service.memcached.server.local
-	- service.graphite.collector.single
-	parameters:
-	  _param:
-	    rabbitmq_monitor_password: password
-	  carbon:
-	    relay:
-	      enabled: false
+    classes:
+    - service.memcached.server.local
+    - service.graphite.collector.single
+    parameters:
+      _param:
+        rabbitmq_monitor_password: password
+      carbon:
+        relay:
+          enabled: false
 
 Example `classes/system/graphite/collector/single.yml` for the standalone
 Graphite web server installation. Where you combine your individual formulas
@@ -176,43 +175,43 @@ to functional business unit of single node scope.
 
 .. code-block:: yaml
 
-	classes:
-	- service.memcached.server.local
-	- service.postgresql.server.local
-	- service.graphite.server.single
-	- service.apache.server.single
-	- service.supervisor.server.single
-	parameters:
-	  _param:
-	    graphite_secret_key: secret
-	    postgresql_graphite_password: password
-	    apache2_site_graphite_host: ${_param:single_address}
-	    rabbitmq_graphite_password: password
-	    rabbitmq_monitor_password: password
-	    rabbitmq_admin_password: password
-	    rabbitmq_secret_key: password
-	  apache:
-	    server:
-	      modules:
-	      - wsgi
-	      site:
-	        graphite_server:
-	          enabled: true
-	          type: graphite
-	          name: server
-	          host:
-	            name: ${_param:apache2_site_graphite_host}
-	  postgresql:
-	    server:
-	      database:
-	        graphite:
-	          encoding: UTF8
-	          locale: cs_CZ
-	          users:
-	          - name: graphite
-	            password: ${_param:postgresql_graphite_password}
-	            host: 127.0.0.1
-	            rights: all privileges
+    classes:
+    - service.memcached.server.local
+    - service.postgresql.server.local
+    - service.graphite.server.single
+    - service.apache.server.single
+    - service.supervisor.server.single
+    parameters:
+      _param:
+        graphite_secret_key: secret
+        postgresql_graphite_password: password
+        apache2_site_graphite_host: ${_param:single_address}
+        rabbitmq_graphite_password: password
+        rabbitmq_monitor_password: password
+        rabbitmq_admin_password: password
+        rabbitmq_secret_key: password
+      apache:
+        server:
+          modules:
+          - wsgi
+          site:
+            graphite_server:
+              enabled: true
+              type: graphite
+              name: server
+              host:
+                name: ${_param:apache2_site_graphite_host}
+      postgresql:
+        server:
+          database:
+            graphite:
+              encoding: UTF8
+              locale: cs_CZ
+              users:
+              - name: graphite
+                password: ${_param:postgresql_graphite_password}
+                host: 127.0.0.1
+                rights: all privileges
 
 
 Cluster level (Deployment units)
@@ -241,13 +240,13 @@ Default structure for cluster level has following strucuture:
 
 .. code-block:: text
 
-	cluster/
-	`-- deployment1/
-	    |-- product1/
-	    |   |-- cluster1.yml
-	    |   `-- cluster2.yml
-	    `-- product2/
-	        `-- cluster3.yml
+    cluster/
+    `-- deployment1/
+        |-- product1/
+        |   |-- cluster1.yml
+        |   `-- cluster2.yml
+        `-- product2/
+            `-- cluster3.yml
 
 Where deployments is usually one datacenter, product realises full business
 units [OpenStack cloud, Kubernetes cluster, etc]
@@ -256,34 +255,42 @@ For example deployment Graphite server with Carbon collector.
 
 .. code-block:: text
 
-	cluster/
-	`-- demo-lab/
-	    |-- infra/
-	    |   |-- config.yml
-	    |   `-- integration.yml
-	    `-- monitoring/
-	        `-- monitor.yml
+    cluster/
+    `-- demo-lab/
+        |-- infra/
+        |   |-- config.yml
+        |   `-- integration.yml
+        `-- monitoring/
+            `-- monitor.yml
 
-
+Example ``demo-lab/monitoring/monitor.yml`` class implementing not only
+Graphite services butr also grafana sever and sensu server.
 
 .. code-block:: yaml
 
-	classes:
-	- system.grapite.collector.single
-	- system.grapite.server.single
-	- system.grafana.server.single
-	- system.grafana.client.single
-	- system.sensu.server.cluster
-	- system.heka.aggregator.output.sensu
-	- cluster.demo-lab
+    classes:
+    - system.grapite.collector.single
+    - system.grapite.server.single
+    - system.grafana.server.single
+    - system.grafana.client.single
+    - system.sensu.server.cluster
+    - cluster.demo-lab
+
+Cluster level classes can be shared by members of the particular cluster or by
+single node.
 
 
 Deployment models
 -----------------
 
-Keeping consistency across multiple models/deployments have proven to be the
-most difficult part of keeping things running smooth over time.  You have
-multiple strategies on how to manage your metadata.
+Keeping consistency across multiple models/deployments has proven to be the
+most difficult part of keeping things running smooth over time with evolving
+configuration management. You have multiple strategies on how to manage your
+metadata for different scales.
+
+The service level metadata can be handled in common namespace not by formulas
+itself, but it is recommended to keep the relevant metadata states
+
 
 Shared cluster and system level
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -311,6 +318,80 @@ Separate cluster and multiple system levels
 
 When customer is reusing the provided system, but also has formulas and system
 on its own. Customer is free to create its own system level classes.
+
+
+Metadata
+========
+
+
+
+'Soft' metadata
+---------------
+
+.. code-block:: yaml
+
+    parameters:
+      _param:
+        service_database_host: hostname.domain.com
+
+All of these values are preferably scalar and can be referenced as
+``${_param:service_database_host}`` parameter.
+
+
+'Hard' metadata
+---------------
+
+
+Handling sensitive metadata
+===========================
+
+Sensitive data refers to any information that you would not wish to share with
+anyone accessing a server. This could include data such as passwords, keys, or
+other information. For sensitive data we use the GPG renderer on salt master
+to cipher all sensitive data.
+
+To generate a cipher from a secret use following command:
+
+.. code-block:: bash
+
+    $ echo -n "supersecret" | gpg --homedir --armor --encrypt -r <KEY-name>
+
+The ciphered secret is stored in block of text within ``PGP MESSAGE``
+delimiters, which are part of cipher.
+
+.. code-block:: text
+
+      -----BEGIN PGP MESSAGE-----
+      Version: GnuPG v1
+      -----END PGP MESSAGE-----
+
+Following example shows full use of generated cipher for virtually any secret.
+
+.. code-block:: yaml
+
+    parameters:
+      _param:
+        rabbitmq_secret_key: |
+          -----BEGIN PGP MESSAGE-----
+          Version: GnuPG v1
+
+          hQEMAweRHKaPCfNeAQf9GLTN16hCfXAbPwU6BbBK0unOc7i9/etGuVc5CyU9Q6um
+          QuetdvQVLFO/HkrC4lgeNQdM6D9E8PKonMlgJPyUvC8ggxhj0/IPFEKmrsnv2k6+
+          cnEfmVexS7o/U1VOVjoyUeliMCJlAz/30RXaME49Cpi6No2+vKD8a4q4nZN1UZcG
+          RhkhC0S22zNxOXQ38TBkmtJcqxnqT6YWKTUsjVubW3bVC+u2HGqJHu79wmwuN8tz
+          m4wBkfCAd8Eyo2jEnWQcM4TcXiF01XPL4z4g1/9AAxh+Q4d8RIRP4fbw7ct4nCJv
+          Gr9v2DTF7HNigIMl4ivMIn9fp+EZurJNiQskLgNbktJGAeEKYkqX5iCuB1b693hJ
+          FKlwHiJt5yA8X2dDtfk8/Ph1Jx2TwGS+lGjlZaNqp3R1xuAZzXzZMLyZDe5+i3RJ
+          skqmFTbOiA==
+          =Eqsm
+          -----END PGP MESSAGE-----
+      rabbitmq:
+        server:
+          secret_key: ${_param:rabbitmq_secret_key}
+          ...
+
+As you can see the GPG encrypted parameters can be further referenced with
+reclass interpolation ``${_param:rabbitmq_secret_key}`` statement.
 
 
 Creating new models

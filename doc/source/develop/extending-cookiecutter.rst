@@ -3,16 +3,23 @@
 Cookiecutter usage
 ==================
 
-How to use cookiecutter template for Salt Formula.
+This guide shows how to use cookiecutter template to create new Salt formula.
+
 
 Installation
-============
+------------
 
 .. code-block:: bash
 
     pip install cookiecutter
  
     cd cookiecutter
+
+
+Usage
+-----
+
+.. code-block:: bash
 
     cookiecutter salt-formula
 
