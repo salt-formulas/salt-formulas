@@ -3,22 +3,34 @@
 Service classification
 ======================
 
-Pillar is an interface for Salt designed to offer global values that are distributed to all minions. The ext_pillar option allows for any number of external pillar interfaces to be called to populate the pillar data.
+Pillar is an interface for Salt designed to offer global values that are
+distributed to all minions. The ext_pillar option allows for any number of
+external pillar interfaces to be called to populate the pillar data.
+
+Pillars are tree-like structures of data defined on the Salt Master and passed
+through to the minions. They allow confidential, targeted data to be securely
+sent only to the relevant minion. Pillar is therefore one of the most
+important systems when using Salt.
+
 
 Pillar metadata
 ---------------
 
-Pillar data is managed in a similar way as the Salt State Tree. It is the default metadata source for 
+Pillar data is managed in a similar way as the Salt State Tree. It is the
+default metadata source for states.
 
-Reclass reclass
----------------
 
-Reclass is an “external node classifier” (ENC) for Salt, Ansible or Puppet and has ability to merge data sources in recursive way and interpolate variables. I
+Reclass metadata
+----------------
 
-reclass installation
-~~~~~~~~~~~~~~~~~~
+Reclass is an “external node classifier” (ENC) for Salt, Ansible or Puppet and
+has ability to merge data sources in recursive way and interpolate variables.
 
-First we will install the application and then configure it.
+
+Installation
+~~~~~~~~~~~~
+
+Installation from git or from the package.
 
 .. code-block:: bash
     

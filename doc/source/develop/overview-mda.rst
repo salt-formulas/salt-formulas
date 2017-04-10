@@ -1,23 +1,39 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Model-driven architectures with Salt formulas
+Model-driven architectures with Salt-formulas
 =============================================
 
 Model Driven Architecture (MDA) is an answer to growing complexity of systems
 controlled by configuration management tools. It provides unified node
 classification with atomic service definitions.
 
-Core principles for deploying model-driven architectures. 
+Following list shows core principles of model-driven architectures.
 
-- Atomicity - Services are serated at such level of granularity that.
-- Reusability/replacibility - Different services serving same role can be replaced without affecting neigbouring services.
-- System roles - Services may implement various roles, most often client/server variations.
-- Dynamic resources - Service metadata must be alwyas available for dynamically created resources.
-- Change management - The strength lies not in descibing the static state of service but more the process of everchanging improvements.
+Atomicity
+
+  Services are serated at such level of granularity that.
+
+Reusability/replacibility
+
+  Different services serving same role can be replaced without affecting
+  neigbouring services.
+
+System roles
+
+  Services may implement various roles, most often client/server variations.
+
+Dynamic resources
+
+  Service metadata must be alwyas available for dynamically created resources.
+
+Change management
+
+  The strength lies not in descibing the static state of service but more the
+  process of everchanging improvements.
 
 
 Sample MDA Scenario
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
 
 Following image show example system that has reasonable amount of services
 with some outsourced by 3rd party providers. The OpenStack architecture is too
@@ -68,7 +84,8 @@ Systems can be seen at following picture.
   :width: 100%
   :align: center
 
-Multiple servers with various systems can are defined by the reclass definition to aleviate node definitions.
+Multiple servers with various systems can are defined by the reclass
+definition to aleviate node definitions.
 
 
 .. code-block:: yaml
@@ -99,7 +116,11 @@ Multiple servers with various systems can are defined by the reclass definition 
           tpc_int_prd_svc0N:
             ..
 
-The actual generated definition is in the following code. All of the logic is encapuslated by system that are customised by set of parameteres, some of which may be GPG encrypted. This is better form to use in development as reclass powered metadata requires explicit state declaration that may not be automatic and just bothers at development stage.
+The actual generated definition is in the following code. All of the logic is
+encapuslated by system that are customised by set of parameteres, some of
+which may be GPG encrypted. This is better form to use in development as
+reclass powered metadata requires explicit state declaration that may not be
+automatic and just bothers at development stage.
 
 .. code-block:: yaml
 
@@ -125,9 +146,11 @@ The actual generated definition is in the following code. All of the logic is en
           domain: int.prd.tcp.cloudlab.cz
 
 System level
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^
 
-There are usually multiple systems on each server that may span one or more servers. There are defintions of all-in-one solutions for common systems for development purposes.
+There are usually multiple systems on each server that may span one or more
+servers. There are defintions of all-in-one solutions for common systems for
+development purposes.
 
 .. figure:: /_images/meta_system.png
   :width: 100%
@@ -135,11 +158,22 @@ There are usually multiple systems on each server that may span one or more serv
 
 The systems are classified by simple following rule. 
 
-- Single - Usually all-in-one application system on a node (Taiga, Gitlab)
-- Multi - Multiple all-in-one application systems on a node (Horizon, Wordpress)
-- Cluster - Node is par of larger cluster of nodes (OpenStack controllers, larger webapp applications)
+Single
 
-Redis itself does not form any system but is part of many well know applications, the following example shows usage of Redis within complex Gitlab system.
+  Usually all-in-one application system on a node (Taiga, Gitlab)
+
+Multi
+
+  Multiple all-in-one application systems on a node (Horizon, Wordpress)
+
+Cluster
+
+  Node is par of larger cluster of nodes (OpenStack controllers, larger webapp
+  applications)
+
+Redis itself does not form any system but is part of many well know
+applications, the following example shows usage of Redis within complex Gitlab
+system.
 
 .. code-block:: yaml
 
@@ -185,20 +219,26 @@ Redis itself does not form any system but is part of many well know applications
 Service level
 ^^^^^^^^^^^^^^^^^^^^
 
-The services are the atomic units of config management. SaltStack formula or Puppet recipe with default metadata set can be considered as a service. Each service implements one or more roles and together with other services form systems. Following list shows decomposition 
+The services are the atomic units of config management. SaltStack formula or
+Puppet recipe with default metadata set can be considered as a service. Each
+service implements one or more roles and together with other services form
+systems. Following list shows decomposition
 
 - Formula - Set of states that perform together atomic service
 - State - Declarative definition of various resources (package, files, services)
 - Module - Imperative interaction enforcing defined state for each State
 
-Given Redis formula from Gitlab example we set basic set of parametes that can be used for actual service configuration as well as support services configuration.
+Given Redis formula from Gitlab example we set basic set of parametes that can
+be used for actual service configuration as well as support services
+configuration.
 
 
 .. figure:: /_images/meta_service.png
   :width: 100%
   :align: center
 
-Following code shows sample Redis formula showing several states: pkg, systl, file and service.
+Following code shows sample Redis formula showing several states: pkg, systl,
+file and service.
 
 .. code-block:: yaml
 
@@ -232,7 +272,9 @@ Following code shows sample Redis formula showing several states: pkg, systl, fi
 
     {%- endif %}
 
-Along with the actual definition of node there are service level metadata fragments for common situations. Following fragment shows localhost only Redis database.
+Along with the actual definition of node there are service level metadata
+fragments for common situations. Following fragment shows localhost only Redis
+database.
 
 .. code-block:: yaml
 

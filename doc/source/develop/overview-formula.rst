@@ -146,6 +146,8 @@ Support services as databases, proxies, application servers.
       - https://github.com/salt-formulas/salt-formula-mysql
    *  - nginx
       - https://github.com/salt-formulas/salt-formula-nginx
+   *  - openldap
+      - https://github.com/salt-formulas/salt-formula-openldap
    *  - postfix
       - https://github.com/salt-formulas/salt-formula-postfix
    *  - postgresql
@@ -186,6 +188,7 @@ Support services as databases, proxies, application servers.
    ../_files/formulas/mosquitto/README.rst
    ../_files/formulas/mysql/README.rst
    ../_files/formulas/nginx/README.rst
+   ../_files/formulas/openldap/README.rst
    ../_files/formulas/postfix/README.rst
    ../_files/formulas/postgresql/README.rst
    ../_files/formulas/powerdns/README.rst
@@ -307,6 +310,8 @@ All supported OpenStack cloud platform services.
       - https://github.com/salt-formulas/salt-formula-openvstorage
    *  - rally
       - https://github.com/salt-formulas/salt-formula-rally
+   *  - sahara
+      - https://github.com/salt-formulas/salt-formula-sahara
    *  - swift
       - https://github.com/salt-formulas/salt-formula-swift
    *  - tempest
@@ -331,6 +336,7 @@ All supported OpenStack cloud platform services.
    ../_files/formulas/nova/README.rst
    ../_files/formulas/opencontrail/README.rst
    ../_files/formulas/rally/README.rst
+   ../_files/formulas/sahara/README.rst
    ../_files/formulas/swift/README.rst
    ../_files/formulas/tempest/README.rst
 
@@ -549,6 +555,7 @@ Automated management of web-based applications.
    ../_files/formulas/leonardo/README.rst
    ../_files/formulas/mayan/README.rst
    ../_files/formulas/moodle/README.rst
+   ../_files/formulas/openode/README.rst
    ../_files/formulas/redmine/README.rst
    ../_files/formulas/sentry/README.rst
    ../_files/formulas/suitecrm/README.rst

@@ -7,8 +7,9 @@ Chapter 1. Overview
 
    overview-mda.rst
    overview-formula.rst
-   overview-pillar.rst
    overview-salt.rst
+   overview-pillar.rst
+   overview-reclass.rst
    overview-packaging.rst
    overview-versioning.rst
 

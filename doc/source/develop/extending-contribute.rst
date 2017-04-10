@@ -6,7 +6,7 @@ Contributor guidelines
 Bugs
 ----
 
-Bugs should be filed on `Bug Launchpad`_ for SaltStack-Formulas.
+Bugs should be filed on `Bug Launchpad`_ for SaltStack-formulas.
 
 When submitting a bug, or working on a bug, please ensure the following
 criteria are met:

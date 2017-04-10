@@ -7,12 +7,6 @@ Chapter 2. Configuration
 
    configure-initial.rst
    configure-infrastructure.rst
-   configure-compute.rst
-   configure-network.rst
-   configure-volume.rst
-   configure-image.rst
-   configure-telemetry.rst
-   configure-orchestrate.rst
    configure-dashboard.rst
 
 --------------
