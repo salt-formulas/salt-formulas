@@ -10,6 +10,7 @@ Chapter 1. Overview
    overview-pillar.rst
    overview-salt.rst
    overview-packaging.rst
+   overview-versioning.rst
 
 
 --------------
