@@ -323,10 +323,15 @@ on its own. Customer is free to create its own system level classes.
 Metadata
 ========
 
+We divide metadata into 2 specific categories:
 
 
 'Soft' metadata
 ---------------
+
+Is the special key-value store in reclass called _param, this contains keys
+that are interpolated to the 'hard' metadata. These are parameters that are
+attached at the node definition.
 
 .. code-block:: yaml
 
@@ -340,6 +345,18 @@ All of these values are preferably scalar and can be referenced as
 
 'Hard' metadata
 ---------------
+
+This metadata are the complex metadata structures that can contain
+interpolation stings pointing to the 'soft' metadata.
+
+.. code-block:: yaml
+
+    parameters:
+      python-application:
+        server:
+          database:
+            name: database_name
+            host: ${_param:service_database_host}
 
 
 Handling sensitive metadata

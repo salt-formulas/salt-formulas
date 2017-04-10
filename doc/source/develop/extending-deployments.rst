@@ -83,12 +83,12 @@ the FQDN.
     |   |-- cluster_name/
     |   |   |-- infra/
     |   |   |   `-- config.yml
-    |   |   |-- python-app/
+    |   |   |-- python_app/
     |   |   |   |-- database.yml
     |   |   |   `-- web.yml
     |   |   `-- init.yml
     |   |-- system/
-    |   |   |-- python-app/
+    |   |   |-- python_app/
     |   |   |   `-- server/
     |   |   |       |-- [dev|prd].yml
     |   |   |       `-- [single|cluster].yml
@@ -116,10 +116,59 @@ and that is core node pointing to your `cluster_name.infra.config` class.
 
 Content of the `nodes/cfg.cluster.domain.yml` file:
 
+.. code-block:: yaml
 
+    classes:
+    - cluster.cluster_name.infra.config
+    parameters:
+      _param:
+        reclass_data_revision: master
+      linux:
+        system:
+          name: cfg01
+          domain: cluster.domain
+
+Contains pointer to class `cluster.cluster_name.infra.config` and some basic
+parameters.
 
 Content of the `classes/cluster/cluster_name/infra/config.yml` file:
 
+.. code-block:: yaml
+
+    classes:
+    - system.openssh.client
+    - system.salt.master.git
+    - system.salt.master.formula.git
+    - system.reclass.storage.salt
+    - cluster.cluster_name
+    parameters:
+      _param:
+        salt_master_base_environment: dev
+        reclass_data_repository: git@git.domain.com:reclass-models/salt-model.git
+        salt_master_environment_repository: "https://github.com/salt-formulas"
+        reclass_data_revision: master
+        reclass_config_master: ${_param:infra_config_deploy_address}
+        single_address: ${_param:infra_config_address}
+      reclass:
+        storage:
+          node:
+            python_app01:
+              name: app01
+              domain: ${_param:cluster_domain}
+              classes:
+              - cluster.${_param:cluster_name}.python_app.application
+              params:
+                salt_master_host: ${_param:reclass_config_master}
+                single_address: ${_param:python_application_node01_single_address}
+                database_address: ${_param:python_database_node01_single_address}
+            python_dbs01:
+              name: dbs01
+              domain: ${_param:cluster_domain}
+              classes:
+              - cluster.${_param:cluster_name}.python_app.database
+              params:
+                salt_master_host: ${_param:reclass_config_master}
+                single_address: ${_param:python_database_node01_single_address}
 
 
 --------------

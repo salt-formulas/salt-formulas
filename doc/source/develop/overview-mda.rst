@@ -62,12 +62,12 @@ multiple application systems. These usually are:
 
 
 Service Decomposition 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 The following chapter shows service decomposition of GitLab all-in-one box.
 
 Server level
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^
 
 Servers contain one or more systems that bring business value and several
 maintenance systems that are common to any node. Following list shows basic

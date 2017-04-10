@@ -41,7 +41,8 @@ Installation from git or from the package.
     mkdir /etc/reclass
     vim /etc/reclass/reclass-config.yml
 
-And set the content to the following to setup reclass as salt-master metadata source.
+And set the content to the following to setup reclass as salt-master metadata
+source.
 
 .. code-block:: yaml
 
