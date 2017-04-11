@@ -1,7 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Deployment authoring guidelines
-===============================
+Deployment Preparation Guidelines
+=================================
 
 Let's consider simple deployment of single configuration node with one
 application and one database node.
@@ -14,8 +14,8 @@ To start the simple deployment you need first setup the Salt master.
 Installation of salt minions on controlled nodes is then very simple.
 
 
-Salt master states
-------------------
+Salt Master Formulas
+--------------------
 
 States are delivered by formulas and are stored in ``/srv/salt/env/<env>/``
 directory. Environment can be either production [prd] or development [dev].
@@ -65,7 +65,7 @@ environment in a little shortened version.
         `-- client.sls
 
 
-Salt master metadata
+Salt Master Metadata
 --------------------
 
 Metadata then define what state formulas in given specific context are
@@ -106,10 +106,6 @@ the FQDN.
     |       `-- openssh/ [formula metadata]
     `-- nodes/
         `-- cfg.cluster.domain.yml
-
-
-Salt master metadata
---------------------
 
 You start with defining single node `cfg.cluster.domain` in nodes directory
 and that is core node pointing to your `cluster_name.infra.config` class.
