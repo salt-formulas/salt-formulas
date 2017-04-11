@@ -355,3 +355,21 @@
 [submodule "formulas/openldap"]
 	path = formulas/openldap
 	url = https://github.com/salt-formulas/salt-formula-openldap
+[submodule "formulas/squid"]
+	path = formulas/squid
+	url = https://github.com/salt-formulas/salt-formula-squid
+[submodule "formulas/knot"]
+	path = formulas/knot
+	url = https://github.com/salt-formulas/salt-formula-knot
+[submodule "formulas/powerdns"]
+	path = formulas/powerdns
+	url = https://github.com/salt-formulas/salt-formula-powerdns
+[submodule "formulas/motion"]
+	path = formulas/motion
+	url = https://github.com/salt-formulas/salt-formula-motion
+[submodule "formulas/fluentd"]
+	path = formulas/fluentd
+	url = https://github.com/salt-formulas/salt-formula-fluentd
+[submodule "formulas/stackstorm"]
+	path = formulas/stackstorm
+	url = https://github.com/salt-formulas/salt-formula-stackstorm

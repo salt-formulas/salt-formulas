@@ -1,7 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Formula ecosystem
-=================
+Actual Formula Ecosystem
+========================
 
 The SaltStack-Formulas formulas are divided into several groups according to
 their purpose. Formulas share same structure and metadata definions, expose
@@ -114,8 +114,8 @@ Support services as databases, proxies, application servers.
       - https://github.com/salt-formulas/salt-formula-bind
    *  - bird
       - https://github.com/salt-formulas/salt-formula-bird
-   *  - cafd
-      - https://github.com/salt-formulas/salt-formula-cafd
+   *  - cadf
+      - https://github.com/salt-formulas/salt-formula-cadf
    *  - cassandra
       - https://github.com/salt-formulas/salt-formula-cassandra
    *  - dovecot
@@ -172,7 +172,7 @@ Support services as databases, proxies, application servers.
    ../_files/formulas/apache/README.rst
    ../_files/formulas/bind/README.rst
    ../_files/formulas/bird/README.rst
-   ../_files/formulas/cafd/README.rst
+   ../_files/formulas/cadf/README.rst
    ../_files/formulas/cassandra/README.rst
    ../_files/formulas/dovecot/README.rst
    ../_files/formulas/elasticsearch/README.rst
@@ -181,7 +181,7 @@ Support services as databases, proxies, application servers.
    ../_files/formulas/haproxy/README.rst
    ../_files/formulas/keepalived/README.rst
    ../_files/formulas/knot/README.rst
-   ../_files/formulas/letsecrypt/README.rst
+   ../_files/formulas/letsencrypt/README.rst
    ../_files/formulas/logrotate/README.rst
    ../_files/formulas/memcached/README.rst
    ../_files/formulas/mongodb/README.rst

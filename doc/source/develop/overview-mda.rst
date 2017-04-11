@@ -1,7 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Model-driven architectures with Salt-formulas
-=============================================
+Model-driven Architectures
+==========================
 
 Model Driven Architecture (MDA) is an answer to growing complexity of systems
 controlled by configuration management tools. It provides unified node
@@ -9,37 +9,37 @@ classification with atomic service definitions.
 
 Following list shows core principles of model-driven architectures.
 
-Atomicity
+**Atomicity**
 
   Services are serated at such level of granularity that.
 
-Reusability/replacibility
+**Reusability/replacibility**
 
   Different services serving same role can be replaced without affecting
   neigbouring services.
 
-System roles
+**System roles**
 
   Services may implement various roles, most often client/server variations.
 
-Dynamic resources
+**Dynamic resources**
 
   Service metadata must be alwyas available for dynamically created resources.
 
-Change management
+**Change management**
 
   The strength lies not in descibing the static state of service but more the
   process of everchanging improvements.
 
 
 Sample MDA Scenario
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 Following image show example system that has reasonable amount of services
 with some outsourced by 3rd party providers. The OpenStack architecture is too
-big to fit here.
+big picture to fit this frame.
 
-.. figure:: /_images/openstack_system.png
+.. figure:: /_images/druidly_system.png
   :width: 100%
   :align: center
 
@@ -56,9 +56,17 @@ We can identify several layers within the largers application systems.
 Application systems are supported by shared subsystems that span across
 multiple application systems. These usually are:
 
-- Access & control system - SSH access, orchestration engine access, user authentication
-- Monitoring system - Events and metric collections
-- Essential systems - DNS, NTP, MTA clients
+**Access & control system**
+
+  SSH access, orchestration engine access, user authentication
+
+**Monitoring system**
+
+  Events and metric collections
+
+**Essential systems**
+  
+  DNS, NTP, MTA clients
 
 
 Service Decomposition 

@@ -1,6 +1,6 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Formula packaging
+Formula Packaging
 =================
 
 This section describes process of building distribution packages for various

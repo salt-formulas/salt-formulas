@@ -1,7 +1,11 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Reclass metadata management
-===========================
+Reclass Metadata
+================
+
+.. contents::
+    :backlinks: none
+    :local:
 
 Every solution can be described by using several layers of objects, where the
 objects of higher layer are combinations of the objects from lower layers. For
@@ -320,14 +324,17 @@ When customer is reusing the provided system, but also has formulas and system
 on its own. Customer is free to create its own system level classes.
 
 
-Metadata
-========
+Metadata classification
+-----------------------
 
-We divide metadata into 2 specific categories:
+The reclass deals with complex data structures we call 'hard' metadata, that
+you don't need to manage directly, but we have introduced so called 'soft'
+metadata, as siple list of most frequent changed properties of 'hard' metadata
+model.
 
 
-'Soft' metadata
----------------
+The 'soft' metadata
+~~~~~~~~~~~~~~~~~~~
 
 Is the special key-value store in reclass called _param, this contains keys
 that are interpolated to the 'hard' metadata. These are parameters that are
@@ -343,8 +350,8 @@ All of these values are preferably scalar and can be referenced as
 ``${_param:service_database_host}`` parameter.
 
 
-'Hard' metadata
----------------
+The 'Hard' metadata
+~~~~~~~~~~~~~~~~~~~
 
 This metadata are the complex metadata structures that can contain
 interpolation stings pointing to the 'soft' metadata.
@@ -360,7 +367,7 @@ interpolation stings pointing to the 'soft' metadata.
 
 
 Handling sensitive metadata
-===========================
+---------------------------
 
 Sensitive data refers to any information that you would not wish to share with
 anyone accessing a server. This could include data such as passwords, keys, or

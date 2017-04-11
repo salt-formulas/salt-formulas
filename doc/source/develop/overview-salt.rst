@@ -1,7 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-SaltStack configuration
-=======================
+SaltStack Operations
+====================
 
 SaltStack-Formulas Deployment uses Salt configuration platform to install and
 manage OpenStack. Salt is an automation platform that greatly simplifies

@@ -1,7 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Service classification
-======================
+Pillar Metadata
+===============
 
 Pillar is an interface for Salt designed to offer global values that are
 distributed to all minions. The ext_pillar option allows for any number of

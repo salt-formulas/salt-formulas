@@ -1,8 +1,8 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-=======================
-Salt formula guidelines
-=======================
+============================
+Formula Authoring Guidelines
+============================
 
 Salt formulas encapsulate specific services. This document contains guidelines
 to salt formula creation and maintenance.

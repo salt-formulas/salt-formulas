@@ -1,6 +1,6 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Formula versioning
+Formula Versioning
 ==================
 
 Current versioning system is date based same as `Saltstack versioning`_ using
