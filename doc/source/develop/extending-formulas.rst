@@ -14,11 +14,7 @@ to salt formula creation and maintenance.
 Formula directory structure
 ===========================
 
-Formulas follow the same directory structure as Salt official `conventions <ht
-tp://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html
->`_ and `best practices
-<http://docs.saltstack.com/en/latest/topics/best_practices.html>`_ described
-in the SaltStack documentation.
+Formulas follow the same directory structure as Salt official `conventions <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_ and `best practices <http://docs.saltstack.com/en/latest/topics/best_practices.html>`_ described in the SaltStack documentation.
 
 Every formula should have the following directory layout:
 

@@ -1,10 +1,10 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Starting Vagrant Deployment
-===========================
 
-All-in-one (AIO) deployments are a great way to setup an SaltStack-Formulas cloud
-for:
+Quick Deployment with Vagrant
+=============================
+
+All-in-one (AIO) deployments are a great way to setup an infrastructure for:
 
 * a service development environment
 * an overview of how all of the OpenStack services and roles play together
@@ -17,8 +17,9 @@ It's strongly recommended to have hardware that meets the following
 requirements before starting an AIO deployment:
 
 * CPU with `hardware-assisted virtualization`_ support
-* At least 80GB disk space
-* 8GB RAM
+* At least 20GB disk space
+* 2GB RAM
+
 
 Vagrant setup
 -------------
@@ -33,17 +34,17 @@ available in shell. Try logging out and logging back in to your system (this
 is particularly necessary sometimes for Windows) to get the updated system
 path up and running.
 
-Add the generic ubuntu1404 image for virtualbox virtualization.
+Add the generic ubuntu1604 image for virtualbox virtualization.
 
 .. code-block:: bash
 
-    $ vagrant box add ubuntu/trusty64
+    $ vagrant box add ubuntu/xenial64
 
-    ==> box: Loading metadata for box 'ubuntu/trusty64'
-        box: URL: https://atlas.hashicorp.com/ubuntu/trusty64
-    ==> box: Adding box 'ubuntu/trusty64' (v20160122.0.0) for provider: virtualbox
-        box: Downloading: https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/20160122.0.0/providers/virtualbox.box
-    ==> box: Successfully added box 'ubuntu/trusty64' (v20160122.0.0) for 'virtualbox'!
+    ==> box: Loading metadata for box 'ubuntu/xenial64'
+        box: URL: https://atlas.hashicorp.com/ubuntu/xenial4
+    ==> box: Adding box 'ubuntu/xenial64' (v20160122.0.0) for provider: virtualbox
+        box: Downloading: https://vagrantcloud.com/ubuntu/boxes/xenial64/versions/20160122.0.0/providers/virtualbox.box
+    ==> box: Successfully added box 'ubuntu/xenial64' (v20160122.0.0) for 'virtualbox'!
 
 
 Environment setup 
@@ -57,15 +58,12 @@ The environment consists of three nodes.
    *  - **FQDN**
       - **Role**
       - **IP**
-   *  - config.openstack.local
+   *  - config.cluster.local
       - Salt master node
       - 10.10.10.200
-   *  - control.openstack.local
-      - OpenStack control node
+   *  - service.cluster.local
+      - Managed node
       - 10.10.10.201
-   *  - compute.openstack.local
-      - OpenStack compute node
-      - 10.10.10.202
 
 
 
@@ -78,17 +76,12 @@ Look at configuration files for each node deployed.
 
 ``scripts/minions/config.conf`` configuration:
 
-.. literalinclude:: /_static/scripts/minions/config.conf
+.. literalinclude:: ../_files/vagrant/minions/config.conf
    :language: yaml
 
-``scripts/minions/control.conf`` configuration:
+``scripts/minions/service.conf`` configuration:
 
-.. literalinclude:: /_static/scripts/minions/control.conf
-   :language: yaml
-
-``scripts/minions/compute.conf`` configuration:
-
-.. literalinclude:: /_static/scripts/minions/compute.conf
+.. literalinclude:: ../_files/vagrant/minions/service.conf
    :language: yaml
 
 
@@ -98,7 +91,7 @@ Vagrant configuration file
 The main vagrant configuration for SaltStack-Formulas deployment is located at
 ``scripts/Vagrantfile``.
 
-.. literalinclude:: /_static/scripts/Vagrantfile
+.. literalinclude:: ../_files/vagrant/Vagrantfile
    :language: ruby
 
 
@@ -109,18 +102,9 @@ The salt-master bootstrap is located at ``scripts/bootstrap/salt-
 master-pkg.sh`` and is accessible from the virtual machine at ``/vagrant
 /bootstrap/salt-master-pkg.sh``.
 
-.. literalinclude:: /_static/scripts/bootstrap/salt-master-pkg.sh
+.. literalinclude:: ../_files/scripts/salt-master-init.sh
    :language: bash
 
-Salt master pip based bootstrap
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The salt-master bootstrap is located at ``scripts/bootstrap/salt- master-
-pip.sh`` and is accessible from the virtual machine at ``/vagrant/bootstrap
-/salt-master-pip.sh``.
-
-.. literalinclude:: /_static/scripts/bootstrap/salt-master-pip.sh
-   :language: bash
 
 Launching the Vagrant nodes
 ---------------------------
@@ -129,23 +113,22 @@ Check the status of the deployment environment.
 
 .. code-block:: bash
 
-    $ cd /srv/vagrant-openstack
+    $ cd /srv/vagrant-cluster
     $ vagrant status
     
     Current machine states:
 
-    openstack_config          not created (virtualbox)
-    openstack_control         not created (virtualbox)
-    openstack_compute         not created (virtualbox)
+    cluster_config          not created (virtualbox)
+    cluster_service         not created (virtualbox)
 
-Setup SaltStack-Formulas config node, launch it and connect to it using following
-commands, it cannot be provisioned by vagrant salt, as the salt master is not
-configured yet.
+Setup config node, launch it and connect to it using following commands, it
+cannot be provisioned by vagrant salt, as the salt master is not configured
+yet.
 
 .. code-block:: bash
 
-    $ vagrant up openstack_config
-    $ vagrant ssh openstack_config
+    $ vagrant up cluster_config
+    $ vagrant ssh cluster_config
 
 
 Bootstrap Salt master
@@ -156,42 +139,28 @@ with following parameters:
 
 .. code-block:: bash
 
-    $ export RECLASS_ADDRESS=https://github.com/tcpcloud/salt-formulas-model.git
-    $ export CONFIG_HOST=config.openstack.local
+    $ export RECLASS_ADDRESS=https://github.com/salt-formulas/salt-formulas-model.git
+    $ export CONFIG_HOST=config.cluster.local
 
 To deploy salt-master from packages, run on config node:
 
 .. code-block:: bash
 
-    $ /vagrant/bootstrap/salt-master-pkg.sh
+    $ /vagrant/bootstrap/salt-master-setup.sh
 
-To deploy salt-master from pip, run on config node:
-
-.. code-block:: bash
-
-    $ /vagrant/bootstrap/salt-master-pip.sh
-
-Now setup the SaltStack-Formulas control node. Launch it using following command:
+Now setup the server node. Launch it using following command:
 
 .. code-block:: bash
 
-    $ vagrant up openstack_control
+    $ vagrant up cluster_service
 
-Now setup the SaltStack-Formulas compute node. Launch it using following command:
 
-.. code-block:: bash
-
-    $ vagrant up openstack_compute
-
-To orchestrate the services accross all nodes, run following command on config
-node:
+To orchestrate all defined services accross all nodes, run following command
+on config node:
 
 .. code-block:: bash
 
     $ salt-run state.orchestrate orchestrate
-
-The installation is now over, you should be able to access the user interface
-of cloud deployment at your control node.
 
 .. _hardware-assisted virtualization: https://en.wikipedia.org/wiki/Hardware-assisted_virtualization
 .. _Vagrant downloads page: https://www.vagrantup.com/downloads.html

@@ -42,6 +42,8 @@ Core services needed for basic infrastructure operation.
       - Repository
    *  - backupninja
       - https://github.com/salt-formulas/salt-formula-backupninja
+   *  - ceph
+      - https://github.com/salt-formulas/salt-formula-ceph
    *  - chrony
       - https://github.com/salt-formulas/salt-formula-chrony
    *  - freeipa
@@ -78,6 +80,7 @@ Core services needed for basic infrastructure operation.
 .. toctree::
 
    ../_files/formulas/backupninja/README.rst
+   ../_files/formulas/ceph/README.rst
    ../_files/formulas/chrony/README.rst
    ../_files/formulas/freeipa/README.rst
    ../_files/formulas/git/README.rst

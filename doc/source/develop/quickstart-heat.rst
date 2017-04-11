@@ -1,7 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Starting Heat Deployment
-========================
+Quick Deployment with Heat
+==========================
 
 All-in-one (AIO) deployments are a great way to setup an SaltStack-Formulas cloud for:
 
@@ -70,19 +70,17 @@ versions of OpenStack clients.
    $ virtualenv venv-heat
    $ source ./venv-heat/bin/activate
 
-Use `requirements.txt` from the `SaltStack-Formulas heat templates repository`_ to install
-tested versions of clients into activated environment.
+Use following `requirements.txt`. Clients were tested with Juno and Kilo
+Openstack versions.
+
+.. literalinclude:: ../_files/heat/requirements/heat.txt
+   :language: python
+
+Put requirements into file and install them.
 
 .. code-block:: bash
 
    $ pip install -r requirements.txt
-
-The summary of clients for OpenStack. Following clients were tested with Juno and Kilo
-Openstack versions.  
-
-.. literalinclude:: ../../../deploy/scripts/requirements/heat.txt
-   :language: python
-
 
 If everything goes right, you should be able to use openstack clients, `heat`,
 `nova`, etc.
@@ -158,6 +156,10 @@ Now you need to customize env files for stacks, see examples in envs directory
 ``doc/source/_static/scripts/envs`` and set required parameters.
 
 Full examples of env files for the two respective stacks:
+
+.. _hardware-assisted virtualization: https://en.wikipedia.org/wiki/Hardware-assisted_virtualization
+.. _Vagrant downloads page: https://www.vagrantup.com/downloads.html
+
 
 --------------
 

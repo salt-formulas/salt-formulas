@@ -6,7 +6,7 @@ Chapter 3. Extending
 .. toctree::
 
    extending-cookiecutter.rst
-   extending-deployments.rst
+   extending-myrepos.rst
    extending-formulas.rst
    extending-contribute.rst
 

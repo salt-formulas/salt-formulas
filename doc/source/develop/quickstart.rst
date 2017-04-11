@@ -5,9 +5,9 @@ Chapter 2. Quick start
 
 .. toctree::
 
-   quickstart-myrepos.rst
    quickstart-heat.rst
    quickstart-vagrant.rst
+   quickstart-configure.rst
 
 
 --------------

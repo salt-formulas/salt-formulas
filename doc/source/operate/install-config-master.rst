@@ -1,6 +1,6 @@
 
-============================
-Configuration node setup
+========================
+Configuration Node Setup
 ========================
 
 

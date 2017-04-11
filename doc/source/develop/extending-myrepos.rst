@@ -1,6 +1,6 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Myrepos synchronisation
+Myrepos Synchronisation
 =======================
 
 
