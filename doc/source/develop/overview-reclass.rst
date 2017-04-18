@@ -16,6 +16,17 @@ system” and have it on a higher (System) layer. Then we can use a set of
 systems to create complete deployment, “openstack cluster”, “kubernetes
 cluster” or any other PaaS, IaaS or SaaS solution.
 
+.. figure :: /_images/formula_system_cluster_simple.png
+   :width: 90%
+   :align: center
+
+   Decomposition of services, systems and clusters
+
+This model has been developed to cope with huge scope deployments, consisting
+of hundreds of services running VMs and containers acroess multiple physical
+servers or locations. Following text takes apart individual components and
+explains them in further detail.
+
 
 Basic principles
 ----------------
@@ -233,6 +244,12 @@ salt,  future generated pillars that will be used by salt formulas). The
 actual mapping is defined, where each node is member of specific cluster and
 is implementing specific role(s) in systems.
 
+.. figure :: /_images/cluster_detail.png
+   :width: 90%
+   :align: center
+
+   Cluster level in detail
+
 If we want not just to re-use an object, we can change its behaviour depending
 of the requirements of a solution. We define basic defaults on service level,
 then we can override these default params for specific system needs and then
@@ -323,9 +340,19 @@ Separate cluster and multiple system levels
 When customer is reusing the provided system, but also has formulas and system
 on its own. Customer is free to create its own system level classes.
 
+.. figure :: /_images/formula_system_cluster.png
+   :width: 90%
+   :align: center
 
-Metadata classification
------------------------
+   Multiple system levels for customer based data
+
+In this setup a customer is free to reuse the generic formulas with generic
+systems. At the same time he's free to create formulas of it's own as well as
+custom systems.
+
+
+Metadata types
+--------------
 
 The reclass deals with complex data structures we call 'hard' metadata, that
 you don't need to manage directly, but we have introduced so called 'soft'

@@ -40,6 +40,8 @@ Core services needed for basic infrastructure operation.
 
    *  - Formula
       - Repository
+   *  - aptcacher
+      - https://github.com/salt-formulas/salt-formula-aptcacher
    *  - backupninja
       - https://github.com/salt-formulas/salt-formula-backupninja
    *  - ceph
@@ -68,6 +70,8 @@ Core services needed for basic infrastructure operation.
       - https://github.com/salt-formulas/salt-formula-openssh
    *  - openvpn
       - https://github.com/salt-formulas/salt-formula-openvpn
+   *  - pritunl
+      - https://github.com/salt-formulas/salt-formula-pritunl
    *  - reclass
       - https://github.com/salt-formulas/salt-formula-reclass
    *  - salt
@@ -79,6 +83,7 @@ Core services needed for basic infrastructure operation.
 
 .. toctree::
 
+   ../_files/formulas/aptcacher/README.rst
    ../_files/formulas/backupninja/README.rst
    ../_files/formulas/ceph/README.rst
    ../_files/formulas/chrony/README.rst
@@ -93,6 +98,7 @@ Core services needed for basic infrastructure operation.
    ../_files/formulas/ntp/README.rst
    ../_files/formulas/openssh/README.rst
    ../_files/formulas/openvpn/README.rst
+   ../_files/formulas/pritunl/README.rst
    ../_files/formulas/reclass/README.rst
    ../_files/formulas/salt/README.rst
    ../_files/formulas/sphinx/README.rst
@@ -289,6 +295,8 @@ All supported OpenStack cloud platform services.
       - https://github.com/salt-formulas/salt-formula-ceilometer
    *  - cinder
       - https://github.com/salt-formulas/salt-formula-cinder
+   *  - designate
+      - https://github.com/salt-formulas/salt-formula-designate
    *  - glance
       - https://github.com/salt-formulas/salt-formula-glance
    *  - heat
@@ -327,6 +335,7 @@ All supported OpenStack cloud platform services.
    ../_files/formulas/billometer/README.rst
    ../_files/formulas/ceilometer/README.rst
    ../_files/formulas/cinder/README.rst
+   ../_files/formulas/designate/README.rst
    ../_files/formulas/glance/README.rst
    ../_files/formulas/heat/README.rst
    ../_files/formulas/horizon/README.rst
