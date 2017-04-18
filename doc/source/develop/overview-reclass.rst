@@ -134,6 +134,8 @@ server.
           clients:
           - '127.0.0.1'
 
+There are about 140 formulas present at the moment covered in `Formulas ecosystem`
+chapter.
 
 System level (Business function units)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
