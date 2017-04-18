@@ -46,15 +46,14 @@ deployments following the fundamental MDA principles.
 Service level (Basic functional units)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Individual service meta-data fragments are present in salt formulas and can be
-reused in multiple contexts. Service level roles implement atomicity. Service
-models are used to spin up some service and configure it with defaults. These
-models are then mapped to the salt formulas functionality and provided in the
-packages for formulas (but for reclass, you may replace the service model with
-your own model.
+Meta-data fragments for individual services are stored in salt formulas and
+can be reused in multiple contexts. Service level roles set the granularity of
+service to certain level, role is limited to 1 virtual machine or container
+aggregation. Service models are used to provide models with defaults for
+various contexts. This the low level modelling, where models are directly
+mapped to the Salt formula functions and get projected to the actual nodes.
 
-You store basic configurations of managed services in `metadata/service`
-directory.
+You store basic configurations ofservices in `metadata/service` directory.
 
 .. code-block:: text
 
@@ -349,7 +348,7 @@ on its own. Customer is free to create its own system level classes.
    :width: 90%
    :align: center
 
-   Multiple system levels for customer based data
+   Multiple system levels for customer services' based payloads
 
 In this setup a customer is free to reuse the generic formulas with generic
 systems. At the same time he's free to create formulas of it's own as well as
@@ -369,7 +368,7 @@ model.
    :width: 90%
    :align: center
 
-   Interpolating `soft` parameters in `hard` metadata structure
+   Interpolating `soft` parameters in `hard` metadata structures
 
 
 The 'soft' metadata
