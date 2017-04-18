@@ -360,6 +360,13 @@ metadata, as siple list of most frequent changed properties of 'hard' metadata
 model.
 
 
+.. figure :: /_images/soft_hard_metadata.png
+   :width: 90%
+   :align: center
+
+   Interpolating `soft` parameters in `hard` metadata structure
+
+
 The 'soft' metadata
 ~~~~~~~~~~~~~~~~~~~
 
@@ -459,13 +466,12 @@ If some of required services are missing, you can create a new service formula
 for salt with the default model that describe the basic setup of the service.
 The process of creating new formula uses Cookiecutter to spead it up.
 
-/srv/salt/reclass/classes/service/<service_name>/ with the folder (or a
+`/srv/salt/reclass/classes/service/<service_name>/` with the folder (or a
 symlink to) of your own service model.
 
 
 Creating new a business unit (System level)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 If some ‘system’ is missing, then you can create a new ‘system’ from the set
 of ‘services’ and extend the ‘services’ models with necessary settings for the
@@ -495,7 +501,7 @@ Updating existing formula (Service level)
 Change the model in salt-formula-<service-name> for some global improvements.
 For example: if the change is related to the change in the new package version
 of this service; the change is fixing some bug or improve
-performance/security/etc of the service and should be applied for every
+performance or security of the service and should be applied for every
 cluster.
 
 Example where the common changes can be applied to the service:
