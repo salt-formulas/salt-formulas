@@ -7,14 +7,18 @@ Reclass Metadata
     :backlinks: none
     :local:
 
-Every solution can be described by using several layers of objects, where the
-objects of higher layer are combinations of the objects from lower layers. For
-example, we may install ‘apache server’ and call it ‘apache service’, but an
-object that contains multiple services like ‘apache service’, ‘mysql service’,
-and some python scripts (for example keystone), we will call that “keystone
-system” and have it on a higher (System) layer. Then we can use a set of
-systems to create complete deployment, “openstack cluster”, “kubernetes
-cluster” or any other PaaS, IaaS or SaaS solution.
+Every IT solution can be described by using several layers of objects, where
+the objects of higher layer are combinations of the objects from lower layers.
+For example, we may install ‘apache server’ and call it ‘apache service’, but
+there are objects that contain multiple services like ‘apache service’, ‘mysql
+service’, and some python scripts (for example keystone), we will call these
+“keystone system” or “freeipa system” and separate them on a higher (System)
+layer. The systems represent units of business logic and form working
+components. We can map systems to individual deployments, where “openstack
+cluster” consists of “nova system”, “neutron system” and others OpenStack
+systems and “kubernetes cluster”  consists of “etcd system” , “calico system”
+and few others. We can define and map PaaS, IaaS or SaaS solutions of any size
+and complexity.
 
 .. figure :: /_images/formula_system_cluster_simple.png
    :width: 90%
@@ -22,24 +26,25 @@ cluster” or any other PaaS, IaaS or SaaS solution.
 
    Decomposition of services, systems and clusters
 
-This model has been developed to cope with huge scope deployments, consisting
-of hundreds of services running VMs and containers acroess multiple physical
-servers or locations. Following text takes apart individual components and
+This model has been developed to cope with huge scopes of services, consisting
+of hundreds of services running VMs and containers across multiple physical
+servers or locations. Following text takes apart individual layers and
 explains them in further detail.
 
 
 Basic principles
 ----------------
 
-Metadata is separated into 3 individual layers: service, system and cluster.
-The layers are firmly isolated from each other and can be aggregated on south-
-north direction and using service interface agreements for objects on the same
-level. This approach allows to reuse many already created objects as building
-blocks for a new solution reusing the fundamental MDA principles.
+Metadata models are separated into 3 individual layers: service, system and
+cluster. The layers are firmly isolated from each other and can be aggregated
+on south-north direction and using service interface agreements for objects on
+the same level. This approach allows to reuse many already created objects
+both on service and system layers as building blocks for a new solutions and
+deployments following the fundamental MDA principles.
 
 
-Service level (Basic function units)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Service level (Basic functional units)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Individual service meta-data fragments are present in salt formulas and can be
 reused in multiple contexts. Service level roles implement atomicity. Service
