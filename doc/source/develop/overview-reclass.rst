@@ -191,8 +191,8 @@ systems. At the same time he's free to create formulas of it's own as well as
 custom systems.
 
 
-Full model layouts
-------------------
+Standard metadata layout
+------------------------
 
 Metadata models are separated into 3 individual layers: service, system and
 cluster. The layers are firmly isolated from each other and can be aggregated
@@ -611,3 +611,4 @@ that are used by formulas for services.
 --------------
 
 .. include:: navigation.txt
+s
