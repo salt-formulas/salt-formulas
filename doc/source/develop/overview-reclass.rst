@@ -31,8 +31,8 @@ of hundreds of services running VMs and containers across multiple physical
 servers or locations. Following text takes apart individual layers and
 explains them in further detail.
 
-Basic reclass functions
------------------------
+Core reclass functions
+----------------------
 
 When reclass parses a node or class definition and encounters a parent class,
 it recurses to this parent class first before reading any data of the node (or
@@ -82,7 +82,6 @@ Parameters may reference each other, including deep references, e.g.:
    :align: center
 
    Parameter interpolation of `soft` parameters to `hard` metadata models
-
 
 After merging and interpolation, which happens automatically inside the
 storage modules, the for_demonstration parameter will have a value of “This
@@ -140,8 +139,57 @@ interpolation stings pointing to the 'soft' metadata.
             host: ${_param:service_database_host}
 
 
+Deployment models
+-----------------
 
-Basic model layout
+Keeping consistency across multiple models/deployments has proven to be the
+most difficult part of keeping things running smooth over time with evolving
+configuration management. You have multiple strategies on how to manage your
+metadata for different scales.
+
+The service level metadata can be handled in common namespace not by formulas
+itself, but it is recommended to keep the relevant metadata states
+
+
+Shared cluster and system level
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If every deployment only defined on system level, you need to keep copy of all
+system definitions at all deployments. This is suitable only for small number
+of deployments.
+
+
+Separate cluster with single system level
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+With introduction of new features and services shared deployments does not
+provide necessary flexibility to cope with the change. Having service metadata
+provided along formulas helps to deliver the up-to-date models to the
+deployments, but does not reflect changes on the system level. Also the need
+of multiple parallel deployments lead to adjusting the structure of metadata
+with new common system level and only cluster level for individual
+deployment(s). The cluster layer only contains soft parametrization and class
+references.
+
+
+Separate cluster with multiple system levels
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When customer is reusing the provided system, but also has formulas and system
+on its own. Customer is free to create its own system level classes.
+
+.. figure :: /_images/formula_system_cluster.png
+   :width: 90%
+   :align: center
+
+   Multiple system levels for customer services' based payloads
+
+In this setup a customer is free to reuse the generic formulas with generic
+systems. At the same time he's free to create formulas of it's own as well as
+custom systems.
+
+
+Full model layouts
 ------------------
 
 Metadata models are separated into 3 individual layers: service, system and
@@ -414,56 +462,6 @@ Graphite services butr also grafana sever and sensu server.
 
 Cluster level classes can be shared by members of the particular cluster or by
 single node.
-
-
-Deployment models
------------------
-
-Keeping consistency across multiple models/deployments has proven to be the
-most difficult part of keeping things running smooth over time with evolving
-configuration management. You have multiple strategies on how to manage your
-metadata for different scales.
-
-The service level metadata can be handled in common namespace not by formulas
-itself, but it is recommended to keep the relevant metadata states
-
-
-Shared cluster and system level
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If every deployment only defined on system level, you need to keep copy of all
-system definitions at all deployments. This is suitable only for small number
-of deployments.
-
-
-Separate cluster and system level
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-With introduction of new features and services shared deployments does not
-provide necessary flexibility to cope with the change. Having service metadata
-provided along formulas helps to deliver the up-to-date models to the
-deployments, but does not reflect changes on the system level. Also the need
-of multiple parallel deployments lead to adjusting the structure of metadata
-with new common system level and only cluster level for individual
-deployment(s). The cluster layer only contains soft parametrization and class
-references.
-
-
-Separate cluster and multiple system levels
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-When customer is reusing the provided system, but also has formulas and system
-on its own. Customer is free to create its own system level classes.
-
-.. figure :: /_images/formula_system_cluster.png
-   :width: 90%
-   :align: center
-
-   Multiple system levels for customer services' based payloads
-
-In this setup a customer is free to reuse the generic formulas with generic
-systems. At the same time he's free to create formulas of it's own as well as
-custom systems.
 
 
 Handling sensitive metadata
