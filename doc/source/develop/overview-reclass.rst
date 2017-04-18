@@ -104,12 +104,15 @@ uses the parameter interpolation function of reclass to achieve defining
 parameter at single location.
 
 
-The 'soft' metadata
+The 'Soft' metadata
 ~~~~~~~~~~~~~~~~~~~
 
-Is the special key-value store in reclass called _param, this contains keys
-that are interpolated to the 'hard' metadata. These are parameters that are
-attached at the node definition.
+In reclass storage is a special dictionary called `_param`, which contains
+keys that are interpolated to the 'hard' metadata models. These soft
+parameters can be defaulted at system level or on cluster level and or changed
+at the node definition. With some modufications to formulas it will be also
+possible to have ETCD key-value store to replace or ammed the `_params`
+dictionary.
 
 .. code-block:: yaml
 
