@@ -293,8 +293,8 @@ server.
           clients:
           - '127.0.0.1'
 
-There are about 140 formulas present at the moment covered in `Formulas ecosystem`
-chapter.
+There are about 140 formulas in several categories. You can look at complete
+`Formula Ecosystem <extending-formulas.html>`_ chapter.
 
 System level (Business function units)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -521,19 +521,32 @@ reclass interpolation ``${_param:rabbitmq_secret_key}`` statement.
 Creating new models
 -------------------
 
-Following text shows steps that may be undertaken to implement new
-functionality, new solution or entire deployment:
+Following text shows steps that need to be undertaken to implement new
+functionality, new system or entire deployment:
 
 
 Creating a new formula (Service level)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If some of required services are missing, you can create a new service formula
-for salt with the default model that describe the basic setup of the service.
-The process of creating new formula uses Cookiecutter to spead it up.
+for Salt with the default model that describe the basic setup of the service.
+The process of creating new formula is streamlined by `Using Cookiecutter
+<extending-cookiecutter.html>`_ and after the formula is created you can check
+`Formula Authoring Guidelines <extending-formulas.html>`_ chapter for furher
+instructions.
 
-`/srv/salt/reclass/classes/service/<service_name>/` with the folder (or a
-symlink to) of your own service model.
+If you download formula to salt master, you can point the formula metadata to
+the proper service level directory:
+
+.. code-block:: bash
+
+    ln -s <service_name>/metadata/service /srv/salt/reclass/classes/service/<service_name>
+
+And symlink of the formula content to the specific salt-master file root:
+
+.. code-block:: bash
+
+    ln -s <service_name>/<service_name> /srv/salt/env/<env_name>/<service_name>
 
 
 Creating new a business unit (System level)
@@ -541,34 +554,37 @@ Creating new a business unit (System level)
 
 If some ‘system’ is missing, then you can create a new ‘system’ from the set
 of ‘services’ and extend the ‘services’ models with necessary settings for the
-system (additional ports for haproxy, additional network interfaces for
-neutron, etc).
+system (additional ports for haproxy, additional network interfaces for linux,
+etc). Do not introduce too much of `hard` metadata on the system level, try to
+use class references as much as possible.
 
 
 Creating new deployment (Cluster level)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Determine which systems should be used in the new solution (nova, neutron,
-ceph, horizon, …). If all necessary systems was already created and included
-into global system level, than it can be just included.
+Determine which products are being used in the selected deployemnt, you can
+have infrastructure services, applications, monitoring products defined at
+once for single deployemnt. You need to make suere that all necessary systems
+was already created and included into global system level, then it can be just
+referenced. Follow the guidelines further up in this text.
 
 
 Making changes to existing models
 ---------------------------------
 
-When you decided to add or modify some options in the existing models, that
+When you have decided to add or modify some options in the existing models,
 the right place of the modification should be considered depending of the
-severity of the change:
+impact of the change:
 
 
 Updating existing formula (Service level)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Change the model in salt-formula-<service-name> for some global improvements.
-For example: if the change is related to the change in the new package version
-of this service; the change is fixing some bug or improve
+Change the model in salt-formula-<service-name> for some service-specific
+improvements. For example: if the change is related to the change in the new
+package version of this service; the change is fixing some bug or improve
 performance or security of the service and should be applied for every
-cluster.
+cluster. In most cases we introduce new resources or configuration parameters.
 
 Example where the common changes can be applied to the service:
 https://github.com/openstack/salt-formula-horizon/tree/
