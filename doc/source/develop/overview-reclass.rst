@@ -31,11 +31,13 @@ of hundreds of services running VMs and containers across multiple physical
 servers or locations. Following text takes apart individual layers and
 explains them in further detail.
 
+
 Core reclass functions
 ----------------------
 
-When reclass parses a node or class definition and encounters a parent class,
-it recurses to this parent class first before reading any data of the node (or
+reclass in node centric classifier for any configuration management. When
+reclass parses a node or class definition and encounters a parent class, it
+recurses to this parent class first before reading any data of the node (or
 class). When reclass returns from the recursive, depth first walk, it then
 merges all information of the current node (or class) into the information it
 obtained during the recursion.
@@ -84,8 +86,8 @@ Parameters may reference each other, including deep references, e.g.:
    Parameter interpolation of `soft` parameters to `hard` metadata models
 
 After merging and interpolation, which happens automatically inside the
-storage modules, the for_demonstration parameter will have a value of “This
-node sits in Munich, Germany”.
+storage modules, the `python-application:server:database:host` parameter will
+have a value of “hostname.domain.com”.
 
 Types are preserved if the value contains nothing but a reference. Hence, the
 value of `dict_reference` will actually be a dictionary.
