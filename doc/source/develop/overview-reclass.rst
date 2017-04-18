@@ -31,9 +31,115 @@ of hundreds of services running VMs and containers across multiple physical
 servers or locations. Following text takes apart individual layers and
 explains them in further detail.
 
+Basic reclass functions
+-----------------------
 
-Basic principles
-----------------
+When reclass parses a node or class definition and encounters a parent class,
+it recurses to this parent class first before reading any data of the node (or
+class). When reclass returns from the recursive, depth first walk, it then
+merges all information of the current node (or class) into the information it
+obtained during the recursion.
+
+This means any class may define a list of classes it derives metadata from, in
+which case classes defined further down the list will be able to override
+classes further up the list.
+
+Data merging
+~~~~~~~~~~~~
+
+When retrieving information about a node, reclass first obtains the node
+definition from the storage backend. Then, it iterates the list of classes
+defined for the node and recursively asks the storage backend for each class
+definition.
+
+Next, reclass recursively descends each class, looking at the classes it
+defines, and so on, until a leaf node is reached, i.e. a class that references
+no other classes.
+
+Now, the merging starts. At every step, the list of applications and the set
+of parameters at each level is merged into what has been accumulated so far.
+
+Merging of parameters is done “deeply”, meaning that lists and dictionaries
+are extended (recursively), rather than replaced. However, a scalar value does
+overwrite a dictionary or list value. While the scalar could be appended to an
+existing list, there is no sane default assumption in the context of a
+dictionary, so this behaviour seems the most logical. Plus, it allows for a
+dictionary to be erased by overwriting it with the null value.
+
+After all classes (and the classes they reference) have been visited, reclass
+finally merges the applications list and parameters defined for the node into
+what has been accumulated during the processing of the classes, and returns
+the final result. 
+
+
+Parameter interpolation
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Parameters may reference each other, including deep references, e.g.:
+
+.. figure :: /_images/soft_hard_metadata.png
+   :width: 90%
+   :align: center
+
+   Parameter interpolation of `soft` parameters to `hard` metadata models
+
+
+After merging and interpolation, which happens automatically inside the
+storage modules, the for_demonstration parameter will have a value of “This
+node sits in Munich, Germany”.
+
+Types are preserved if the value contains nothing but a reference. Hence, the
+value of `dict_reference` will actually be a dictionary.
+
+
+Metadata types
+--------------
+
+The reclass deals with complex data structures we call 'hard' metadata, these
+are defined in class files mentioned in previous text. These are rather
+complex structures that you don't need to manage directly, but a special
+dictionary for so called 'soft' metadata was introduced, that holds simple
+list of most frequently changed properties of the 'hard' metadata model. It
+uses the parameter interpolation function of reclass to achieve defining
+parameter at single location.
+
+
+The 'soft' metadata
+~~~~~~~~~~~~~~~~~~~
+
+Is the special key-value store in reclass called _param, this contains keys
+that are interpolated to the 'hard' metadata. These are parameters that are
+attached at the node definition.
+
+.. code-block:: yaml
+
+    parameters:
+      _param:
+        service_database_host: hostname.domain.com
+
+All of these values are preferably scalar and can be referenced as
+``${_param:service_database_host}`` parameter.
+
+
+The 'Hard' metadata
+~~~~~~~~~~~~~~~~~~~
+
+This metadata are the complex metadata structures that can contain
+interpolation stings pointing to the 'soft' metadata.
+
+.. code-block:: yaml
+
+    parameters:
+      python-application:
+        server:
+          database:
+            name: database_name
+            host: ${_param:service_database_host}
+
+
+
+Basic model layout
+------------------
 
 Metadata models are separated into 3 individual layers: service, system and
 cluster. The layers are firmly isolated from each other and can be aggregated
@@ -355,55 +461,6 @@ on its own. Customer is free to create its own system level classes.
 In this setup a customer is free to reuse the generic formulas with generic
 systems. At the same time he's free to create formulas of it's own as well as
 custom systems.
-
-
-Metadata types
---------------
-
-The reclass deals with complex data structures we call 'hard' metadata, that
-you don't need to manage directly, but we have introduced so called 'soft'
-metadata, as siple list of most frequent changed properties of 'hard' metadata
-model.
-
-
-.. figure :: /_images/soft_hard_metadata.png
-   :width: 90%
-   :align: center
-
-   Interpolating `soft` parameters in `hard` metadata structures
-
-
-The 'soft' metadata
-~~~~~~~~~~~~~~~~~~~
-
-Is the special key-value store in reclass called _param, this contains keys
-that are interpolated to the 'hard' metadata. These are parameters that are
-attached at the node definition.
-
-.. code-block:: yaml
-
-    parameters:
-      _param:
-        service_database_host: hostname.domain.com
-
-All of these values are preferably scalar and can be referenced as
-``${_param:service_database_host}`` parameter.
-
-
-The 'Hard' metadata
-~~~~~~~~~~~~~~~~~~~
-
-This metadata are the complex metadata structures that can contain
-interpolation stings pointing to the 'soft' metadata.
-
-.. code-block:: yaml
-
-    parameters:
-      python-application:
-        server:
-          database:
-            name: database_name
-            host: ${_param:service_database_host}
 
 
 Handling sensitive metadata
