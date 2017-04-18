@@ -611,4 +611,3 @@ that are used by formulas for services.
 --------------
 
 .. include:: navigation.txt
-s
