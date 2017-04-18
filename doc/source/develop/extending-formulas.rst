@@ -29,8 +29,11 @@ Every formula should have the following directory layout:
     |   `-- service.yml
     |-- service/
     |   `-- files/
-    |       |-- config1.yml
-    |       `-- config2.yml
+    |       |-- service.conf
+    |       `-- service-systemd
+    |   `-- meta/
+    |       |-- sphinx.yml
+    |       `-- colletd.yml
     |   |-- map.jinja
     |   |-- init.sls
     |   |-- _common.sls
@@ -75,6 +78,9 @@ Content of the formula directories in more detail.
 
 **service/**
   Salt state files
+
+**service/meta/**
+  Support metadata definitions
 
 **debian/**
   APT Package metadata
