@@ -68,7 +68,7 @@ system_config() {
     curl -L https://bootstrap.saltstack.com | $SUDO sh -s -- -M stable 2016.3 &>/dev/null
 
     # salt-formulas custom modules dependencies, etc:
-    $SUDO apt install -qqq -y iproute2 curl apt-transport-https python-psutil python-apt python-m2crypto python-oauth python-dev python-pip &>/dev/null
+    $SUDO apt install -qqq -y iproute2 curl apt-transport-https python-psutil python-apt python-m2crypto python-oauth python-pip &>/dev/null
 
     which reclass-salt || {
       test -e /usr/share/reclass/reclass-salt && {
