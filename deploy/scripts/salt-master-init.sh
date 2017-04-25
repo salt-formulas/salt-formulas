@@ -66,7 +66,9 @@ system_config() {
     echo "127.0.1.2  salt" | $SUDO tee -a /etc/hosts >/dev/null
 
     curl -L https://bootstrap.saltstack.com | $SUDO sh -s -- -M stable 2016.3 &>/dev/null
-    $SUDO apt install -qqq -y python-psutil &>/dev/null
+
+    # salt-formulas custom modules dependencies, etc:
+    $SUDO apt install -qqq -y iproute2 curl apt-transport-https python-psutil python-apt python-m2crypto python-oauth python-dev python-pip &>/dev/null
 
     which reclass-salt || {
       test -e /usr/share/reclass/reclass-salt && {
@@ -76,33 +78,11 @@ system_config() {
 }
 
 
-# Kitchen provisioner bootstrap script
-kitchen_bootstrap() {
-    log_info "Uploading local reclass"
-    #test -e /tmp/reclass/.git && {
-      #log_info ".. as git clone"
-      #test -e /srv/salt/reclass/.git && git pull -r || git clone /tmp/reclass /srv/salt/reclass
-    #} || {
-      log_info ".. as static folders"
-      rsync -avh --exclude workspace --exclude tmp --exclude temp \
-        /tmp/reclass /srv/salt/
-    #}
-    cd /srv/salt/reclass;
-    #export RECLASS_REPOSITORY=file:///tmp/reclass
-    export RECLASS_REPOSITORY=${RECLASS_REPOSITORY:-$(git remote get-url origin)}
-    export RECLASS_BRANCH=${RECLASS_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}
-}
-
 saltmaster_bootstrap() {
 
-    log_info "Setting up Salt master, minion"
-
+    log_info "Salt master, minion setup (salt-master-setup.sh)"
     pgrep salt-master | xargs -i{} $SUDO kill -9 {}
     pgrep salt-minion | xargs -i{} $SUDO kill -9 {}
-    #HOSTNAME=$(${MASTER_HOSTNAME} | awk -F. '{print $1}')
-    #DOMAIN=$(${MASTER_HOSTNAME}   | awk -F. '{print $ARGV[1..]}')
-
-
     SCRIPTS=$(dirname $0)
     test -e ${SCRIPTS}/salt-master-setup.sh || \
         curl -sL "https://raw.githubusercontent.com/salt-formulas/salt-formulas/master/deploy/scripts/salt-master-setup.sh" |$SUDO tee ${SCRIPTS}/salt-master-setup.sh >/dev/null; 
@@ -122,10 +102,6 @@ saltmaster_bootstrap() {
     log_info "Clean up generated"
     cd /srv/salt/reclass
     $SUDO rm -rf /srv/salt/reclass/nodes/_generated/*
-    test -e nodes/control && {
-      # if "cluster" setup is found, delete the duplicities
-      $SUDO rm  -f /srv/salt/reclass/nodes/${MASTER_HOSTNAME}.yml
-    }
 
     log_info "Re/starting salt services"
     $SUDO service salt-master restart
@@ -140,6 +116,9 @@ saltmaster_init() {
     set -e
     $SUDO salt-call saltutil.sync_all >/dev/null
 
+    # TODO: Placeholder update nodes/FQDN.yml to be able to bootstrap SaltMaster with minimal configuration
+    # (with linux, git, salt formulas only)
+
     log_info "Verify SaltMaster, before salt-master is fully initialized"
     $SUDO reclass-salt -p ${MASTER_HOSTNAME} &> /tmp/${MASTER_HOSTNAME}.pillar ||\
       ( log_err "Pillar verification failed."; cat /tmp/${MASTER_HOSTNAME}.pillar; exit 1)
@@ -153,16 +132,18 @@ saltmaster_init() {
     # Note: sikp reclass data dir states
     #       in order to avoid pull from configured repo/branch
 
+    # Revert temporary SaltMaster minimal configuration
     git checkout -- /srv/salt/reclass/nodes
 
     log_info "State: salt.master.storage.node"
     $SUDO salt-call ${SALT_OPTS} state.apply reclass.storage.node
 
+    log_info "Re/starting salt services"
+    $SUDO sed -i 's/^master:.*/master: localhost/' /etc/salt/minion.d/minion.conf
     $SUDO service salt-minion restart >/dev/null
     $SUDO salt-call ${SALT_OPTS} saltutil.sync_all >/dev/null
     set +e
 
-    $SUDO sed -i 's/^master:.*/master: localhost/' /etc/salt/minion.d/minion.conf
 }
 
 
@@ -171,10 +152,12 @@ function verify_salt_master() {
 
     log_info "Verify Salt master"
     $SUDO reclass-salt -p ${MASTER_HOSTNAME} |tee ${MASTER_HOSTNAME}.pillar_verify | tail -n 50
-    $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} state.show_lowstate >>  /tmp/${MASTER_HOSTNAME}.pillar_verify
-    $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} grains.item roles   >>  /tmp/${MASTER_HOSTNAME}.pillar_verify
-    #salt-call --no-color grains.items
-    #salt-call --no-color pillar.data
+    $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} state.show_lowstate >> /tmp/${MASTER_HOSTNAME}.pillar_verify
+    if [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then
+      $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} grains.item roles >> /tmp/${MASTER_HOSTNAME}.pillar_verify
+      salt-call --no-color grains.items
+      salt-call --no-color pillar.data
+    fi
 }
 
 
@@ -184,8 +167,8 @@ function verify_salt_minions() {
     NODES=$(ls /srv/salt/reclass/nodes/_generated)
 
     # Parallel
-    #echo $NODES | parallel --no-notice -j 2 --halt 2 "reclass-salt -p \$(basename {} .yml) > {}.out"
-    #ls -lrta *.out | tail -n 1 | xargs -n1 tail -n30
+    #echo $NODES | parallel --no-notice -j 2 --halt 2 "reclass-salt -p \$(basename {} .yml) > {}.pillar_verify"
+    #ls -lrta *.pillar_verify | tail -n 1 | xargs -n1 tail -n30
 
     function filterFails() {
         grep -v '/grains' | tee -a $1 | tail -n20
@@ -198,12 +181,13 @@ function verify_salt_minions() {
 
         # filter first in cluster.. ctl-01, mon-01, etc..
         if [[ "${node//.*}" =~ 01 || "${node//.*}" =~ 02  ]] ;then
-  
+
             log_info "Verifying ${node}"
-            $SUDO reclass-salt -p ${node} >  /tmp/${node}.out || continue
-            $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate  >>  /tmp/${node}.out || continue
-            $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles    >>  /tmp/${node}.out || continue
-            # || (tail -n 50 $node.out; false)
+            $SUDO reclass-salt -p ${node} >  /tmp/${node}.pillar_verify || continue
+            if [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then
+              $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate  >>  /tmp/${node}.pillar_verify || continue
+              $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles    >>  /tmp/${node}.pillar_verify || continue
+            fi
         else
             echo Skipped $node.
         fi
@@ -212,7 +196,10 @@ function verify_salt_minions() {
     # fail on failures
     total=$(echo $NODES | xargs -n1 echo |wc -l)
     test ! $passed -lt $total || log_err "Results: $passed of $total passed."
-    test ! $passed -lt $total || return 1
+    test ! $passed -lt $total || {
+      tail -n50 /tmp/*.pillar_verify
+      return 1
+    }
 }
 
 
@@ -221,13 +208,10 @@ options
 [[ "$0" != "$BASH_SOURCE"  ]] || {
     trap _atexit INT TERM EXIT
     system_config
-    test ! -e /tmp/reclass || kitchen_bootstrap
 
     saltmaster_bootstrap &&\
     saltmaster_init        > /tmp/${MASTER_HOSTNAME}.init  || (tail -n 50 /tmp/${MASTER_HOSTNAME}.init; exit 1) &&\
 
     verify_salt_master &&\
     verify_salt_minions &&\
-
-    log_info "Don't forget to remove /etc/apt/sources.list.d/bootstrap.list once not required"
 }
