@@ -213,5 +213,5 @@ options
     saltmaster_init        > /tmp/${MASTER_HOSTNAME}.init  || (tail -n 50 /tmp/${MASTER_HOSTNAME}.init; exit 1) &&\
 
     verify_salt_master &&\
-    verify_salt_minions &&\
+    verify_salt_minions
 }
