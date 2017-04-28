@@ -107,9 +107,9 @@ configure_salt_master()
 	  base:
 	  - /usr/share/salt-formulas/env
 	  prd:
-	  - /usr/salt/env/prd
+	  - /srv/salt/env/prd
 	  dev:
-	  - /usr/salt/env/dev
+	  - /srv/salt/env/dev
 	pillar_opts: False
 	open_mode: True
 	reclass: &reclass
