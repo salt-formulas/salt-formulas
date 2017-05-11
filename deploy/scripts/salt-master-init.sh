@@ -14,6 +14,8 @@ options() {
     SALT_LOG_LEVEL="--state-verbose=false -lerror"
     SALT_OPTS="${SALT_OPTS:- --state-output=changes --retcode-passthrough --force-color $SALT_LOG_LEVEL }"
     RECLASS_ROOT=${RECLASS_ROOT:-/srv/salt/reclass}
+    BOOTSTRAP_SALTSTACK=${BOOTSTRAP_SALTSTACK:-True}
+    BOOTSTRAP_SALTSTACK_OPTS=${BOOTSTRAP_SALTSTACK:- -d -M stable 2016.3 }
 
     # source environment & configuration
     # shopt -u dotglob
@@ -59,16 +61,18 @@ _atexit() {
 system_config() {
     log_info "System configuration"
 
+    # salt-formulas custom modules dependencies, etc:
+    $SUDO apt install -qqq -y iproute2 curl sudo apt-transport-https python-psutil python-apt python-m2crypto python-oauth python-pip &>/dev/null
+
     $SUDO mkdir -p /srv/salt/reclass/classes/service
     $SUDO mkdir -p /root/.ssh
     echo -e "Host *\n\tStrictHostKeyChecking no\n" | $SUDO tee ~/.ssh/config >/dev/null
     echo -e "Host *\n\tStrictHostKeyChecking no\n" | $SUDO tee /root/.ssh/config >/dev/null
     echo "127.0.1.2  salt" | $SUDO tee -a /etc/hosts >/dev/null
 
-    curl -L https://bootstrap.saltstack.com | $SUDO sh -s -- -M stable 2016.3 &>/dev/null
-
-    # salt-formulas custom modules dependencies, etc:
-    $SUDO apt install -qqq -y iproute2 curl apt-transport-https python-psutil python-apt python-m2crypto python-oauth python-pip &>/dev/null
+    if [[ $BOOTSTRAP_SALTSTACK =~ ^(True|true|1|yes)$ ]]; then
+        curl -L https://bootstrap.saltstack.com | $SUDO sh -s -- ${BOOTSTRAP_SALTSTACK_OPTS} &>/dev/null || true
+    fi
 
     which reclass-salt || {
       test -e /usr/share/reclass/reclass-salt && {
@@ -81,19 +85,24 @@ system_config() {
 saltmaster_bootstrap() {
 
     log_info "Salt master, minion setup (salt-master-setup.sh)"
+    test -n "$MASTER_HOSTNAME" || exit 1
+
     pgrep salt-master | xargs -i{} $SUDO kill -9 {}
     pgrep salt-minion | xargs -i{} $SUDO kill -9 {}
     SCRIPTS=$(dirname $0)
     test -e ${SCRIPTS}/salt-master-setup.sh || \
-        curl -sL "https://raw.githubusercontent.com/salt-formulas/salt-formulas/master/deploy/scripts/salt-master-setup.sh" |$SUDO tee ${SCRIPTS}/salt-master-setup.sh >/dev/null; 
+        curl -sL "https://raw.githubusercontent.com/salt-formulas/salt-formulas/master/deploy/scripts/salt-master-setup.sh" |$SUDO tee ${SCRIPTS}/salt-master-setup.sh > /dev/null;
         $SUDO chmod +x *.sh;
     test -e ${SCRIPTS}/.salt-master-setup.sh.passed || {
         export SALT_MASTER=localhost
         export MINION_ID=${MASTER_HOSTNAME}
-        $SUDO ${SCRIPTS}/salt-master-setup.sh master &> /tmp/salt-master-setup.log || cat /tmp/salt-master-setup.log
-        ret=$?
-        if [ ${ret} -gt 0 ]; then
-          log_err "salt-master-setup.sh exited with: ${ret}."
+        if ! [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then
+          SALT_MASTER_SETUP_OUTPUT='/dev/stdout'
+        fi
+        if ! $SUDO ${SCRIPTS}/salt-master-setup.sh master &> ${SALT_MASTER_SETUP_OUTPUT:-/tmp/salt-master-setup.log}; then
+          cat /tmp/salt-master-setup.log
+          log_err "salt-master-setup.sh failed."
+          exit 1
         else
           $SUDO touch ${SCRIPTS}/.salt-master-setup.sh.passed
         fi
@@ -113,6 +122,8 @@ saltmaster_bootstrap() {
 saltmaster_init() {
 
     log_info "Runing saltmaster states"
+    test -n "$MASTER_HOSTNAME" || exit 1
+
     set -e
     $SUDO salt-call saltutil.sync_all >/dev/null
 
@@ -120,12 +131,14 @@ saltmaster_init() {
     # (with linux, git, salt formulas only)
 
     log_info "Verify SaltMaster, before salt-master is fully initialized"
-    $SUDO reclass-salt -p ${MASTER_HOSTNAME} &> /tmp/${MASTER_HOSTNAME}.pillar ||\
-      ( log_err "Pillar verification failed."; cat /tmp/${MASTER_HOSTNAME}.pillar; exit 1)
+    if ! $SUDO reclass-salt -p ${MASTER_HOSTNAME} &> /tmp/${MASTER_HOSTNAME}.pillar;then
+       log_err "Pillar verification failed."; cat /tmp/${MASTER_HOSTNAME}.pillar; exit 1
+    fi
 
     log_info "State: salt.master.env"
-    $SUDO salt-call ${SALT_OPTS} -linfo state.apply salt.master.env ||\
+    if ! $SUDO salt-call ${SALT_OPTS} -linfo state.apply salt.master.env; then
       log_warn "State salt.master.env failed, keep your eyes wide open."
+    fi
 
     log_info "State: salt.master.pillar"
     $SUDO salt-call ${SALT_OPTS} state.apply salt.master.pillar pillar='{"reclass":{"storage":{"data_source":{"engine":"local"}}}}'
@@ -133,6 +146,7 @@ saltmaster_init() {
     #       in order to avoid pull from configured repo/branch
 
     # Revert temporary SaltMaster minimal configuration
+    git status
     git checkout -- /srv/salt/reclass/nodes
 
     log_info "State: salt.master.storage.node"
@@ -151,6 +165,8 @@ function verify_salt_master() {
     #set -e
 
     log_info "Verify Salt master"
+    test -n "$MASTER_HOSTNAME" || exit 1
+
     $SUDO reclass-salt -p ${MASTER_HOSTNAME} |tee ${MASTER_HOSTNAME}.pillar_verify | tail -n 50
     $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} state.show_lowstate >> /tmp/${MASTER_HOSTNAME}.pillar_verify
     if [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then
@@ -160,11 +176,20 @@ function verify_salt_master() {
     fi
 }
 
+function verify_salt_minion() {
+  node=$1
+  log_info "Verifying ${node}"
+  $SUDO reclass-salt -p ${node} >  /tmp/${node}.pillar_verify || continue
+  if [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then
+    $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate  >>  /tmp/${node}.pillar_verify || continue
+    $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles    >>  /tmp/${node}.pillar_verify || continue
+  fi
+}
 
 function verify_salt_minions() {
     #set -e
 
-    NODES=$(ls /srv/salt/reclass/nodes/_generated)
+    NODES=$(find /srv/salt/reclass/nodes/ -name "*.yml" | grep -v "cfg")
 
     # Parallel
     #echo $NODES | parallel --no-notice -j 2 --halt 2 "reclass-salt -p \$(basename {} .yml) > {}.pillar_verify"
@@ -181,13 +206,7 @@ function verify_salt_minions() {
 
         # filter first in cluster.. ctl-01, mon-01, etc..
         if [[ "${node//.*}" =~ 01 || "${node//.*}" =~ 02  ]] ;then
-
-            log_info "Verifying ${node}"
-            $SUDO reclass-salt -p ${node} >  /tmp/${node}.pillar_verify || continue
-            if [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then
-              $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate  >>  /tmp/${node}.pillar_verify || continue
-              $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles    >>  /tmp/${node}.pillar_verify || continue
-            fi
+            verify_salt_minion ${node}
         else
             echo Skipped $node.
         fi
@@ -210,7 +229,7 @@ options
     system_config
 
     saltmaster_bootstrap &&\
-    saltmaster_init        > /tmp/${MASTER_HOSTNAME}.init  || (tail -n 50 /tmp/${MASTER_HOSTNAME}.init; exit 1) &&\
+    saltmaster_init &&\
 
     verify_salt_master &&\
     verify_salt_minions
