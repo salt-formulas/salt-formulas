@@ -99,8 +99,9 @@ saltmaster_bootstrap() {
         if ! [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then
           SALT_MASTER_SETUP_OUTPUT='/dev/stdout'
         fi
-        if ! $SUDO ${SCRIPTS}/salt-master-setup.sh master &> ${SALT_MASTER_SETUP_OUTPUT:-/tmp/salt-master-setup.log}; then
-          cat /tmp/salt-master-setup.log
+        #if ! $SUDO ${SCRIPTS}/salt-master-setup.sh master &> ${SALT_MASTER_SETUP_OUTPUT:-/tmp/salt-master-setup.log}; then
+        if ! $SUDO ${SCRIPTS}/salt-master-setup.sh master; then
+          #cat /tmp/salt-master-setup.log
           log_err "salt-master-setup.sh failed."
           exit 1
         else
