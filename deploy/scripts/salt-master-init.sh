@@ -15,7 +15,7 @@ options() {
     SALT_OPTS="${SALT_OPTS:- --state-output=changes --retcode-passthrough --force-color $SALT_LOG_LEVEL }"
     RECLASS_ROOT=${RECLASS_ROOT:-/srv/salt/reclass}
     BOOTSTRAP_SALTSTACK=${BOOTSTRAP_SALTSTACK:-True}
-    BOOTSTRAP_SALTSTACK_OPTS=${BOOTSTRAP_SALTSTACK:- -d -M stable 2016.3 }
+    BOOTSTRAP_SALTSTACK_OPTS=${BOOTSTRAP_SALTSTACK_OPTS:- -dX stable 2016.3 }
 
     # source environment & configuration
     # shopt -u dotglob
@@ -71,7 +71,7 @@ system_config() {
     echo "127.0.1.2  salt" | $SUDO tee -a /etc/hosts >/dev/null
 
     if [[ $BOOTSTRAP_SALTSTACK =~ ^(True|true|1|yes)$ ]]; then
-        curl -L https://bootstrap.saltstack.com | $SUDO sh -s -- ${BOOTSTRAP_SALTSTACK_OPTS} &>/dev/null || true
+        curl -L https://bootstrap.saltstack.com | $SUDO sh -s -- -M ${BOOTSTRAP_SALTSTACK_OPTS} &>/dev/null || true
     fi
 
     which reclass-salt || {
