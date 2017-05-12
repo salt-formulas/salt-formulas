@@ -150,7 +150,7 @@ saltmaster_init() {
     pushd $RECLASS_ROOT
     git status || true
     git checkout -- $RECLASS_ROOT/nodes || true
-    popd $RECLASS_ROOT
+    popd
 
     log_info "State: salt.master.storage.node"
     $SUDO salt-call ${SALT_OPTS} state.apply reclass.storage.node
