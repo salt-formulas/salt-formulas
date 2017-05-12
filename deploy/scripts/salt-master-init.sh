@@ -127,13 +127,13 @@ saltmaster_init() {
     set -e
     $SUDO salt-call saltutil.sync_all >/dev/null
 
-    # TODO: Placeholder update nodes/FQDN.yml to be able to bootstrap SaltMaster with minimal configuration
-    # (with linux, git, salt formulas only)
+    # TODO: Placeholder update saltmaster spec (nodes/FQDN.yml) to be able to bootstrap with minimal configuration
+    # (ie: with linux, git, salt formulas)
 
-    log_info "Verify SaltMaster, before salt-master is fully initialized"
-    if ! $SUDO reclass-salt -p ${MASTER_HOSTNAME} &> /tmp/${MASTER_HOSTNAME}.pillar;then
-       log_err "Pillar verification failed."; cat /tmp/${MASTER_HOSTNAME}.pillar; exit 1
-    fi
+    #log_info "Verify SaltMaster, before salt-master is fully initialized"
+    #if ! $SUDO reclass-salt -p ${MASTER_HOSTNAME} &> /tmp/${MASTER_HOSTNAME}.pillar;then
+    #   log_warn "Node verification before initialization failed."; cat /tmp/${MASTER_HOSTNAME}.pillar;
+    #fi
 
     log_info "State: salt.master.env"
     if ! $SUDO salt-call ${SALT_OPTS} -linfo state.apply salt.master.env; then
@@ -145,7 +145,7 @@ saltmaster_init() {
     # Note: sikp reclass data dir states
     #       in order to avoid pull from configured repo/branch
 
-    # Revert temporary SaltMaster minimal configuration
+    # Revert temporary SaltMaster minimal configuration, if any
     git status
     git checkout -- /srv/salt/reclass/nodes
 
@@ -156,6 +156,8 @@ saltmaster_init() {
     $SUDO sed -i 's/^master:.*/master: localhost/' /etc/salt/minion.d/minion.conf
     $SUDO service salt-minion restart >/dev/null
     $SUDO salt-call ${SALT_OPTS} saltutil.sync_all >/dev/null
+    
+    verify_salt_master
     set +e
 
 }
@@ -167,23 +169,23 @@ function verify_salt_master() {
     log_info "Verify Salt master"
     test -n "$MASTER_HOSTNAME" || exit 1
 
-    $SUDO reclass-salt -p ${MASTER_HOSTNAME} |tee ${MASTER_HOSTNAME}.pillar_verify | tail -n 50
-    $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} state.show_lowstate >> /tmp/${MASTER_HOSTNAME}.pillar_verify
     if [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then
-      $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} grains.item roles >> /tmp/${MASTER_HOSTNAME}.pillar_verify
+      $SUDO reclass-salt -p ${MASTER_HOSTNAME} |tee ${MASTER_HOSTNAME}.pillar_verify | tail -n 50
+      $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} grains.item roles | tee /tmp/${MASTER_HOSTNAME}.pillar_verify
       salt-call --no-color grains.items
       salt-call --no-color pillar.data
     fi
+    $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} state.show_lowstate | tee -a /tmp/${MASTER_HOSTNAME}.pillar_verify
 }
 
 function verify_salt_minion() {
   node=$1
   log_info "Verifying ${node}"
-  $SUDO reclass-salt -p ${node} >  /tmp/${node}.pillar_verify || continue
   if [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then
-    $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate  >>  /tmp/${node}.pillar_verify || continue
-    $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles    >>  /tmp/${node}.pillar_verify || continue
+    $SUDO reclass-salt -p ${node} >  /tmp/${node}.pillar_verify || continue
+    $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles  | tee /tmp/${node}.pillar_verify || continue
   fi
+  $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate  | tee -a /tmp/${node}.pillar_verify || continue
 }
 
 function verify_salt_minions() {
@@ -231,6 +233,5 @@ options
     saltmaster_bootstrap &&\
     saltmaster_init &&\
 
-    verify_salt_master &&\
     verify_salt_minions
 }

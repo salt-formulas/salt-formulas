@@ -148,7 +148,7 @@ EOF
   mkdir -vp /srv/salt/reclass/nodes
   CONFIG=$(find /srv/salt/reclass/nodes -name ${MINION_ID}.yml| grep yml | tail -n1)
   CONFIG=${CONFIG:-/srv/salt/reclass/nodes/${MINION_ID}.yml}
-  #[[ -f "${CONFIG}" ]] || {
+  if [[ $SALT_MASTER_BOOTSTRAP_MINIMIZED =~ ^(True|true|1|yes)$ || ! -f "${CONFIG}" ]]; then
   cat <<-EOF > ${CONFIG}
 	classes:
 	- service.git.client
@@ -192,7 +192,7 @@ EOF
 		# ########
 		# vim: ft=yaml sw=2 ts=2 sts=2
 EOF
-  #}
+  fi
 }
 
 configure_salt_minion()
