@@ -64,7 +64,7 @@ system_config() {
     # salt-formulas custom modules dependencies, etc:
     $SUDO apt install -qqq -y iproute2 curl sudo apt-transport-https python-psutil python-apt python-m2crypto python-oauth python-pip &>/dev/null
 
-    $SUDO mkdir -p /srv/salt/reclass/classes/service
+    $SUDO mkdir -p $RECLASS_ROOT/classes/service
     $SUDO mkdir -p /root/.ssh
     echo -e "Host *\n\tStrictHostKeyChecking no\n" | $SUDO tee ~/.ssh/config >/dev/null
     echo -e "Host *\n\tStrictHostKeyChecking no\n" | $SUDO tee /root/.ssh/config >/dev/null
@@ -110,8 +110,8 @@ saltmaster_bootstrap() {
     }
 
     log_info "Clean up generated"
-    cd /srv/salt/reclass
-    $SUDO rm -rf /srv/salt/reclass/nodes/_generated/*
+    cd $RECLASS_ROOT
+    $SUDO rm -rf $RECLASS_ROOT/nodes/_generated/*
 
     log_info "Re/starting salt services"
     $SUDO service salt-master restart
@@ -147,8 +147,10 @@ saltmaster_init() {
     #       in order to avoid pull from configured repo/branch
 
     # Revert temporary SaltMaster minimal configuration, if any
-    git status
-    git checkout -- /srv/salt/reclass/nodes
+    pushd $RECLASS_ROOT
+    git status || true
+    git checkout -- $RECLASS_ROOT/nodes || true
+    popd $RECLASS_ROOT
 
     log_info "State: salt.master.storage.node"
     $SUDO salt-call ${SALT_OPTS} state.apply reclass.storage.node
@@ -192,7 +194,7 @@ function verify_salt_minion() {
 function verify_salt_minions() {
     #set -e
 
-    NODES=$(find /srv/salt/reclass/nodes/ -name "*.yml" | grep -v "cfg")
+    NODES=$(find $RECLASS_ROOT/nodes/ -name "*.yml" | grep -v "cfg")
 
     # Parallel
     #echo $NODES | parallel --no-notice -j 2 --halt 2 "reclass-salt -p \$(basename {} .yml) > {}.pillar_verify"
