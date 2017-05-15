@@ -73,7 +73,9 @@ system_config() {
     if [[ $BOOTSTRAP_SALTSTACK =~ ^(True|true|1|yes)$ ]]; then
         curl -L https://bootstrap.saltstack.com | $SUDO sh -s -- -M ${BOOTSTRAP_SALTSTACK_OPTS} &>/dev/null || true
     fi
-
+    
+    which reclass || $SUDO apt install -qqq -y reclass
+    
     which reclass-salt || {
       test -e /usr/share/reclass/reclass-salt && {
         ln -fs /usr/share/reclass/reclass-salt /usr/bin
