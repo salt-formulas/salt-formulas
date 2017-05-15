@@ -169,7 +169,7 @@ saltmaster_init() {
 
 
 function verify_salt_master() {
-    #set -e
+    set -e
 
     log_info "Verify Salt master"
     test -n "$MASTER_HOSTNAME" || exit 1
@@ -180,17 +180,24 @@ function verify_salt_master() {
       $SUDO salt-call --no-color grains.items
       $SUDO salt-call --no-color pillar.data
     fi
-    $SUDO reclass --nodeinfo ${MASTER_HOSTNAME} > /tmp/${MASTER_HOSTNAME}.reclass.nodeinfo || tail -n 50 /tmp/${MASTER_HOSTNAME}.reclass.nodeinfo
+    if ! $SUDO reclass --nodeinfo ${MASTER_HOSTNAME} > /tmp/${MASTER_HOSTNAME}.reclass.nodeinfo; then
+        log_error "For more details see full log /tmp/${MASTER_HOSTNAME}.reclass.nodeinfo"
+        exit 1
+    fi
 }
 
 function verify_salt_minion() {
+  set -e
   node=$1
   log_info "Verifying ${node}"
   if [[ $VERIFY_SALT_CALL =~ ^(True|true|1|yes)$ ]]; then
-    $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles > /tmp/${node}.grains.item.roles || continue
-    $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate > /tmp/${node}.state.show_lowstate || continue
+    $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles > /tmp/${node}.grains.item.roles
+    $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate > /tmp/${node}.state.show_lowstate
   fi
-  $SUDO reclass --nodeinfo ${node} > /tmp/${node}.reclass.nodeinfo || continue
+  if ! $SUDO reclass --nodeinfo ${node} > /tmp/${node}.reclass.nodeinfo; then
+      log_error "For more details see full log /tmp/${node}.reclass.nodeinfo"
+      exit 1
+  fi
 }
 
 function verify_salt_minions() {
@@ -213,7 +220,7 @@ function verify_salt_minions() {
 
         # filter first in cluster.. ctl-01, mon-01, etc..
         if [[ "${node//.*}" =~ 01 || "${node//.*}" =~ 02  ]] ;then
-            verify_salt_minion ${node}
+            verify_salt_minion ${node} || continue
         else
             echo Skipped $node.
         fi
