@@ -15,7 +15,7 @@ options() {
     SALT_OPTS="${SALT_OPTS:- --state-output=changes --retcode-passthrough --force-color $SALT_LOG_LEVEL }"
     RECLASS_ROOT=${RECLASS_ROOT:-/srv/salt/reclass}
     BOOTSTRAP_SALTSTACK=${BOOTSTRAP_SALTSTACK:-True}
-    BOOTSTRAP_SALTSTACK_OPTS=${BOOTSTRAP_SALTSTACK_OPTS:- -dX stable 2016.3 }
+    BOOTSTRAP_SALTSTACK_OPTS=${BOOTSTRAP_SALTSTACK_OPTS:- -dX -p python-psutil -p python-apt -p python-m2crypto -p python-oauth -p python-pip stable 2016.3 }
 
     # source environment & configuration
     # shopt -u dotglob
@@ -62,7 +62,7 @@ system_config() {
     log_info "System configuration"
 
     # salt-formulas custom modules dependencies, etc:
-    $SUDO apt install -qqq -y iproute2 curl sudo apt-transport-https python-psutil python-apt python-m2crypto python-oauth python-pip &>/dev/null
+    $SUDO apt install -qqq -y curl sudo apt-transport-https &>/dev/null
 
     $SUDO mkdir -p $RECLASS_ROOT/classes/service
     $SUDO mkdir -p /root/.ssh
