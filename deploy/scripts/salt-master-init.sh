@@ -15,7 +15,7 @@ options() {
     SALT_OPTS="${SALT_OPTS:- --state-output=changes --retcode-passthrough --force-color $SALT_LOG_LEVEL }"
     RECLASS_ROOT=${RECLASS_ROOT:-/srv/salt/reclass}
     BOOTSTRAP_SALTSTACK=${BOOTSTRAP_SALTSTACK:-True}
-    BOOTSTRAP_SALTSTACK_OPTS=${BOOTSTRAP_SALTSTACK_OPTS:- -dX -p python-psutil -p python-apt -p python-m2crypto -p python-oauth -p python-pip stable 2016.3 }
+    BOOTSTRAP_SALTSTACK_OPTS=${BOOTSTRAP_SALTSTACK_OPTS:- -dX -p iproute2 -p python-psutil -p python-apt -p python-m2crypto -p python-oauth -p python-pip stable 2016.3 }
 
     # source environment & configuration
     # shopt -u dotglob
