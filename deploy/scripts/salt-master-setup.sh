@@ -215,15 +215,17 @@ install_salt_master_pkg()
 
     case $PLATFORM_FAMILY in
       debian)
-          $SUDO apt-get install -y reclass git
+          $SUDO apt-get install -y git
+	  which reclass || $SUDO apt install -qqq -y reclass
           curl -L https://bootstrap.saltstack.com | $SUDO sh -s -- -M ${BOOTSTRAP_SALTSTACK_OPTS} &>/dev/null || true
         ;;
       rhel)
-          $SUDO apt-get install -y reclass git
+          yum install -y git
+          which reclass || $SUDO yum install -y reclass
           curl -L https://bootstrap.saltstack.com | $SUDO sh -s -- -M ${BOOTSTRAP_SALTSTACK_OPTS} &>/dev/null || true
         ;;
     esac
-
+    
     which reclass-salt || {
       test -e /usr/share/reclass/reclass-salt && {
         ln -fs /usr/share/reclass/reclass-salt /usr/bin
@@ -243,15 +245,18 @@ install_salt_master_pip()
 
     case $PLATFORM_FAMILY in
       debian)
-          $SUDO apt-get install -y python-pip python-dev zlib1g-dev reclass git
+          $SUDO apt-get install -y python-pip python-dev zlib1g-dev git
+	  which reclass || $SUDO apt-get install -y reclass
         ;;
       rhel)
-          # TODO
+	  $SUDO yum install -y git
+	  which reclass || $SUDO yum install -y reclass
         ;;
     esac
 
     echo -e "\nInstalling salt master ...\n"
-
+    # TODO: replace with saltstack bootstrap script
+    
     if [ "$SALT_VERSION" == "latest" ]; then
       pip install salt
     else
