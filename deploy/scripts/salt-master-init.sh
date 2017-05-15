@@ -193,11 +193,11 @@ function verify_salt_minion() {
 
 function verify_salt_minions() {
     #set -e
-
     NODES=$(find $RECLASS_ROOT/nodes/ -name "*.yml" | grep -v "cfg")
+    log_info "Verifying minions: $(echo ${NODES}|xargs)"
 
     # Parallel
-    #echo $NODES | parallel --no-notice -j 2 --halt 2 "reclass-salt -p \$(basename {} .yml) > {}.pillar_verify"
+    #echo $NODES | parallel --no-notice -j 2 --halt 2 "verify_salt_minion \$(basename {} .yml) > {}.pillar_verify"
     #ls -lrta *.pillar_verify | tail -n 1 | xargs -n1 tail -n30
 
     function filterFails() {
@@ -230,6 +230,7 @@ function verify_salt_minions() {
 options
 # detect if file is being sourced
 [[ "$0" != "$BASH_SOURCE"  ]] || {
+    log_info "Bootstrap & verification of SaltMaster and configured minions."
     trap _atexit INT TERM EXIT
     system_config
 
