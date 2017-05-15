@@ -174,23 +174,23 @@ function verify_salt_master() {
     log_info "Verify Salt master"
     test -n "$MASTER_HOSTNAME" || exit 1
 
-    if [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then
-      $SUDO reclass-salt -p ${MASTER_HOSTNAME} |tee ${MASTER_HOSTNAME}.pillar_verify | tail -n 50
-      $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} grains.item roles | tee /tmp/${MASTER_HOSTNAME}.pillar_verify
-      salt-call --no-color grains.items
-      salt-call --no-color pillar.data
+    if [[ $VERIFY_SALT_CALL =~ ^(True|true|1|yes)$ ]]; then
+      $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} grains.item roles > /tmp/${MASTER_HOSTNAME}.grains.item.roles
+      $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} state.show_lowstate > /tmp/${MASTER_HOSTNAME}.state.show_state
+      $SUDO salt-call --no-color grains.items
+      $SUDO salt-call --no-color pillar.data
     fi
-    $SUDO salt-call ${SALT_OPTS} --id=${MASTER_HOSTNAME} state.show_lowstate | tee -a /tmp/${MASTER_HOSTNAME}.pillar_verify
+    $SUDO reclass --nodeinfo ${MASTER_HOSTNAME} > /tmp/${MASTER_HOSTNAME}.reclass.nodeinfo || tail -n 50 /tmp/${MASTER_HOSTNAME}.reclass.nodeinfo
 }
 
 function verify_salt_minion() {
   node=$1
   log_info "Verifying ${node}"
-  if [[ $DEBUG =~ ^(True|true|1|yes)$ ]]; then
-    $SUDO reclass-salt -p ${node} >  /tmp/${node}.pillar_verify || continue
-    $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles  | tee /tmp/${node}.pillar_verify || continue
+  if [[ $VERIFY_SALT_CALL =~ ^(True|true|1|yes)$ ]]; then
+    $SUDO salt-call ${SALT_OPTS} --id=${node} grains.item roles > /tmp/${node}.grains.item.roles || continue
+    $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate > /tmp/${node}.state.show_lowstate || continue
   fi
-  $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate  | tee -a /tmp/${node}.pillar_verify || continue
+  $SUDO reclass --nodeinfo ${node} > /tmp/${node}.reclass.nodeinfo || continue
 }
 
 function verify_salt_minions() {
