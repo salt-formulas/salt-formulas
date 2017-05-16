@@ -181,7 +181,7 @@ function verify_salt_master() {
       $SUDO salt-call --no-color pillar.data
     fi
     if ! $SUDO reclass --nodeinfo ${MASTER_HOSTNAME} > /tmp/${MASTER_HOSTNAME}.reclass.nodeinfo; then
-        log_error "For more details see full log /tmp/${MASTER_HOSTNAME}.reclass.nodeinfo"
+        log_err "For more details see full log /tmp/${MASTER_HOSTNAME}.reclass.nodeinfo"
         exit 1
     fi
 }
@@ -195,7 +195,7 @@ function verify_salt_minion() {
     $SUDO salt-call ${SALT_OPTS} --id=${node} state.show_lowstate > /tmp/${node}.state.show_lowstate
   fi
   if ! $SUDO reclass --nodeinfo ${node} > /tmp/${node}.reclass.nodeinfo; then
-      log_error "For more details see full log /tmp/${node}.reclass.nodeinfo"
+      log_err "For more details see full log /tmp/${node}.reclass.nodeinfo"
       exit 1
   fi
 }
