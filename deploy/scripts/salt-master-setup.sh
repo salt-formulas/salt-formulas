@@ -330,7 +330,7 @@ install_salt_formula_pkg()
               echo -e "\nConfiguring salt formula ${formula_service} ...\n"
               [ ! -d "${FORMULAS_PATH}/env/${formula_service}" ] && \
                   if ! $SUDO apt-get install -y salt-formula-${formula_service}; then
-                    log_error "Install salt-formula-${formula_service} failed."
+                    echo -e "\nInstall salt-formula-${formula_service} failed.\n"
                     exit 1
                   fi
               [ ! -L "/srv/salt/reclass/classes/service/${formula_service}" ] && \
@@ -362,7 +362,7 @@ install_salt_formula_git()
               _BRANCH=master
             fi
             if ! git clone ${FORMULAS_BASE}/salt-formula-${formula_service}.git ${FORMULAS_PATH}/env/_formulas/${formula_service} -b ${_BRANCH}; then
-              log_error "Cloning of ${FORMULAS_BASE}/salt-formula-${formula_service}.git failed."
+              echo -e "\nCloning of ${FORMULAS_BASE}/salt-formula-${formula_service}.git failed.\n"
               exit 1
             fi
           } || {
