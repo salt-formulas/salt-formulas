@@ -140,7 +140,7 @@ saltmaster_init() {
 
     log_info "State: salt.master.env"
     if ! $SUDO salt-call ${SALT_OPTS} -linfo state.apply salt.master.env; then
-      log_warn "State salt.master.env failed, keep your eyes wide open."
+      log_err "State salt.master.env failed, keep your eyes wide open."
     fi
 
     log_info "State: salt.master.pillar"
@@ -150,8 +150,19 @@ saltmaster_init() {
 
     # Revert temporary SaltMaster minimal configuration, if any
     pushd $RECLASS_ROOT
-    git status || true
-    git checkout -- $RECLASS_ROOT/nodes || true
+    if [ $(git diff --name-only nodes | sort | uniq | wc -l) -ge 1 ]; then
+      git status || true
+      log_warn "Locally modified $RECLASS_ROOT/nodes found. (Possibly salt-master minimized setup from salt-master-setup.sh call)"
+      log_info "Checkout HEAD state of $RECLASS_ROOT/nodes/*."
+      git checkout -- $RECLASS_ROOT/nodes || true
+      log_info "Re-Run states: salt.master.env and salt.master.pillar according the HEAD state."
+      log_info "State: salt.master.env"
+      if ! $SUDO salt-call ${SALT_OPTS} -linfo state.apply salt.master.env; then
+        log_err "State salt.master.env failed, keep your eyes wide open."
+      fi
+      log_info "State: salt.master.pillar"
+      $SUDO salt-call ${SALT_OPTS} state.apply salt.master.pillar pillar='{"reclass":{"storage":{"data_source":{"engine":"local"}}}}'
+    fi
     popd
 
     log_info "State: salt.master.storage.node"
@@ -161,7 +172,7 @@ saltmaster_init() {
     $SUDO sed -i 's/^master:.*/master: localhost/' /etc/salt/minion.d/minion.conf
     $SUDO service salt-minion restart >/dev/null
     $SUDO salt-call ${SALT_OPTS} saltutil.sync_all >/dev/null
-    
+
     verify_salt_master
     set +e
 
