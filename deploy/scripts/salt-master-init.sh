@@ -17,10 +17,11 @@ options() {
     BOOTSTRAP_SALTSTACK=${BOOTSTRAP_SALTSTACK:-True}
     BOOTSTRAP_SALTSTACK_OPTS=${BOOTSTRAP_SALTSTACK_OPTS:- -dX stable 2016.3 }
 
-    # source environment & configuration
+    # try to source local environment & configuration
     # shopt -u dotglob
-    if ls /*.env ; then source /*.env else echo "No /*.env was found."; fi
-    if ls .*.env ; then source .*.env else echo "No .*.env was found."; fi
+    find / -maxdepth 1 -name '*.env' | xargs -0 -n1 --no-run-if-empty
+    find . -maxdepth 1 -name '*.env' | xargs -0 -n1 --no-run-if-empty
+    find /tmp/kitchen -maxdepth 1 -name '*.env' 2> /dev/null | xargs -0 -n1 --no-run-if-empty
 
     export MAGENTA='\033[0;95m'
     export YELLOW='\033[1;33m'
