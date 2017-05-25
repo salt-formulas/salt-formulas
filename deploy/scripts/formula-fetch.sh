@@ -64,11 +64,11 @@ function linkFormulas() {
   SALT_ENV=${2:-/usr/share/salt-formulas/env}
 
   # form git, development versions
-  find "$SALT_ENV"/_formulas -maxdepth 1 -mindepth 1 -type d -print0| xargs -0 -n1 basename | xargs -I{} \
+  find "$SALT_ENV"/_formulas -maxdepth 1 -mindepth 1 -type d -print0| xargs -0 -n1 --no-run-if-empty basename | xargs -I{} --no-run-if-empty \
     ln -fs "$SALT_ENV"/_formulas/{}/{} "$SALT_ROOT"/{};
 
   # form pkgs
-  find "$SALT_ENV" -path "*_formulas*" -prune -o -name "*" -maxdepth 1 -mindepth 1 -type d -print0| xargs -0 -n1 basename | xargs -I{} \
+  find "$SALT_ENV" -maxdepth 1 -mindepth 1 -path "*_formulas*" -prune -o -name "*" -type d -print0| xargs -0 -n1 --no-run-if-empty basename | xargs -I{} --no-run-if-empty \
     ln -fs "$SALT_ENV"/{} "$SALT_ROOT"/{};
 
 }
