@@ -23,7 +23,7 @@ export RECLASS_ADDRESS=${RECLASS_ADDRESS:-https://github.com/salt-formulas/opens
 export FORMULAS_BASE=${FORMULAS_BASE:-https://github.com/salt-formulas}
 export FORMULAS_PATH=${FORMULAS_PATH:-/usr/share/salt-formulas}
 export FORMULAS_BRANCH=${FORMULAS_BRANCH:-master}
-export FORMULAS_SOURCE=${FORMULAS_SOURCE:-git} # pkg/git
+export FORMULAS_SOURCE=${FORMULAS_SOURCE:-pkg} # pkg/git
 
 # system / host
 export HOSTNAME=${HOSTNAME:-cfg01}
