@@ -90,8 +90,8 @@ saltmaster_bootstrap() {
     log_info "Salt master, minion setup (salt-master-setup.sh)"
     test -n "$MASTER_HOSTNAME" || exit 1
 
-    killall -9 salt-master
-    pgrep salt-minion | xargs -i{} $SUDO kill -9 {}
+    pkill -9 salt-master
+    pkill -9 salt-minion
     SCRIPTS=$(dirname $0)
     test -e ${SCRIPTS}/salt-master-setup.sh || \
         curl -sL "https://raw.githubusercontent.com/salt-formulas/salt-formulas/master/deploy/scripts/salt-master-setup.sh" |$SUDO tee ${SCRIPTS}/salt-master-setup.sh > /dev/null;
