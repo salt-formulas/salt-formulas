@@ -165,6 +165,7 @@ EOF
 	    single_address: $SALT_MASTER
 	    salt_master_host: $SALT_MASTER
 	    salt_master_base_environment: $SALT_ENV
+           linux_system_codename: $DISTRIB_CODENAME
 	  linux:
 	    system:
 	      name: $MINION_ID
