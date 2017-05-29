@@ -1,0 +1,39 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+  volume:
+    - <%= ENV['PWD'] %>:/tmp/kitchen
+
+provisioner:
+  name: shell
+  script: verify.sh
+
+platforms:
+  <% `find nodes -type f -name 'cfg*.yml' | xargs -I{} basename {} .yml | sort`.split().each do |cfg| %>
+  <% model=cfg.split('.')[1] %>
+  - name: <%= model %>
+    driver_config:
+      # Default
+      # image: ubuntu:16.04
+      # With dependencies (faster)
+      image: tcpcloud/salt-models-testing
+      platform: ubuntu
+      hostname: <%= cfg %>
+      provision_command:
+        - apt-get update
+        - apt-get install -y git curl subversion python-pip
+        - svn export --force https://github.com/salt-formulas/salt-formulas/trunk/deploy/scripts /srv/salt/scripts
+        # NOTE:
+        # This fixed reclass is already preinstalled in tcpcloud/salt-models-testing container
+        - pip install git+https://github.com/epcim/reclass.git@pr/fix/fix_raise_UndefinedVariableError
+        - echo "
+            export MASTER_HOSTNAME=<%= cfg %>;\n
+            export FORMULAS_SOURCE=pkg;\n
+            export BOOTSTRAP=1;\n
+          " > /kitchen.env
+  <% end %>
+
+suites:
+  - name: reclass
+
