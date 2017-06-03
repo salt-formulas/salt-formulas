@@ -90,7 +90,7 @@ saltmaster_bootstrap() {
     log_info "Salt master, minion setup (salt-master-setup.sh)"
     test -n "$MASTER_HOSTNAME" || exit 1
 
-    pkill -9 salt-master
+    pgrep salt-master | sed /$$/d | xargs -i{} $SUDO kill -9 {}
     pkill -9 salt-minion
     SCRIPTS=$(dirname $0)
     test -e ${SCRIPTS}/salt-master-setup.sh || \
