@@ -1,9 +1,14 @@
 {
     "service_name": "some_service",
     "role_name": "server",
+    "initial_version": "2017.6",
     "copyright_year": "2017",
     "copyright_holder": "Your Name et al.",
-    "author_contact": "name@domain.com",
+    "author_name": "John Doe",
+    "author_contact": "jdoe@domain.com",
+    "homepage": "https://github.com/salt-formulas",
+
+    "debian_version": "trusty",
 
     "kitchen_driver": "docker",
     "kitchen_verifier": "inspec",

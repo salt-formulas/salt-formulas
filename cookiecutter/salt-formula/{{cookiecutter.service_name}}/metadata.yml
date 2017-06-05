@@ -1,3 +1,3 @@
 name: "{{cookiecutter.service_name}}"
-version: "0.1"
-source: "https://github.com/tcpcloud/salt-formula-{{cookiecutter.service_name}}"
+version: "{{cookiecutter.initial_version}}"
+source: "https://github.com/salt-formulas/salt-formula-{{cookiecutter.service_name}}"

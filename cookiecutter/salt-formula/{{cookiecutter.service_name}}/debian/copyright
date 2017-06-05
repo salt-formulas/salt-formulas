@@ -1,12 +1,12 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: salt-formula-{{cookiecutter.service_name}}
-Upstream-Contact: 
-Source: https://github.com/tcpcloud/salt-formula-{{cookiecutter.service_name}}
+Upstream-Contact: salt-formulas@freelists.org
+Source: https://github.com/salt-formulas/salt-formula-{{cookiecutter.service_name}}
 
 Files: *
-Copyright: 2014-2015 {{cookiecutter.copyright_holder}}
+Copyright: {{cookiecutter.copyright_year}} {{cookiecutter.copyright_holder}}
 License: Apache-2.0
-  Copyright (C) 2014-2015 {{cookiecutter.copyright_holder}}
+  Copyright (C) {{cookiecutter.copyright_year}} {{cookiecutter.copyright_holder}}
   .
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.

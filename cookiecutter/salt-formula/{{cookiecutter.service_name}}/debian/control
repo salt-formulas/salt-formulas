@@ -1,12 +1,12 @@
 Source: salt-formula-{{cookiecutter.service_name}}
-Maintainer: {{cookiecutter.author_contact}}
+Maintainer: {{cookiecutter.author_name}} {{cookiecutter.author_contact}}
 Section: admin
 Priority: optional
 Build-Depends: debhelper (>= 9), salt-master, python, python-yaml
 Standards-Version: 3.9.6
-Homepage: http://www.tcpcloud.eu
-Vcs-Browser: https://github.com/tcpcloud/salt-formula-{{cookiecutter.service_name}}
-Vcs-Git: https://github.com/tcpcloud/salt-formula-{{cookiecutter.service_name}}.git
+Homepage: {{cookiecutter.homepage}}
+Vcs-Browser: https://github.com/salt-formulas/salt-formula-{{cookiecutter.service_name}}
+Vcs-Git: https://github.com/salt-formulas/salt-formula-{{cookiecutter.service_name}}.git
 
 Package: salt-formula-{{cookiecutter.service_name}}
 Architecture: all

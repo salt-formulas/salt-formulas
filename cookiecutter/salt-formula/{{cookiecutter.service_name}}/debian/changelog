@@ -1,5 +1,5 @@
-salt-formula-{{cookiecutter.service_name}} (0.1) trusty; urgency=medium
+salt-formula-{{cookiecutter.service_name}} ({{cookiecutter.initial_version}}) {{cookiecutter.debian_version}}; urgency=medium
 
   * Initial release
 
- -- {{cookiecutter.author_contact}}  Thu, 13 Aug 2015 23:23:41 +0200
+ -- {{cookiecutter.author_name}} {{cookiecutter.author_contact}}  {% now "Europe/London", "%a, %d %b %Y %I:%M:%S %Z" %}
