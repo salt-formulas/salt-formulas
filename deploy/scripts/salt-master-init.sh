@@ -208,7 +208,9 @@ function verify_salt_minion() {
   fi
   if ! $SUDO reclass --nodeinfo ${node} > /tmp/${node}.reclass.nodeinfo; then
       log_err "For more details see full log /tmp/${node}.reclass.nodeinfo"
-      exit 1
+      if [[ ${BREAK_ON_VERIFICATION_ERROR:-yes} =~ ^(True|true|1|yes)$ ]]; then
+        exit 1
+      fi
   fi
 }
 
