@@ -13,7 +13,7 @@
 test -e /etc/lsb-release && eval $(cat /etc/lsb-release)
 which lsb_release && DISTRIB_CODENAME=${DISTRIB_CODENAME:-$(lsb_release -cs)}
 #
-export APT_REPOSITORY="deb [arch=amd64] http://apt-mk.mirantis.com/${DISTRIB_CODENAME} stable salt"
+export APT_REPOSITORY="deb [arch=amd64] http://apt-mk.mirantis.com/${DISTRIB_CODENAME} ${DISTRIB_REVISION:-stable} salt"
 export APT_REPOSITORY_GPG=${APT_REPOSITORY_GPG:-http://apt-mk.mirantis.com/public.gpg}
 
 # reclass
