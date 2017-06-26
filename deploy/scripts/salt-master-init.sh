@@ -90,7 +90,7 @@ saltmaster_bootstrap() {
     log_info "Salt master, minion setup (salt-master-setup.sh)"
     test -n "$MASTER_HOSTNAME" || exit 1
 
-    pgrep salt-master | sed /$$/d | xargs -i{} $SUDO kill -9 {}
+    pgrep salt-master | sed /$$/d | xargs --no-run-if-empty -i{} $SUDO kill -9 {}
     pkill -9 salt-minion
     SCRIPTS=$(dirname $0)
     test -e ${SCRIPTS}/salt-master-setup.sh || \
@@ -241,7 +241,7 @@ function verify_salt_minions() {
         passed=$(($passed+1))
     done
     # fail on failures
-    total=$(echo $NODES | xargs -n1 echo |wc -l)
+    total=$(echo $NODES | xargs --no-run-if-empty -n1 echo |wc -l)
     test ! $passed -lt $total || log_err "Results: $passed of $total passed."
     test ! $passed -lt $total || {
       tail -n50 /tmp/*.pillar_verify
