@@ -117,6 +117,9 @@ saltmaster_bootstrap() {
     $SUDO rm -rf $RECLASS_ROOT/nodes/_generated/*
 
     log_info "Re/starting salt services"
+    pgrep salt-master | sed /$$/d | xargs --no-run-if-empty -i{} $SUDO kill -9 {}
+    pkill -9 salt-minion
+    sleep 1
     $SUDO service salt-master restart
     $SUDO service salt-minion restart
     sleep 10
@@ -167,8 +170,10 @@ saltmaster_init() {
     popd
 
     log_info "State: salt.master.storage.node"
+    set +e
     $SUDO salt-call ${SALT_OPTS} state.apply reclass.storage.node
     ret = $?
+    set -e
 
     if [ $ret -eq 2]; then
         log_err "State reclass.storage.node failed with exit code 2 but continuing."
