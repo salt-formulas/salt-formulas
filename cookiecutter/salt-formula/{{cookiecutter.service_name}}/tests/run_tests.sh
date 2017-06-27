@@ -6,6 +6,7 @@ set -e
 CURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 METADATA=${CURDIR}/../metadata.yml
 FORMULA_NAME=$(cat $METADATA | python -c "import sys,yaml; print yaml.load(sys.stdin)['name']")
+FORMULA_META_DIR=${CURDIR}/../${FORMULA_NAME}/meta
 
 ## Overrideable parameters
 PILLARDIR=${PILLARDIR:-${CURDIR}/pillar}
@@ -18,7 +19,7 @@ SALT_PILLAR_DIR=${SALT_PILLAR_DIR:-${BUILDDIR}/pillar_root}
 SALT_CONFIG_DIR=${SALT_CONFIG_DIR:-${BUILDDIR}/salt}
 SALT_CACHE_DIR=${SALT_CACHE_DIR:-${SALT_CONFIG_DIR}/cache}
 
-SALT_OPTS="${SALT_OPTS} --retcode-passthrough --local -c ${SALT_CONFIG_DIR}"
+SALT_OPTS="${SALT_OPTS} --retcode-passthrough --local -c ${SALT_CONFIG_DIR} --log-file=/dev/null"
 
 if [ "x${SALT_VERSION}" != "x" ]; then
     PIP_SALT_VERSION="==${SALT_VERSION}"
@@ -131,7 +132,18 @@ run() {
         grep ${FORMULA_NAME}: ${pillar} &>/dev/null || continue
         state_name=$(basename ${pillar%.sls})
         salt_run grains.set 'noservices' False force=True
+
+        echo "Checking state ${FORMULA_NAME}.${state_name} ..."
         salt_run --id=${state_name} state.show_sls ${FORMULA_NAME} || (log_err "Execution of ${FORMULA_NAME}.${state_name} failed"; exit 1)
+
+        # Check that all files in 'meta' folder can be rendered using any valid pillar
+        for meta in `find ${FORMULA_META_DIR} -type f`; do
+            meta_name=$(basename ${meta})
+            echo "Checking meta ${meta_name} ..."
+            salt_run --out=quiet --id=${state_name} cp.get_template ${meta} ${SALT_CACHE_DIR}/${meta_name} \
+              || (log_err "Failed to render meta ${meta} using pillar ${FORMULA_NAME}.${state_name}"; exit 1)
+            cat ${SALT_CACHE_DIR}/${meta_name}
+        done
     done
 }
 
