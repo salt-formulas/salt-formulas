@@ -326,7 +326,7 @@ install_salt_formula_pkg()
 
           [ ! -d /srv/salt/reclass/classes/service ] && mkdir -p /srv/salt/reclass/classes/service
 
-          declare -a formula_services=("linux" "reclass" "salt" "openssh" "ntp" "git" "nginx" "collectd" "sensu" "heka" "sphinx" "mysql" "grafana" "libvirt" "rsyslog" "glusterfs" "postfix" "postfix" "xtrabackup" "freeipa" $EXTRA_FORMULAS)
+          declare -a formula_services=("linux" "reclass" "salt" "openssh" "ntp" "git" "nginx" "collectd" "sensu" "heka" "sphinx" "mysql" "grafana" "libvirt" "rsyslog" "glusterfs" "postfix" "xtrabackup" "freeipa" $EXTRA_FORMULAS)
           for formula_service in "${formula_services[@]}"; do
               echo -e "\nConfiguring salt formula ${formula_service} ...\n"
               [ ! -d "${FORMULAS_PATH}/env/${formula_service}" ] && \
