@@ -175,9 +175,9 @@ saltmaster_init() {
     ret = $?
     set -e
 
-    if [ $ret -eq 2]; then
+    if [[ $ret -eq 2 ]]; then
         log_err "State reclass.storage.node failed with exit code 2 but continuing."
-    elif [ $ret -ne 0]; then
+    elif [[ $ret -ne 0 ]]; then
         log_err "State reclass.storage.node failed with exit code $ret"
         exit 1
     fi
