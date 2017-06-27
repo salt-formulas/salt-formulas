@@ -168,6 +168,14 @@ saltmaster_init() {
 
     log_info "State: salt.master.storage.node"
     $SUDO salt-call ${SALT_OPTS} state.apply reclass.storage.node
+    ret = $?
+
+    if [ $ret -eq 2]; then
+        log_err "State reclass.storage.node failed with exit code 2 but continuing."
+    elif [ $ret -ne 0]; then
+        log_err "State reclass.storage.node failed with exit code $ret"
+        exit 1
+    fi
 
     log_info "Re/starting salt services"
     $SUDO sed -i 's/^master:.*/master: localhost/' /etc/salt/minion.d/minion.conf
