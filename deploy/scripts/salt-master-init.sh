@@ -172,7 +172,7 @@ saltmaster_init() {
     log_info "State: salt.master.storage.node"
     set +e
     $SUDO salt-call ${SALT_OPTS} state.apply reclass.storage.node
-    ret = $?
+    ret=$?
     set -e
 
     if [[ $ret -eq 2 ]]; then
