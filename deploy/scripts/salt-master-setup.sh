@@ -135,7 +135,15 @@ EOF
 
   if [ ! -d /srv/salt/reclass ]; then
     # No reclass at all, clone from given address
-    git clone ${RECLASS_ADDRESS} /srv/salt/reclass -b ${RECLASS_BRANCH:-master}
+    ssh-keyscan -H github.com >> ~/.ssh/known_hosts || true
+    if echo ${RECLASS_BRANCH:-master} | egrep -q "^refs"; then
+        git clone ${RECLASS_ADDRESS} /srv/salt/reclass
+        cd /srv/salt/reclass
+        git fetch ${RECLASS_ADDRESS} ${RECLASS_BRANCH:-master} && git checkout FETCH_HEAD
+        cd -
+    else
+        git clone -b ${RECLASS_BRANCH:-master} --recurse-submodules ${RECLASS_ADDRESS} /srv/salt/reclass
+    fi
   fi;
   cd /srv/salt/reclass
   if [ ! -d /srv/salt/reclass/classes/system/linux ]; then
