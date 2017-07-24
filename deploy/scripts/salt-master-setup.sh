@@ -142,7 +142,7 @@ EOF
         git fetch ${RECLASS_ADDRESS} ${RECLASS_BRANCH:-master} && git checkout FETCH_HEAD
         cd -
     else
-        git clone -b ${RECLASS_BRANCH:-master} --recurse-submodules ${RECLASS_ADDRESS} /srv/salt/reclass
+        git clone -b ${RECLASS_BRANCH:-master} ${RECLASS_ADDRESS} /srv/salt/reclass
     fi
   fi;
   cd /srv/salt/reclass
