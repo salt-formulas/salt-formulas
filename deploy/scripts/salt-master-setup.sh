@@ -137,6 +137,15 @@ EOF
     # No reclass at all, clone from given address
     git clone ${RECLASS_ADDRESS} /srv/salt/reclass -b ${RECLASS_BRANCH:-master}
   fi;
+
+  # Source bootstrap_vars for specific cluster if specified.
+  for cluster in /srv/salt/reclass/classes/cluster/*/; do
+      if [[ -f "$cluster/bootstrap_vars" ]]; then
+          echo "Sourcing bootstrap_vars for cluster $cluster"
+          source $cluster/bootstrap_vars
+      fi
+  done
+
   cd /srv/salt/reclass
   if [ ! -d /srv/salt/reclass/classes/system/linux ]; then
     # Possibly subrepo checkout needed
@@ -325,7 +334,7 @@ install_salt_formula_pkg()
           echo "Configuring necessary formulas ..."
 
           [ ! -d /srv/salt/reclass/classes/service ] && mkdir -p /srv/salt/reclass/classes/service
-	  declare -a formula_services=("linux" "reclass" "salt" "memcached" "openssh" "ntp" "git" "nginx" "collectd" "sensu" "heka" "sphinx" "mysql" "grafana" "libvirt" "rsyslog" "glusterfs" "postfix" "xtrabackup" "freeipa" $EXTRA_FORMULAS)
+	  declare -a formula_services=("linux" "reclass" "salt" "openssh" "ntp" "git" "nginx" "collectd" "sensu" "heka" "sphinx" "mysql" "grafana" "libvirt" "rsyslog" "glusterfs" "postfix" "xtrabackup" "freeipa" $EXTRA_FORMULAS)
           for formula_service in "${formula_services[@]}"; do
               echo -e "\nConfiguring salt formula ${formula_service} ...\n"
               [ ! -d "${FORMULAS_PATH}/env/${formula_service}" ] && \
@@ -352,7 +361,7 @@ install_salt_formula_git()
 
     [ ! -d /srv/salt/reclass/classes/service ] && mkdir -p /srv/salt/reclass/classes/service
 
-    declare -a formula_services=("linux" "reclass" "salt" "memcached" "openssh" "ntp" "git" "nginx" "collectd" "sensu" "heka" "sphinx" "mysql" "grafana" "libvirt" "rsyslog" "glusterfs" "postfix" "xtrabackup" "freeipa" $EXTRA_FORMULAS)
+    declare -a formula_services=("linux" "reclass" "salt" "openssh" "ntp" "git" "nginx" "collectd" "sensu" "heka" "sphinx" "mysql" "grafana" "libvirt" "rsyslog" "glusterfs" "postfix" "xtrabackup" "freeipa" $EXTRA_FORMULAS)
     for formula_service in "${formula_services[@]}"; do
         echo -e "\nConfiguring salt formula ${formula_service} ...\n"
         _BRANCH=${FORMULAS_BRANCH}
