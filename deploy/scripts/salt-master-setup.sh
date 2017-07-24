@@ -24,6 +24,11 @@ export FORMULAS_BASE=${FORMULAS_BASE:-https://github.com/salt-formulas}
 export FORMULAS_PATH=${FORMULAS_PATH:-/usr/share/salt-formulas}
 export FORMULAS_BRANCH=${FORMULAS_BRANCH:-master}
 export FORMULAS_SOURCE=${FORMULAS_SOURCE:-pkg} # pkg/git
+# essential set of formulas (known to by used on cfg01 node for most setups)
+FORMULAS_SALT_MASTER=${FORMULAS_SALT_MASTER:- $EXTRA_FORMULAS memcached openssh ntp nginx collectd sensu heka sphinx mysql grafana libvirt rsyslog glusterfs postfix xtrabackup freeipa}
+# minimal set of formulas for salt-master bootstrap
+declare -a FORMULAS_SALT_MASTER=(linux reclass salt git $(echo $FORMULAS_SALT_MASTER))
+export FORMULAS_SALT_MASTER
 
 # system / host
 export HOSTNAME=${HOSTNAME:-cfg01}
@@ -334,8 +339,9 @@ install_salt_formula_pkg()
           echo "Configuring necessary formulas ..."
 
           [ ! -d /srv/salt/reclass/classes/service ] && mkdir -p /srv/salt/reclass/classes/service
-	  declare -a formula_services=("linux" "reclass" "salt" "openssh" "ntp" "git" "nginx" "collectd" "sensu" "heka" "sphinx" "mysql" "grafana" "libvirt" "rsyslog" "glusterfs" "postfix" "xtrabackup" "freeipa" $EXTRA_FORMULAS)
-          for formula_service in "${formula_services[@]}"; do
+          # Set essentials if FORMULAS_SALT_MASTER is not defined at all
+          [ -z ${FORMULAS_SALT_MASTER+x} ] && declare -a FORMULAS_SALT_MASTER=("linux" "reclass" "salt" "memcached")
+          for formula_service in "${FORMULAS_SALT_MASTER[@]}"; do
               echo -e "\nConfiguring salt formula ${formula_service} ...\n"
               [ ! -d "${FORMULAS_PATH}/env/${formula_service}" ] && \
                   if ! $SUDO apt-get install -y salt-formula-${formula_service}; then
@@ -360,9 +366,9 @@ install_salt_formula_git()
     echo "Configuring necessary formulas ..."
 
     [ ! -d /srv/salt/reclass/classes/service ] && mkdir -p /srv/salt/reclass/classes/service
-
-    declare -a formula_services=("linux" "reclass" "salt" "openssh" "ntp" "git" "nginx" "collectd" "sensu" "heka" "sphinx" "mysql" "grafana" "libvirt" "rsyslog" "glusterfs" "postfix" "xtrabackup" "freeipa" $EXTRA_FORMULAS)
-    for formula_service in "${formula_services[@]}"; do
+    # Set essentials if FORMULAS_SALT_MASTER is not defined at all
+    [ -z ${FORMULAS_SALT_MASTER+x} ] && declare -a FORMULAS_SALT_MASTER=("linux" "reclass" "salt" "memcached")
+    for formula_service in "${FORMULAS_SALT_MASTER[@]}"; do
         echo -e "\nConfiguring salt formula ${formula_service} ...\n"
         _BRANCH=${FORMULAS_BRANCH}
         [ ! -d "${FORMULAS_PATH}/env/_formulas/${formula_service}" ] && {
