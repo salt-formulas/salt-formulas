@@ -12,10 +12,11 @@ fi
 options() {
     export LC_ALL=C
     SALT_LOG_LEVEL="--state-verbose=false -lerror"
-    SALT_OPTS="${SALT_OPTS:- --state-output=changes --retcode-passthrough --force-color $SALT_LOG_LEVEL }"
+    SALT_OPTS="${SALT_OPTS:- --timeout=120 --state-output=changes --retcode-passthrough --force-color $SALT_LOG_LEVEL }"
     RECLASS_ROOT=${RECLASS_ROOT:-/srv/salt/reclass}
     BOOTSTRAP_SALTSTACK=${BOOTSTRAP_SALTSTACK:-True}
     BOOTSTRAP_SALTSTACK_OPTS=${BOOTSTRAP_SALTSTACK_OPTS:- -dX stable 2016.3 }
+    SALT_STATE_RETRY=${SALT_STATE_RETRY:-3}
 
     # try to source local environment & configuration
     # shopt -u dotglob
@@ -56,6 +57,18 @@ _atexit() {
     return $RETVAL
 }
 
+retry() {
+    local tries
+    if [[ $1 =~ ^[0-9]+$ ]]; then
+        tries=$1; shift
+    else
+        tries=3
+    fi
+    for i in $(seq 1 $tries); do
+        "$@" && return 0 || sleep $i
+    done
+    return 1
+}
 
 ## Main
 
@@ -74,9 +87,9 @@ system_config() {
     if [[ $BOOTSTRAP_SALTSTACK =~ ^(True|true|1|yes)$ ]]; then
         curl -L https://bootstrap.saltstack.com | $SUDO sh -s -- -M ${BOOTSTRAP_SALTSTACK_OPTS} &>/dev/null || true
     fi
-    
+
     which reclass || $SUDO apt install -qqq -y reclass
-    
+
     which reclass-salt || {
       test -e /usr/share/reclass/reclass-salt && {
         ln -fs /usr/share/reclass/reclass-salt /usr/bin
@@ -148,7 +161,7 @@ saltmaster_init() {
     fi
 
     log_info "State: salt.master.pillar"
-    $SUDO salt-call ${SALT_OPTS} state.apply salt.master.pillar pillar='{"reclass":{"storage":{"data_source":{"engine":"local"}}}}'
+    retry ${SALT_STATE_RETRY} $SUDO salt-call ${SALT_OPTS} state.apply salt.master.pillar pillar='{"reclass":{"storage":{"data_source":{"engine":"local"}}}}'
     # Note: sikp reclass data dir states
     #       in order to avoid pull from configured repo/branch
 
@@ -165,7 +178,7 @@ saltmaster_init() {
         log_err "State salt.master.env failed, keep your eyes wide open."
       fi
       log_info "State: salt.master.pillar"
-      $SUDO salt-call ${SALT_OPTS} state.apply salt.master.pillar pillar='{"reclass":{"storage":{"data_source":{"engine":"local"}}}}'
+      retry ${SALT_STATE_RETRY} $SUDO salt-call ${SALT_OPTS} state.apply salt.master.pillar pillar='{"reclass":{"storage":{"data_source":{"engine":"local"}}}}'
     fi
     popd
 
