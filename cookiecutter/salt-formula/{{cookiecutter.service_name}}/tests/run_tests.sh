@@ -40,6 +40,7 @@ setup_virtualenv() {
     virtualenv $VENV_DIR
     source ${VENV_DIR}/bin/activate
     pip install salt${PIP_SALT_VERSION}
+    pip install reno
 }
 
 setup_mock_bin() {
@@ -138,6 +139,14 @@ prepare() {
     install_dependencies
 }
 
+lint_releasenotes() {
+  reno lint ${CURDIR}/../
+}
+
+lint() {
+  lint_releasenotes
+}
+
 run() {
     for pillar in ${PILLARDIR}/*.sls; do
         grep ${FORMULA_NAME}: ${pillar} &>/dev/null || continue
@@ -187,6 +196,9 @@ case $1 in
     prepare)
         prepare
         ;;
+    lint)
+        lint
+        ;;
     run)
         run
         ;;
@@ -195,6 +207,7 @@ case $1 in
         ;;
     *)
         prepare
+        lint
         run
         ;;
 esac
