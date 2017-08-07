@@ -25,7 +25,7 @@ export FORMULAS_PATH=${FORMULAS_PATH:-/usr/share/salt-formulas}
 export FORMULAS_BRANCH=${FORMULAS_BRANCH:-master}
 export FORMULAS_SOURCE=${FORMULAS_SOURCE:-pkg} # pkg/git
 # essential set of formulas (known to by used on cfg01 node for most setups)
-FORMULAS_SALT_MASTER=${FORMULAS_SALT_MASTER:- $EXTRA_FORMULAS memcached openssh ntp nginx collectd sensu heka sphinx mysql grafana libvirt rsyslog glusterfs postfix xtrabackup freeipa prometheus telegraf elasticsearch kibana rundeck}
+FORMULAS_SALT_MASTER=${FORMULAS_SALT_MASTER:- $EXTRA_FORMULAS memcached openssh ntp nginx collectd sensu heka sphinx mysql grafana libvirt rsyslog glusterfs postfix xtrabackup freeipa prometheus telegraf elasticsearch kibana rundeck devops-portal}
 # minimal set of formulas for salt-master bootstrap
 declare -a FORMULAS_SALT_MASTER=(linux reclass salt git $(echo $FORMULAS_SALT_MASTER))
 export FORMULAS_SALT_MASTER
