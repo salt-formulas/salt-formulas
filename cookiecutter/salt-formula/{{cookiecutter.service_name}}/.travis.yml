@@ -5,6 +5,7 @@ services:
 install:
   - pip install PyYAML
   - pip install virtualenv
+  - pip install reno
   - |
     test -e Gemfile || cat <<EOF > Gemfile
     source 'https://rubygems.org'
@@ -23,6 +24,7 @@ env:
 before_script:
   - set -o pipefail
   - make test | tail
+  - reno lint $PWD | tail
 
 script:
   - test ! -e .kitchen.yml || bundle exec kitchen test -t tests/integration
