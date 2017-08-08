@@ -26,7 +26,7 @@ On already deployed salt master, use as:
 
 .. code-block:: bash
 
-  svn export --force https://github.com/salt-formulas/salt-formulas/trunk/deploy/model ${RECLASS_REPO_PATH:-/srv/salt/reclass}
+  git clone https://github.com/salt-formulas/salt-formulas-scripts ${RECLASS_ROOT-/srv/salt/reclass}
 
   cd /srv/salt/reclass
   ./.verify.sh
@@ -44,7 +44,7 @@ Command ``kitchen converge`` uses ``.verify.sh`` script as simple ``provisioner`
 
 .. code-block:: bash
 
-  svn export --force https://github.com/salt-formulas/salt-formulas/trunk/deploy/model ${RECLASS_REPO_PATH:-.}
+  svn export --force https://github.com/salt-formulas/salt-formulas/trunk/deploy/model ${RECLASS_ROOT:-.}
 
   kitchen list
   kitchen converge
