@@ -18,7 +18,7 @@ Local model verification
 
 Tools to verify locally or during CI the consistency of a model.
 
-**.verify.sh**
+**verify.sh**
 
 Verification script that may be used locally on salt-master or during automated CI with test-kitchen.
 
@@ -29,8 +29,8 @@ On already deployed salt master, use as:
   git clone https://github.com/salt-formulas/salt-formulas-scripts ${RECLASS_ROOT-/srv/salt/reclass}
 
   cd /srv/salt/reclass
-  ./.verify.sh
-  ./.verify.sh [NODE FQDN]
+  ./verify.sh
+  ./verify.sh [NODE FQDN]
 
 
 **.kitchen.yml**
