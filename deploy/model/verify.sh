@@ -14,15 +14,15 @@ if [[ $BOOTSTRAP =~ ^(True|true|1|yes)$ ]]; then
   if [[ -e .gitmodules ]] && [[ ! -e classes/system/linux ]]; then
     git submodule update --init --recursive || true
   fi
-  /srv/salt/scripts/salt-master-init.sh
+  ls -la /srv/salt/reclass
+  /srv/salt/scripts/bootstrap.sh
 fi
 
 # VERIFY
 export BOOTSTRAP_SALTSTACK=False
 cd /srv/salt/reclass &&\
-source /srv/salt/scripts/salt-master-init.sh &&\
-options &&\
-system_config && \\
+source /srv/salt/scripts/bootstrap.sh &&\
+system_config_master &&\
 if [[ -z "$1" ]] ; then
   verify_salt_master &&\
   verify_salt_minions

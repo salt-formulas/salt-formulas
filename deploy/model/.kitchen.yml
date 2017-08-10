@@ -22,8 +22,8 @@ platforms:
       hostname: <%= cfg %>
       provision_command:
         - apt-get update
-        - apt-get install -y git curl subversion python-pip
-        - svn export --force https://github.com/salt-formulas/salt-formulas/trunk/deploy/scripts /srv/salt/scripts
+        - apt-get install -y git curl python-pip
+        - git clone https://github.com/salt-formulas/salt-formulas-scripts /srv/salt/scripts
         # NOTE:
         # This fixed reclass is already preinstalled in tcpcloud/salt-models-testing container
         - pip install git+https://github.com/epcim/reclass.git@pr/fix/fix_raise_UndefinedVariableError

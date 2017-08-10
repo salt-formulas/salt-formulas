@@ -18,7 +18,7 @@ Local model verification
 
 Tools to verify locally or during CI the consistency of a model.
 
-**.verify.sh**
+**verify.sh**
 
 Verification script that may be used locally on salt-master or during automated CI with test-kitchen.
 
@@ -26,11 +26,11 @@ On already deployed salt master, use as:
 
 .. code-block:: bash
 
-  svn export --force https://github.com/salt-formulas/salt-formulas/trunk/deploy/model ${RECLASS_REPO_PATH:-/srv/salt/reclass}
+  git clone https://github.com/salt-formulas/salt-formulas-scripts ${RECLASS_ROOT-/srv/salt/reclass}
 
   cd /srv/salt/reclass
-  ./.verify.sh
-  ./.verify.sh [NODE FQDN]
+  ./verify.sh
+  ./verify.sh [NODE FQDN]
 
 
 **.kitchen.yml**
@@ -44,7 +44,7 @@ Command ``kitchen converge`` uses ``.verify.sh`` script as simple ``provisioner`
 
 .. code-block:: bash
 
-  svn export --force https://github.com/salt-formulas/salt-formulas/trunk/deploy/model ${RECLASS_REPO_PATH:-.}
+  svn export --force https://github.com/salt-formulas/salt-formulas/trunk/deploy/model ${RECLASS_ROOT:-.}
 
   kitchen list
   kitchen converge
