@@ -40,7 +40,7 @@ configuration.
 
 More details related the ``kitchen-salt`` and usage with salt-formulas you may find at `salt-formulas testing documentation <https://salt-formulas.readthedocs.io/en/latest/develop/testing-formulas.html>`_
 
-Command ``kitchen converge`` uses ``.verify.sh`` script as simple ``provisioner`` script.
+Command ``kitchen converge`` uses ``verify.sh`` script as simple ``provisioner`` script.
 
 .. code-block:: bash
 
