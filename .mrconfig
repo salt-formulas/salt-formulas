@@ -10,506 +10,602 @@ update = git pull --rebase
 git_review = git review
 
 [formulas/openvstorage]
-skip = lazy
 checkout = git_checkout openvstorage
+skip = lazy
 
 [formulas/postfix]
-skip = lazy
 checkout = git_checkout postfix
+skip = lazy
 
 [formulas/dovecot]
-skip = lazy
 checkout = git_checkout dovecot
+skip = lazy
 
 [formulas/roundcube]
-skip = lazy
 checkout = git_checkout roundcube
+skip = lazy
 
 [formulas/glusterfs]
-skip = lazy
 checkout = git_checkout glusterfs
+skip = lazy
 
 [formulas/apache]
-skip = lazy
 checkout = git_checkout apache
-
-[formulas/aptcacher]
 skip = lazy
-checkout = git_checkout aptcacher
 
 [formulas/aptly]
-skip = lazy
 checkout = git_checkout aptly
+skip = lazy
 
 [formulas/backupninja]
-skip = lazy
 checkout = git_checkout backupninja
+skip = lazy
 
 [formulas/billometer]
-skip = lazy
 checkout = git_checkout billometer
+skip = lazy
 
 [formulas/collectd]
-skip = lazy
 checkout = git_checkout collectd
+skip = lazy
 
 [formulas/elasticsearch]
-skip = lazy
 checkout = git_checkout elasticsearch
+skip = lazy
 
 [formulas/foreman]
-skip = lazy
 checkout = git_checkout foreman
+skip = lazy
 
 [formulas/galera]
-skip = lazy
 checkout = git_checkout galera
+skip = lazy
 
 [formulas/git]
-skip = lazy
 checkout = git_checkout git
+skip = lazy
 
 [formulas/gitlab]
-skip = lazy
 checkout = git_checkout gitlab
+skip = lazy
 
 [formulas/graphite]
-skip = lazy
 checkout = git_checkout graphite
+skip = lazy
 
 [formulas/haproxy]
-skip = lazy
 checkout = git_checkout haproxy
+skip = lazy
 
 [formulas/iptables]
-skip = lazy
 checkout = git_checkout iptables
+skip = lazy
 
 [formulas/java]
-skip = lazy
 checkout = git_checkout java
+skip = lazy
 
 [formulas/jenkins]
-skip = lazy
 checkout = git_checkout jenkins
+skip = lazy
 
 [formulas/kedb]
-skip = lazy
 checkout = git_checkout kedb
+skip = lazy
 
 [formulas/keepalived]
-skip = lazy
 checkout = git_checkout keepalived
+skip = lazy
 
 [formulas/kibana]
-skip = lazy
 checkout = git_checkout kibana
+skip = lazy
 
 [formulas/linux]
-skip = lazy
 checkout = git_checkout linux
+skip = lazy
 
 [formulas/memcached]
-skip = lazy
 checkout = git_checkout memcached
+skip = lazy
 
 [formulas/mongodb]
-skip = lazy
 checkout = git_checkout mongodb
+skip = lazy
 
 [formulas/mysql]
-skip = lazy
 checkout = git_checkout mysql
+skip = lazy
 
 [formulas/nginx]
-skip = lazy
 checkout = git_checkout nginx
+skip = lazy
 
 [formulas/ntp]
-skip = lazy
 checkout = git_checkout ntp
-
-[formulas/openldap]
 skip = lazy
-checkout = git_checkout openldap
 
 [formulas/openssh]
-skip = lazy
 checkout = git_checkout openssh
+skip = lazy
 
 [formulas/postgresql]
-skip = lazy
 checkout = git_checkout postgresql
+skip = lazy
 
 [formulas/python]
-skip = lazy
 checkout = git_checkout python
+skip = lazy
 
 [formulas/rabbitmq]
-skip = lazy
 checkout = git_checkout rabbitmq
+skip = lazy
 
 [formulas/reclass]
-skip = lazy
 checkout = git_checkout reclass
+skip = lazy
 
 [formulas/redis]
-skip = lazy
 checkout = git_checkout redis
+skip = lazy
 
 [formulas/salt]
-skip = lazy
 checkout = git_checkout salt
+skip = lazy
 
 [formulas/sensu]
-skip = lazy
 checkout = git_checkout sensu
+skip = lazy
 
 [formulas/supervisor]
-skip = lazy
 checkout = git_checkout supervisor
+skip = lazy
 
 [formulas/heka]
-skip = lazy
 checkout = git_checkout heka
+skip = lazy
 
 [formulas/owncloud]
-skip = lazy
 checkout = git_checkout owncloud
+skip = lazy
 
 [formulas/murano]
-skip = lazy
 checkout = git_checkout murano
+skip = lazy
 
 [formulas/nfs]
-skip = lazy
 checkout = git_checkout nfs
+skip = lazy
 
 [formulas/varnish]
-skip = lazy
 checkout = git_checkout varnish
+skip = lazy
 
 [formulas/statsd]
-skip = lazy
 checkout = git_checkout statsd
+skip = lazy
 
 [formulas/nodejs]
-skip = lazy
 checkout = git_checkout nodejs
+skip = lazy
 
 [formulas/letsencrypt]
-skip = lazy
 checkout = git_checkout letsencrypt
+skip = lazy
 
 [formulas/pritunl]
-skip = lazy
 checkout = git_checkout pritunl
+skip = lazy
 
 [formulas/sphinx]
-skip = lazy
 checkout = git_checkout sphinx
+skip = lazy
 
 [formulas/freeipa]
-skip = lazy
 checkout = git_checkout freeipa
+skip = lazy
 
 [formulas/ceph]
-skip = lazy
 checkout = git_checkout ceph
+skip = lazy
 
 [formulas/magnum]
-skip = lazy
 checkout = git_checkout magnum
+skip = lazy
 
 [formulas/isc-dhcp]
-skip = lazy
 checkout = git_checkout isc-dhcp
+skip = lazy
 
 [formulas/rsyslog]
-skip = lazy
 checkout = git_checkout rsyslog
+skip = lazy
 
 [formulas/bind]
-skip = lazy
 checkout = git_checkout bind
+skip = lazy
 
 [formulas/libvirt]
-skip = lazy
 checkout = git_checkout libvirt
+skip = lazy
 
 [formulas/taiga]
-skip = lazy
 checkout = git_checkout taiga
+skip = lazy
 
 [formulas/rsync]
-skip = lazy
 checkout = git_checkout rsync
+skip = lazy
 
 [formulas/grafana]
-skip = lazy
 checkout = git_checkout grafana
+skip = lazy
 
 [formulas/logrotate]
-skip = lazy
 checkout = git_checkout logrotate
+skip = lazy
 
 [formulas/docker]
-skip = lazy
 checkout = git_checkout docker
+skip = lazy
 
 [formulas/zookeeper]
-skip = lazy
 checkout = git_checkout zookeeper
+skip = lazy
 
 [formulas/cassandra]
-skip = lazy
 checkout = git_checkout cassandra
+skip = lazy
 
 [formulas/openvpn]
-skip = lazy
 checkout = git_checkout openvpn
+skip = lazy
 
 [formulas/calico]
-skip = lazy
 checkout = git_checkout calico
+skip = lazy
 
 [formulas/influxdb]
-skip = lazy
 checkout = git_checkout influxdb
+skip = lazy
 
 [formulas/bird]
-skip = lazy
 checkout = git_checkout bird
+skip = lazy
 
 [formulas/etcd]
-skip = lazy
 checkout = git_checkout etcd
+skip = lazy
 
 [formulas/maas]
-skip = lazy
 checkout = git_checkout maas
+skip = lazy
 
 [formulas/artifactory]
-skip = lazy
 checkout = git_checkout artifactory
+skip = lazy
 
 [formulas/gerrit]
-skip = lazy
 checkout = git_checkout gerrit
+skip = lazy
 
 [formulas/sahara]
-skip = lazy
 checkout = git_checkout sahara
+skip = lazy
 
 [formulas/nagios]
-skip = lazy
 checkout = git_checkout nagios
+skip = lazy
 
 [formulas/designate]
-skip = lazy
 checkout = git_checkout designate
+skip = lazy
 
 [formulas/aodh]
-skip = lazy
 checkout = git_checkout aodh
+skip = lazy
 
 [formulas/ccp]
-skip = lazy
 checkout = git_checkout ccp
+skip = lazy
+
+[formulas/shibboleth]
+checkout = git_checkout shibboleth
+skip = lazy
 
 [formulas/network]
-skip = lazy
 checkout = git_checkout network
+skip = lazy
 
 [formulas/chrony]
-skip = lazy
 checkout = git_checkout chrony
+skip = lazy
 
 [formulas/cadf]
-skip = lazy
 checkout = git_checkout cadf
+skip = lazy
 
 [formulas/ceilometer]
-skip = lazy
 checkout = git_checkout ceilometer
+skip = lazy
 
 [formulas/cinder]
-skip = lazy
 checkout = git_checkout cinder
+skip = lazy
 
 [formulas/glance]
-skip = lazy
 checkout = git_checkout glance
+skip = lazy
 
 [formulas/heat]
-skip = lazy
 checkout = git_checkout heat
+skip = lazy
 
 [formulas/horizon]
-skip = lazy
 checkout = git_checkout horizon
+skip = lazy
 
 [formulas/keystone]
-skip = lazy
 checkout = git_checkout keystone
+skip = lazy
 
 [formulas/neutron]
-skip = lazy
 checkout = git_checkout neutron
+skip = lazy
 
 [formulas/nova]
-skip = lazy
 checkout = git_checkout nova
+skip = lazy
 
 [formulas/opencontrail]
-skip = lazy
 checkout = git_checkout opencontrail
+skip = lazy
 
 [formulas/midonet]
-skip = lazy
 checkout = git_checkout midonet
+skip = lazy
 
 [formulas/swift]
-skip = lazy
 checkout = git_checkout swift
+skip = lazy
 
 [formulas/kubernetes]
-skip = lazy
 checkout = git_checkout kubernetes
+skip = lazy
 
 [formulas/avinetworks]
-skip = lazy
 checkout = git_checkout avinetworks
+skip = lazy
 
 [formulas/decapod]
-skip = lazy
 checkout = git_checkout decapod
+skip = lazy
 
 [formulas/home-assistant]
-skip = lazy
 checkout = git_checkout home-assistant
+skip = lazy
 
 [formulas/mosquitto]
-skip = lazy
 checkout = git_checkout mosquitto
+skip = lazy
 
 [formulas/ffmpeg]
-skip = lazy
 checkout = git_checkout ffmpeg
+skip = lazy
 
 [formulas/kodi]
-skip = lazy
 checkout = git_checkout kodi
+skip = lazy
 
 [formulas/motion]
-skip = lazy
 checkout = git_checkout motion
+skip = lazy
 
 [formulas/octoprint]
-skip = lazy
 checkout = git_checkout octoprint
+skip = lazy
 
 [formulas/php]
-skip = lazy
 checkout = git_checkout php
+skip = lazy
 
 [formulas/ruby]
-skip = lazy
 checkout = git_checkout ruby
+skip = lazy
 
 [formulas/knot]
-skip = lazy
 checkout = git_checkout knot
+skip = lazy
 
 [formulas/powerdns]
-skip = lazy
 checkout = git_checkout powerdns
+skip = lazy
 
 [formulas/gateone]
-skip = lazy
 checkout = git_checkout gateone
+skip = lazy
 
 [formulas/leonardo]
-skip = lazy
 checkout = git_checkout leonardo
+skip = lazy
 
 [formulas/wordpress]
-skip = lazy
 checkout = git_checkout wordpress
+skip = lazy
 
 [formulas/redmine]
-skip = lazy
 checkout = git_checkout redmine
+skip = lazy
 
 [formulas/moodle]
-skip = lazy
 checkout = git_checkout moodle
+skip = lazy
 
 [formulas/suitecrm]
-skip = lazy
 checkout = git_checkout suitecrm
+skip = lazy
 
 [formulas/openode]
-skip = lazy
 checkout = git_checkout openode
+skip = lazy
 
 [formulas/mayan]
-skip = lazy
 checkout = git_checkout mayan
+skip = lazy
 
 [formulas/stackstorm]
-skip = lazy
 checkout = git_checkout stackstorm
+skip = lazy
 
 [formulas/flower]
-skip = lazy
 checkout = git_checkout flower
+skip = lazy
 
 [formulas/gource]
-skip = lazy
 checkout = git_checkout gource
+skip = lazy
 
 [formulas/virtualbox]
-skip = lazy
 checkout = git_checkout virtualbox
+skip = lazy
 
 [formulas/vagrant]
-skip = lazy
 checkout = git_checkout vagrant
+skip = lazy
 
 [formulas/packer]
-skip = lazy
 checkout = git_checkout packer
+skip = lazy
 
 [formulas/sentry]
-skip = lazy
 checkout = git_checkout sentry
+skip = lazy
 
 [formulas/squid]
-skip = lazy
 checkout = git_checkout squid
+skip = lazy
 
 [formulas/tftpd-hpa]
-skip = lazy
 checkout = git_checkout tftpd-hpa
+skip = lazy
 
 [formulas/tempest]
-skip = lazy
 checkout = git_checkout tempest
+skip = lazy
 
 [formulas/rally]
-skip = lazy
 checkout = git_checkout rally
+skip = lazy
 
 [formulas/jupyter]
-skip = lazy
 checkout = git_checkout jupyter
+skip = lazy
 
 [formulas/tvheadend]
-skip = lazy
 checkout = git_checkout tvheadend
+skip = lazy
 
 [formulas/fluentd]
-skip = lazy
 checkout = git_checkout fluentd
+skip = lazy
+
+[formulas/monasca]
+checkout = git_checkout monasca
+skip = lazy
+
+[formulas/robophery]
+checkout = git_checkout robophery
+skip = lazy
+
+[formulas/prometheus]
+checkout = git_checkout prometheus
+skip = lazy
+
+[formulas/aptcacher]
+checkout = git_checkout aptcacher
+skip = lazy
+
+[formulas/openldap]
+checkout = git_checkout openldap
+skip = lazy
+
+[formulas/storm]
+checkout = git_checkout storm
+skip = lazy
+
+[formulas/spinnaker]
+checkout = git_checkout spinnaker
+skip = lazy
+
+[formulas/lldp]
+checkout = git_checkout lldp
+skip = lazy
+
+[formulas/odoo]
+checkout = git_checkout odoo
+skip = lazy
+
+[formulas/airflow]
+checkout = git_checkout airflow
+skip = lazy
+
+[formulas/superset]
+checkout = git_checkout superset
+skip = lazy
+
+[formulas/pgbouncer]
+checkout = git_checkout pgbouncer
+skip = lazy
+
+[formulas/telegraf]
+checkout = git_checkout telegraf
+skip = lazy
+
+[formulas/selenium]
+checkout = git_checkout selenium
+skip = lazy
+
+[formulas/xtrabackup]
+checkout = git_checkout xtrabackup
+skip = lazy
+
+[formulas/ironic]
+checkout = git_checkout ironic
+skip = lazy
+
+[formulas/octavia]
+checkout = git_checkout octavia
+skip = lazy
+
+[formulas/panko]
+checkout = git_checkout panko
+skip = lazy
+
+[formulas/gnocchi]
+checkout = git_checkout gnocchi
+skip = lazy
+
+[formulas/devops-portal]
+checkout = git_checkout devops-portal
+skip = lazy
+
+[formulas/rundeck]
+checkout = git_checkout rundeck
+skip = lazy
+
+[formulas/helm]
+checkout = git_checkout helm
+skip = lazy
+
+[formulas/model-manager]
+checkout = git_checkout model-manager
+skip = lazy
+
+[formulas/barbican]
+checkout = git_checkout barbican
+skip = lazy
+
+[formulas/hubblestack]
+checkout = git_checkout hubblestack
+skip = lazy
 
