@@ -9,7 +9,7 @@ help:
 	@echo "remote_github Add git remote github"
 
 pull:
-	echo git pull --rebase
+	git pull --rebase
 
 submodules: pull
 	git submodule init
