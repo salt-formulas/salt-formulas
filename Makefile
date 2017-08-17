@@ -36,7 +36,7 @@ html:
 pdf:
 	make -C doc latexpdf
 
-FORKED_FORMULAS_DIR=fformulas
+FORKED_FORMULAS_DIR=formulas
 FORMULAS=`python3 -c 'import sys; sys.path.append("scripts");from update_mrconfig import *; print(*get_org_repos(make_github_agent(), "salt-formulas"), sep="\n")'| egrep 'salt-formula-' | sed 's/salt-formula-//'`
 
 scripts_prerequisites:
@@ -45,7 +45,7 @@ scripts_prerequisites:
 list: scripts_prerequisites
 	@echo $(FORMULAS)
 
-update_forks: scripts_prerequisites
+update_forks:
 	@mkdir -p $(FORKED_FORMULAS_DIR)
 	@for FORMULA in $(FORMULAS) ; do\
      echo "## Forking: $$FORMULA";\
