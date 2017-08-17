@@ -60,4 +60,3 @@ ChangeLog
 # Avoid to commit/list on git status subrepos/forks
 # #################################################
 formulas
-fformulas
