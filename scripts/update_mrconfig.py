@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import configparser
 import re
@@ -45,10 +45,10 @@ def main():
         if repo not in repos:
             repos.append(repo)
             rconf = gen_repo_config("salt-formulas", repo)
-            for key, value in rconf.iteritems():
+            for key, value in rconf.items():
                 config_new[key] = value
         else:
-            print "Repository %s present in different organization" % repo
+            print("Repository %s present in different organization" % repo)
 
     with open('.mrconfig', 'w') as fh:
         config_new.write(fh)

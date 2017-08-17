@@ -373,3 +373,7 @@
 [submodule "formulas/stackstorm"]
 	path = formulas/stackstorm
 	url = https://github.com/salt-formulas/salt-formula-stackstorm
+[submodule "formulas/helm"]
+	path = formulas/helm
+	url = https://github.com/salt-formulas/salt-formula-helm.git
+	branch = master
