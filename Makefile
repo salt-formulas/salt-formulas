@@ -79,8 +79,6 @@ remote_github_f: FORMULAS_DIR=$(FORKED_FORMULAS_DIR)
 remote_github_f: remote_github_add
 
 remote_github_add:
-	@#(for formula in $(FORMULAS_DIR)/*; do FORMULA=`basename $$formula` && cd $$formula && git remote remove pmichalec || true && cd ../.. ; done)
-	@#(for formula in $(FORMULAS_DIR)/*; do FORMULA=`basename $$formula` && cd $$formula && git remote remove epcim || true && cd ../.. ; done)
 	@mkdir -p $(FORMULAS_DIR)
 	@ID=$${GITHUB_USERNAME:-$$USER};\
    for FORMULA in `ls $(FORMULAS_DIR)/`; do\
