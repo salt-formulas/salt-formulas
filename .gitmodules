@@ -1,379 +1,505 @@
 [submodule "formulas/ceilometer"]
+	ignore = all
 	path = formulas/ceilometer
 	url = https://github.com/salt-formulas/salt-formula-ceilometer
 [submodule "formulas/cinder"]
+	ignore = all
 	path = formulas/cinder
 	url = https://github.com/salt-formulas/salt-formula-cinder
 [submodule "formulas/foreman"]
+	ignore = all
 	path = formulas/foreman
 	url = https://github.com/salt-formulas/salt-formula-foreman
 [submodule "formulas/freeipa"]
+	ignore = all
 	path = formulas/freeipa
 	url = https://github.com/salt-formulas/salt-formula-freeipa
 [submodule "formulas/git"]
+	ignore = all
 	path = formulas/git
 	url = https://github.com/salt-formulas/salt-formula-git
 [submodule "formulas/glance"]
+	ignore = all
 	path = formulas/glance
 	url = https://github.com/salt-formulas/salt-formula-glance
 [submodule "formulas/glusterfs"]
+	ignore = all
 	path = formulas/glusterfs
 	url = https://github.com/salt-formulas/salt-formula-glusterfs
 [submodule "formulas/heat"]
+	ignore = all
 	path = formulas/heat
 	url = https://github.com/salt-formulas/salt-formula-heat
 [submodule "formulas/horizon"]
+	ignore = all
 	path = formulas/horizon
 	url = https://github.com/salt-formulas/salt-formula-horizon
 [submodule "formulas/iptables"]
+	ignore = all
 	path = formulas/iptables
 	url = https://github.com/salt-formulas/salt-formula-iptables
 [submodule "formulas/keepalived"]
+	ignore = all
 	path = formulas/keepalived
 	url = https://github.com/salt-formulas/salt-formula-keepalived
 [submodule "formulas/keystone"]
+	ignore = all
 	path = formulas/keystone
 	url = https://github.com/salt-formulas/salt-formula-keystone
 [submodule "formulas/letsencrypt"]
+	ignore = all
 	path = formulas/letsencrypt
 	url = https://github.com/salt-formulas/salt-formula-letsencrypt
 [submodule "formulas/linux"]
+	ignore = all
 	path = formulas/linux
 	url = https://github.com/salt-formulas/salt-formula-linux
 [submodule "formulas/maas"]
+	ignore = all
 	path = formulas/maas
 	url = https://github.com/salt-formulas/salt-formula-maas
 [submodule "formulas/memcached"]
+	ignore = all
 	path = formulas/memcached
 	url = https://github.com/salt-formulas/salt-formula-memcached
 [submodule "formulas/midonet"]
+	ignore = all
 	path = formulas/midonet
 	url = https://github.com/salt-formulas/salt-formula-midonet
 [submodule "formulas/neutron"]
+	ignore = all
 	path = formulas/neutron
 	url = https://github.com/salt-formulas/salt-formula-neutron
 [submodule "formulas/nova"]
+	ignore = all
 	path = formulas/nova
 	url = https://github.com/salt-formulas/salt-formula-nova
 [submodule "formulas/ntp"]
+	ignore = all
 	path = formulas/ntp
 	url = https://github.com/salt-formulas/salt-formula-ntp
 [submodule "formulas/opencontrail"]
+	ignore = all
 	path = formulas/opencontrail
 	url = https://github.com/salt-formulas/salt-formula-opencontrail
 [submodule "formulas/openssh"]
+	ignore = all
 	path = formulas/openssh
 	url = https://github.com/salt-formulas/salt-formula-openssh
 [submodule "formulas/reclass"]
+	ignore = all
 	path = formulas/reclass
 	url = https://github.com/salt-formulas/salt-formula-reclass
 [submodule "formulas/salt"]
+	ignore = all
 	path = formulas/salt
 	url = https://github.com/salt-formulas/salt-formula-salt
 [submodule "formulas/swift"]
+	ignore = all
 	path = formulas/swift
 	url = https://github.com/salt-formulas/salt-formula-swift
 [submodule "formulas/home-assistant"]
+	ignore = all
 	path = formulas/home-assistant
 	url = https://github.com/salt-formulas/salt-formula-home-assistant
 [submodule "formulas/mosquitto"]
+	ignore = all
 	path = formulas/mosquitto
 	url = https://github.com/salt-formulas/salt-formula-mosquitto
 [submodule "formulas/ffmpeg"]
+	ignore = all
 	path = formulas/ffmpeg
 	url = https://github.com/salt-formulas/salt-formula-ffmpeg
 [submodule "formulas/kodi"]
+	ignore = all
 	path = formulas/kodi
 	url = https://github.com/salt-formulas/salt-formula-kodi
 [submodule "formulas/octoprint"]
+	ignore = all
 	path = formulas/octoprint
 	url = https://github.com/salt-formulas/salt-formula-octoprint
 [submodule "formulas/python"]
+	ignore = all
 	path = formulas/python
 	url = https://github.com/salt-formulas/salt-formula-python
 [submodule "formulas/nginx"]
+	ignore = all
 	path = formulas/nginx
 	url = https://github.com/salt-formulas/salt-formula-nginx
 [submodule "formulas/apache"]
+	ignore = all
 	path = formulas/apache
 	url = https://github.com/salt-formulas/salt-formula-apache
 [submodule "formulas/haproxy"]
+	ignore = all
 	path = formulas/haproxy
 	url = https://github.com/salt-formulas/salt-formula-haproxy
 [submodule "formulas/sphinx"]
+	ignore = all
 	path = formulas/sphinx
 	url = https://github.com/salt-formulas/salt-formula-sphinx
 [submodule "formulas/supervisor"]
+	ignore = all
 	path = formulas/supervisor
 	url = https://github.com/salt-formulas/salt-formula-supervisor
 [submodule "formulas/bind"]
+	ignore = all
 	path = formulas/bind
 	url = https://github.com/salt-formulas/salt-formula-bind
 [submodule "formulas/dovecot"]
+	ignore = all
 	path = formulas/dovecot
 	url = https://github.com/salt-formulas/salt-formula-dovecot
 [submodule "formulas/elasticsearch"]
+	ignore = all
 	path = formulas/elasticsearch
 	url = https://github.com/salt-formulas/salt-formula-elasticsearch
 [submodule "formulas/galera"]
+	ignore = all
 	path = formulas/galera
 	url = https://github.com/salt-formulas/salt-formula-galera
 [submodule "formulas/mysql"]
+	ignore = all
 	path = formulas/mysql
 	url = https://github.com/salt-formulas/salt-formula-mysql
 [submodule "formulas/mongodb"]
+	ignore = all
 	path = formulas/mongodb
 	url = https://github.com/salt-formulas/salt-formula-mongodb
 [submodule "formulas/postfix"]
+	ignore = all
 	path = formulas/postfix
 	url = https://github.com/salt-formulas/salt-formula-postfix
 [submodule "formulas/postgresql"]
+	ignore = all
 	path = formulas/postgresql
 	url = https://github.com/salt-formulas/salt-formula-postgresql
 [submodule "formulas/redis"]
+	ignore = all
 	path = formulas/redis
 	url = https://github.com/salt-formulas/salt-formula-redis
 [submodule "formulas/varnish"]
+	ignore = all
 	path = formulas/varnish
 	url = https://github.com/salt-formulas/salt-formula-varnish
 [submodule "formulas/java"]
+	ignore = all
 	path = formulas/java
 	url = https://github.com/salt-formulas/salt-formula-java
 [submodule "formulas/php"]
+	ignore = all
 	path = formulas/php
 	url = https://github.com/salt-formulas/salt-formula-php
 [submodule "formulas/nodejs"]
+	ignore = all
 	path = formulas/nodejs
 	url = https://github.com/salt-formulas/salt-formula-nodejs
 [submodule "formulas/ruby"]
+	ignore = all
 	path = formulas/ruby
 	url = https://github.com/salt-formulas/salt-formula-ruby
 [submodule "formulas/collectd"]
+	ignore = all
 	path = formulas/collectd
 	url = https://github.com/salt-formulas/salt-formula-collectd
 [submodule "formulas/heka"]
+	ignore = all
 	path = formulas/heka
 	url = https://github.com/salt-formulas/salt-formula-heka
 [submodule "formulas/graphite"]
+	ignore = all
 	path = formulas/graphite
 	url = https://github.com/salt-formulas/salt-formula-graphite
 [submodule "formulas/kibana"]
+	ignore = all
 	path = formulas/kibana
 	url = https://github.com/salt-formulas/salt-formula-kibana
 [submodule "formulas/grafana"]
+	ignore = all
 	path = formulas/grafana
 	url = https://github.com/salt-formulas/salt-formula-grafana
 [submodule "formulas/influxdb"]
+	ignore = all
 	path = formulas/influxdb
 	url = https://github.com/salt-formulas/salt-formula-influxdb
 [submodule "formulas/sensu"]
+	ignore = all
 	path = formulas/sensu
 	url = https://github.com/salt-formulas/salt-formula-sensu
 [submodule "formulas/statsd"]
+	ignore = all
 	path = formulas/statsd
 	url = https://github.com/salt-formulas/salt-formula-statsd
 [submodule "formulas/aptly"]
+	ignore = all
 	path = formulas/aptly
 	url = https://github.com/salt-formulas/salt-formula-aptly
 [submodule "formulas/gerrit"]
+	ignore = all
 	path = formulas/gerrit
 	url = https://github.com/salt-formulas/salt-formula-gerrit
 [submodule "formulas/gitlab"]
+	ignore = all
 	path = formulas/gitlab
 	url = https://github.com/salt-formulas/salt-formula-gitlab
 [submodule "formulas/jenkins"]
+	ignore = all
 	path = formulas/jenkins
 	url = https://github.com/salt-formulas/salt-formula-jenkins
 [submodule "formulas/owncloud"]
+	ignore = all
 	path = formulas/owncloud
 	url = https://github.com/salt-formulas/salt-formula-owncloud
 [submodule "formulas/roundcube"]
+	ignore = all
 	path = formulas/roundcube
 	url = https://github.com/salt-formulas/salt-formula-roundcube
 [submodule "formulas/nagios"]
+	ignore = all
 	path = formulas/nagios
 	url = https://github.com/salt-formulas/salt-formula-nagios
 [submodule "formulas/aodh"]
+	ignore = all
 	path = formulas/aodh
 	url = https://github.com/salt-formulas/salt-formula-aodh
 [submodule "formulas/magnum"]
+	ignore = all
 	path = formulas/magnum
 	url = https://github.com/salt-formulas/salt-formula-magnum
 [submodule "formulas/murano"]
+	ignore = all
 	path = formulas/murano
 	url = https://github.com/salt-formulas/salt-formula-murano
 [submodule "formulas/artifactory"]
+	ignore = all
 	path = formulas/artifactory
 	url = https://github.com/salt-formulas/salt-formula-artifactory
 [submodule "formulas/backupninja"]
+	ignore = all
 	path = formulas/backupninja
 	url = https://github.com/salt-formulas/salt-formula-backupninja
 [submodule "formulas/billometer"]
+	ignore = all
 	path = formulas/billometer
 	url = https://github.com/salt-formulas/salt-formula-billometer
 [submodule "formulas/bird"]
+	ignore = all
 	path = formulas/bird
 	url = https://github.com/salt-formulas/salt-formula-bird
 [submodule "formulas/cadf"]
+	ignore = all
 	path = formulas/cadf
 	url = https://github.com/salt-formulas/salt-formula-cadf
 [submodule "formulas/calico"]
+	ignore = all
 	path = formulas/calico
 	url = https://github.com/salt-formulas/salt-formula-calico
 [submodule "formulas/cassandra"]
+	ignore = all
 	path = formulas/cassandra
 	url = https://github.com/salt-formulas/salt-formula-cassandra
 [submodule "formulas/ccp"]
+	ignore = all
 	path = formulas/ccp
 	url = https://github.com/salt-formulas/salt-formula-ccp
 [submodule "formulas/ceph"]
+	ignore = all
 	path = formulas/ceph
 	url = https://github.com/salt-formulas/salt-formula-ceph
 [submodule "formulas/chrony"]
+	ignore = all
 	path = formulas/chrony
 	url = https://github.com/salt-formulas/salt-formula-chrony
 [submodule "formulas/dekapod"]
+	ignore = all
 	path = formulas/dekapod
 	url = https://github.com/salt-formulas/salt-formula-dekapod
 [submodule "formulas/docker"]
+	ignore = all
 	path = formulas/docker
 	url = https://github.com/salt-formulas/salt-formula-docker
 [submodule "formulas/etcd"]
+	ignore = all
 	path = formulas/etcd
 	url = https://github.com/salt-formulas/salt-formula-etcd
 [submodule "formulas/isc-dhcp"]
+	ignore = all
 	path = formulas/isc-dhcp
 	url = https://github.com/salt-formulas/salt-formula-isc-dhcp
 [submodule "formulas/kedb"]
+	ignore = all
 	path = formulas/kedb
 	url = https://github.com/salt-formulas/salt-formula-kedb
 [submodule "formulas/kubernetes"]
+	ignore = all
 	path = formulas/kubernetes
 	url = https://github.com/salt-formulas/salt-formula-kubernetes
 [submodule "formulas/libvirt"]
+	ignore = all
 	path = formulas/libvirt
 	url = https://github.com/salt-formulas/salt-formula-libvirt
 [submodule "formulas/logrotate"]
+	ignore = all
 	path = formulas/logrotate
 	url = https://github.com/salt-formulas/salt-formula-logrotate
 [submodule "formulas/network"]
+	ignore = all
 	path = formulas/network
 	url = https://github.com/salt-formulas/salt-formula-network
 [submodule "formulas/nfs"]
+	ignore = all
 	path = formulas/nfs
 	url = https://github.com/salt-formulas/salt-formula-nfs
 [submodule "formulas/openvpn"]
+	ignore = all
 	path = formulas/openvpn
 	url = https://github.com/salt-formulas/salt-formula-openvpn
 [submodule "formulas/openvstorage"]
+	ignore = all
 	path = formulas/openvstorage
 	url = https://github.com/salt-formulas/salt-formula-openvstorage
 [submodule "formulas/pritunl"]
+	ignore = all
 	path = formulas/pritunl
 	url = https://github.com/salt-formulas/salt-formula-pritunl
 [submodule "formulas/rabbitmq"]
+	ignore = all
 	path = formulas/rabbitmq
 	url = https://github.com/salt-formulas/salt-formula-rabbitmq
 [submodule "formulas/rsync"]
+	ignore = all
 	path = formulas/rsync
 	url = https://github.com/salt-formulas/salt-formula-rsync
 [submodule "formulas/rsyslog"]
+	ignore = all
 	path = formulas/rsyslog
 	url = https://github.com/salt-formulas/salt-formula-rsyslog
 [submodule "formulas/sahara"]
+	ignore = all
 	path = formulas/sahara
 	url = https://github.com/salt-formulas/salt-formula-sahara
 [submodule "formulas/taiga"]
+	ignore = all
 	path = formulas/taiga
 	url = https://github.com/salt-formulas/salt-formula-taiga
 [submodule "formulas/zookeeper"]
+	ignore = all
 	path = formulas/zookeeper
 	url = https://github.com/salt-formulas/salt-formula-zookeeper
 [submodule "formulas/gateone"]
+	ignore = all
 	path = formulas/gateone
 	url = https://github.com/salt-formulas/salt-formula-gateone
 [submodule "formulas/leonardo"]
+	ignore = all
 	path = formulas/leonardo
 	url = https://github.com/salt-formulas/salt-formula-leonardo
 [submodule "formulas/wordpress"]
+	ignore = all
 	path = formulas/wordpress
 	url = https://github.com/salt-formulas/salt-formula-wordpress
 [submodule "formulas/moodle"]
+	ignore = all
 	path = formulas/moodle
 	url = https://github.com/salt-formulas/salt-formula-moodle
 [submodule "formulas/suitecrm"]
+	ignore = all
 	path = formulas/suitecrm
 	url = https://github.com/salt-formulas/salt-formula-suitecrm
 [submodule "formulas/mayan"]
+	ignore = all
 	path = formulas/mayan
 	url = https://github.com/salt-formulas/salt-formula-mayan
 [submodule "formulas/openode"]
+	ignore = all
 	path = formulas/openode
 	url = https://github.com/salt-formulas/salt-formula-openode
 [submodule "formulas/redmine"]
+	ignore = all
 	path = formulas/redmine
 	url = https://github.com/salt-formulas/salt-formula-redmine
 [submodule "formulas/gource"]
+	ignore = all
 	path = formulas/gource
 	url = https://github.com/salt-formulas/salt-formula-gource
 [submodule "formulas/flower"]
+	ignore = all
 	path = formulas/flower
 	url = https://github.com/salt-formulas/salt-formula-flower
 [submodule "formulas/virtualbox"]
+	ignore = all
 	path = formulas/virtualbox
 	url = https://github.com/salt-formulas/salt-formula-virtualbox
 [submodule "formulas/sentry"]
+	ignore = all
 	path = formulas/sentry
 	url = https://github.com/salt-formulas/salt-formula-sentry.git
 [submodule "formulas/vagrant"]
+	ignore = all
 	path = formulas/vagrant
 	url = https://github.com/salt-formulas/salt-formula-vagrant.git
 [submodule "formulas/packer"]
+	ignore = all
 	path = formulas/packer
 	url = https://github.com/salt-formulas/salt-formula-packer.git
 [submodule "formulas/tempest"]
+	ignore = all
 	path = formulas/tempest
 	url = https://github.com/salt-formulas/salt-formula-tempest.git
 [submodule "formulas/rally"]
+	ignore = all
 	path = formulas/rally
 	url = https://github.com/salt-formulas/salt-formula-rally.git
 [submodule "formulas/tftpd-hpa"]
+	ignore = all
 	path = formulas/tftpd-hpa
 	url = https://github.com/salt-formulas/salt-formula-tftpd-hpa.git
 [submodule "formulas/jupyter"]
+	ignore = all
 	path = formulas/jupyter
 	url = https://github.com/salt-formulas/salt-formula-jupyter.git
 [submodule "formulas/designate"]
+	ignore = all
 	path = formulas/designate
 	url = https://github.com/salt-formulas/salt-formula-designate
 [submodule "formulas/avinetworks"]
+	ignore = all
 	path = formulas/avinetworks
 	url = https://github.com/salt-formulas/salt-formula-avinetworks.git
 [submodule "formulas/aptcacher"]
+	ignore = all
 	path = formulas/aptcacher
 	url = https://github.com/salt-formulas/salt-formula-aptcacher
 [submodule "formulas/openldap"]
+	ignore = all
 	path = formulas/openldap
 	url = https://github.com/salt-formulas/salt-formula-openldap
 [submodule "formulas/squid"]
+	ignore = all
 	path = formulas/squid
 	url = https://github.com/salt-formulas/salt-formula-squid
 [submodule "formulas/knot"]
+	ignore = all
 	path = formulas/knot
 	url = https://github.com/salt-formulas/salt-formula-knot
 [submodule "formulas/powerdns"]
+	ignore = all
 	path = formulas/powerdns
 	url = https://github.com/salt-formulas/salt-formula-powerdns
 [submodule "formulas/motion"]
+	ignore = all
 	path = formulas/motion
 	url = https://github.com/salt-formulas/salt-formula-motion
 [submodule "formulas/fluentd"]
+	ignore = all
 	path = formulas/fluentd
 	url = https://github.com/salt-formulas/salt-formula-fluentd
 [submodule "formulas/stackstorm"]
+	ignore = all
 	path = formulas/stackstorm
 	url = https://github.com/salt-formulas/salt-formula-stackstorm
 [submodule "formulas/helm"]
+	ignore = all
 	path = formulas/helm
 	url = https://github.com/salt-formulas/salt-formula-helm.git
 	branch = master

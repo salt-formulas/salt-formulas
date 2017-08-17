@@ -48,17 +48,13 @@ list: scripts_prerequisites
 update_forks:
 	@mkdir -p $(FORKED_FORMULAS_DIR)
 	@for FORMULA in $(FORMULAS) ; do\
-     echo "## Forking: $$FORMULA";\
-     test -e $(FORKED_FORMULAS_DIR)/$$FORMULA || git clone https://github.com/salt-formulas/salt-formula-$$FORMULA.git $(FORKED_FORMULAS_DIR)/$$FORMULA;\
+     test -e $(FORKED_FORMULAS_DIR)/$$FORMULA || git clone  https://github.com/salt-formulas/salt-formula-$$FORMULA.git $(FORKED_FORMULAS_DIR)/$$FORMULA;\
    done;
 
 
 GERRIT_REMOTE_URI=gerrit.mcp.mirantis.net:29418/salt-formulas
-remote_gerrit: remote_gerrit_s
-remote_gerrit_s: FORMULAS_DIR=formulas
-remote_gerrit_s: remote_gerrit_add
-remote_gerrit_f: FORMULAS_DIR=$(FORKED_FORMULAS_DIR)
-remote_gerrit_f: remote_gerrit_add
+remote_gerrit: FORMULAS_DIR=$(FORKED_FORMULAS_DIR)
+remote_gerrit: remote_gerrit_add
 
 remote_gerrit_add:
 	@#(for formula in $(FORMULAS_DIR)/*; do FORMULA=`basename $$formula` && cd $$formula && git remote remove gerrit || true && cd ../.. ; done)
@@ -72,11 +68,8 @@ remote_gerrit_add:
      cd - > /dev/null;\
      done;
 
-remote_github: remote_github_s
-remote_github_s: FORMULAS_DIR=formulas
-remote_github_s: remote_github_add
-remote_github_f: FORMULAS_DIR=$(FORKED_FORMULAS_DIR)
-remote_github_f: remote_github_add
+remote_github: FORMULAS_DIR=$(FORKED_FORMULAS_DIR)
+remote_github: remote_github_add
 
 remote_github_add:
 	@mkdir -p $(FORMULAS_DIR)
