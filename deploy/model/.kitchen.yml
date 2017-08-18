@@ -10,30 +10,31 @@ provisioner:
   script: verify.sh
 
 platforms:
-  <% `find nodes -type f -name 'cfg*.yml' | xargs -I{} basename {} .yml | sort`.split().each do |cfg| %>
-  <% model=cfg.split('.')[1] %>
-  - name: <%= model %>
+  <% `find classes/cluster -maxdepth 1 -mindepth 1 -type d |sort -u`.split().each do |cluster| %>
+  <% cluster=cluster.split('/')[2] %>
+  - name: <%= cluster %>
     driver_config:
-      # Default
-      # image: ubuntu:16.04
-      # With dependencies (faster)
-      image: tcpcloud/salt-models-testing
+      #image: ubuntu:16.04
+      image: tcpcloud/salt-models-testing # With preinstalled dependencies (faster)
       platform: ubuntu
-      hostname: <%= cfg %>
+      hostname: cfg01.<%= cluster %>.local
       provision_command:
         - apt-get update
         - apt-get install -y git curl python-pip
         - git clone https://github.com/salt-formulas/salt-formulas-scripts /srv/salt/scripts
-        # NOTE:
-        # This fixed reclass is already preinstalled in tcpcloud/salt-models-testing container
-        - pip install git+https://github.com/epcim/reclass.git@pr/fix/fix_raise_UndefinedVariableError
+        - cd /srv/salt/scripts; git pull -r; cd -
+        # NOTE: For CI we uses patched version of reclass
+        - pip install git+https://github.com/salt-formulas/reclass.git
+        # NOTE: Configure ENV options as needed, example:
         - echo "
-            export MASTER_HOSTNAME=<%= cfg %>;\n
-            export FORMULAS_SOURCE=pkg;\n
             export BOOTSTRAP=1;\n
+            export CLUSTER_NAME=<%= cluster %>;\n
+            export FORMULAS_SOURCE=pkg;\n
+            export RECLASS_IGNORE_CLASS_NOTFOUND=True;\n
+            export EXTRA_FORMULAS="prometheus telegraph";\n
           " > /kitchen.env
   <% end %>
 
 suites:
-  - name: reclass
+  - name: cluster
 
