@@ -12,7 +12,7 @@ if [[ $BOOTSTRAP =~ ^(True|true|1|yes)$ ]]; then
   if [[ -e .gitmodules ]] && [[ ! -e classes/system/linux ]]; then
     git submodule update --init --recursive --remote || true
   fi
-  source_local_env
+  source_local_envs
   /srv/salt/scripts/bootstrap.sh
 fi
 
