@@ -1,5 +1,0 @@
-salt-formula-{{cookiecutter.service_name}} ({{cookiecutter.initial_version}}) {{cookiecutter.debian_version}}; urgency=medium
-
-  * Initial release
-
- -- {{cookiecutter.author_name}} {{cookiecutter.author_contact}}  {% now "Europe/London", "%a, %d %b %Y %I:%M:%S %Z" %}

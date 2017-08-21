@@ -1,5 +1,0 @@
-.kitchen
-tests/build/
-*.swp
-*.pyc
-.ropeproject
