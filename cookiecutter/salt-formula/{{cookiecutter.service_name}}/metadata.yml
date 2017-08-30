@@ -1,3 +1,0 @@
-name: "{{cookiecutter.service_name}}"
-version: "{{cookiecutter.initial_version}}"
-source: "https://github.com/salt-formulas/salt-formula-{{cookiecutter.service_name}}"

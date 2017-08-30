@@ -1,8 +1,0 @@
-# Sample check
-check:
-  local_{{cookiecutter.service_name}}_proc:
-    command: "PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_procs -C {{cookiecutter.service_name}} -u {{cookiecutter.service_name}} -c 1:1"
-    interval: 60
-    occurrences: 1
-    subscribers:
-    - local-{{cookiecutter.service_name}}-{{cookiecutter.role_name}}

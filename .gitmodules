@@ -503,3 +503,9 @@
 	path = formulas/helm
 	url = https://github.com/salt-formulas/salt-formula-helm.git
 	branch = master
+[submodule "deploy/scripts"]
+	path = deploy/scripts
+	url = https://github.com/salt-formulas/salt-formulas-scripts
+[submodule "cookiecutter"]
+	path = cookiecutter
+	url = http://github.com/salt-formulas/salt-formulas-cookiecutter
