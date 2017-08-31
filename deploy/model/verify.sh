@@ -1,6 +1,8 @@
 #!/bin/bash
 
-export MASTER_HOSTNAME=${MASTER_HOSTNAME:-`hostname -f`}
+# Set source variables for MASTER_HOSTNAME composition
+export HOSTNAME=${HOSTNAME:-`hostname -s`}
+export DOMAIN=${DOMAIN:-`hostname -d`}
 cd /srv/salt/scripts; git pull -r || true; source bootstrap.sh || exit 1
 
 # BOOTSTRAP
