@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Set source variables for MASTER_HOSTNAME composition
-export HOSTNAME=${HOSTNAME:-`hostname -s`}
-export DOMAIN=${DOMAIN:-`hostname -d`}
+# ENV variables for MASTER_HOSTNAME composition
+#export HOSTNAME=${`hostname -s`}
+#export DOMAIN=${`hostname -d`}
 cd /srv/salt/scripts; git pull -r || true; source bootstrap.sh || exit 1
 
 # BOOTSTRAP
@@ -16,12 +16,11 @@ if [[ $BOOTSTRAP =~ ^(True|true|1|yes)$ ]]; then
   fi
   source_local_envs
   /srv/salt/scripts/bootstrap.sh
+  if [[ -e /tmp/kitchen ]]; then sed -i '/export BOOTSTRAP=/d' /kitchen.env; fi
 fi
 
 # VERIFY
-export BOOTSTRAP_SALTSTACK=False
 export RECLASS_IGNORE_CLASS_NOTFOUND=False
-#system_config_master &&\
 cd /srv/salt/reclass &&\
 if [[ -z "$1" ]] ; then
   verify_salt_master &&\

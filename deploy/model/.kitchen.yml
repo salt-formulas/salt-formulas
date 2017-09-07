@@ -23,15 +23,14 @@ platforms:
         - apt-get install -y git curl python-pip
         - git clone https://github.com/salt-formulas/salt-formulas-scripts /srv/salt/scripts
         - cd /srv/salt/scripts; git pull -r; cd -
-        # NOTE: For CI we uses patched version of reclass
-        - pip install git+https://github.com/salt-formulas/reclass.git
         # NOTE: Configure ENV options as needed, example:
         - echo "
             export BOOTSTRAP=1;\n
             export CLUSTER_NAME=<%= cluster %>;\n
             export FORMULAS_SOURCE=pkg;\n
+            export RECLASS_VERSION=dev;\n
             export RECLASS_IGNORE_CLASS_NOTFOUND=True;\n
-            export EXTRA_FORMULAS="prometheus telegraph";\n
+            export EXTRA_FORMULAS="";\n
           " > /kitchen.env
   <% end %>
 
