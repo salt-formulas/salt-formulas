@@ -1,7 +1,7 @@
-`Home <index.html>`_ SaltStack-Formulas Development Documentation
+`Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Reclass Metadata
-================
+Node Classification
+===================
 
 .. contents::
     :backlinks: none
@@ -607,6 +607,7 @@ for this particular cluster solution, for example: number and names of nodes;
 domain name; IP addresses; network interface names and configurations;
 locations of the specific ‘systems’ on the specific nodes; and other things
 that are used by formulas for services.
+
 
 --------------
 

@@ -1,3 +1,4 @@
+`Home <index.html>`_ SaltStack-Formulas Operation Manual
 
 Event monitoring
 ================
@@ -29,10 +30,6 @@ Sensu properties:
 * Packages are “omnibus”, for consistency, isolation, and low-friction deployment
 
 Sensu embraces modern infrastructure design, works elegantly with configuration management tools, and is built for the cloud.
-
-The Sensu framework contains a number of components. The following diagram depicts these core elements and how they interact with one another.
-
-.. image:: https://sensuapp.org/docs/latest/img/sensu-diagram-87a902f0.gif
 
 --------------
 

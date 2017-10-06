@@ -1,6 +1,6 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Chapter 4. Testing
+Chapter 2. Testing
 ==================
 
 .. toctree::

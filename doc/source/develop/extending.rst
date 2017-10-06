@@ -1,6 +1,6 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Chapter 3. Extending
+Chapter 1. Extending
 ====================
 
 .. toctree::

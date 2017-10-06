@@ -1,7 +1,7 @@
-`Home <index.html>`_ SaltStack-Formulas Development Documentation
+`Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Quick Deployment with Heat
-==========================
+Quick Deployment on OpenStack
+=============================
 
 All-in-one (AIO) deployments are a great way to setup an SaltStack-Formulas cloud for:
 

@@ -1,4 +1,4 @@
-`Home <index.html>`_ SaltStack-Formulas Development Documentation
+`Home <index.html>`_ SaltStack-Formulas Project Introduction
 
 Deployment Preparation Guidelines
 =================================

@@ -1,3 +1,4 @@
+`Home <index.html>`_ Installation and Operations Manual
 
 Configuring the Dashboard service
 ===================================

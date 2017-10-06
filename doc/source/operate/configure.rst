@@ -1,4 +1,4 @@
-`Home <index.html>`_ SaltStack-Formulas Installation Manual
+`Home <index.html>`_ SaltStack-Formulas Operation Manual
 
 Chapter 2. Configuration
 ------------------------

@@ -1,11 +1,11 @@
+`Home <index.html>`_ SaltStack-Formulas Operation Manual
 
-========================
 Configuration Node Setup
 ========================
 
 
 Configuring the operating system
-================================
+--------------------------------
 
 The configuration files will be installed to :file:`/etc/salt` and are named
 after the respective components, :file:`/etc/salt/master`, and
@@ -80,9 +80,8 @@ See the `master configuration reference <https://docs.saltstack.com/en/latest/re
 for more details about other configurable options.
 
 
-
 Setting up package repository
-================================
+-----------------------------
 
 Use ``curl`` to install your distribution's stable packages. Examine the downloaded file ``install_salt.sh`` to ensure that it contains what you expect (bash script). You need to perform this step even for salt-master instalation as it adds official saltstack package management PPA repository.
 
@@ -105,7 +104,7 @@ You should keep Salt components at current stable version.
 
 
 Configuring Secure Shell (SSH) keys
-===================================
+-----------------------------------
 
 Generate SSH key file for accessing your reclass metadata and development formulas.
 

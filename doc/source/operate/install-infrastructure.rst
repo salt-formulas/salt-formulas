@@ -1,4 +1,4 @@
-`Home <index.html>`_ SaltStack-Formulas Installation Manual
+`Home <index.html>`_ SaltStack-Formulas Operation Manual
 
 Chapter 4. Install infrastructure services
 ==========================================
