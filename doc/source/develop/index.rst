@@ -1,6 +1,6 @@
 
-SaltStack-Formulas Development Documentation
-============================================
+Development Documentation
+=========================
 
 In this section, you will find documentation relevant to developing SaltStack
 formulas. How to change existing formula, how to create a new formula.
@@ -30,10 +30,3 @@ Maintenance
    :maxdepth: 2
 
    maintenance.rst
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

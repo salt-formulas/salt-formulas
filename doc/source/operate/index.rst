@@ -2,6 +2,13 @@
 Installation and Operations Manual
 ==================================
 
+Installation
+------------
+
+.. toctree::
+
+   install.rst
+
 Configuration
 -------------
 
@@ -16,9 +23,9 @@ Monitoring
 
    monitoring.rst
 
-Indices and tables
-==================
+Use cases
+---------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. toctree::
+
+   usecase.rst

@@ -1,5 +1,6 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
+===================
 Chapter 1. Overview
 ===================
 
@@ -7,9 +8,7 @@ Chapter 1. Overview
 
    overview-objectives.rst
    overview-history.rst
-   overview-salt.rst
-   overview-ecosystem.rst
-   overview-security.rst
+   overview-orch-salt.rst
 
 
 --------------

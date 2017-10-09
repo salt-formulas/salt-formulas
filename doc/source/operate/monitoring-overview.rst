@@ -1,4 +1,4 @@
-`Home <index.html>`_ SaltStack-Formulas Operation Manual
+`Home <index.html>`_ Installation and Operations Manual
 
 Monitoring, Metering and Logging
 ================================

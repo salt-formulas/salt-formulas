@@ -1,11 +1,13 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Actual Formula Ecosystem
+========================
+Actual Service Ecosystem
 ========================
 
-The SaltStack-Formulas formulas are divided into several groups according to
-their purpose. Formulas share same structure and metadata definions, expose
-vital information into the Salt Mine for monitoring and audit.
+The SaltStack-Formulas service are divided into several groups according to
+the target role in the system. All services/formulas share same structure and
+metadata definions, expose vital information into the Salt Mine for further
+processing.
 
 **Infrastructure services**
   Core services needed for basic infrastructure operation.
@@ -26,7 +28,6 @@ vital information into the Salt Mine for monitoring and audit.
 
 Each of the service groups contain of several individual service formulas,
 listed in following tables.
-
 
 --------------
 

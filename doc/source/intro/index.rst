@@ -1,9 +1,9 @@
 
-SaltStack-Formulas Project Introduction
-=======================================
+Project Introduction
+====================
 
-In this section, you will find documentation relevant to SaltStack formulas
-architecture and metadata standards.
+Here you will find documentation relevant to architecture and goals of the
+project. Existing formula ecosystem and undelying metadata standards.
 
 
 Overview
@@ -39,11 +39,3 @@ Ecosystem
    :maxdepth: 2
 
    ecosystem.rst
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

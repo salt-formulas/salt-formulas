@@ -1,5 +1,6 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
+==========================
 Model-driven Architectures
 ==========================
 
@@ -32,8 +33,8 @@ Following list shows core principles of model-driven architectures.
   process of everchanging improvements.
 
 
-Sample MDA Scenario
-~~~~~~~~~~~~~~~~~~~
+Sample Architecture Model
+=========================
 
 Following image show example system that has reasonable amount of services
 with some outsourced by 3rd party providers. The OpenStack architecture is too
@@ -47,14 +48,14 @@ We can identify several layers within the largers application systems.
 
 * Proxy layer - Distributing load to application layer
 * Application layer - Application with caches
-* Persistence layer - Databases
+* Persistence layer - Databases and filesystem storage
 
 .. figure:: /_images/mda_system_composition.png
   :width: 100%
   :align: center
 
-Application systems are supported by shared subsystems that span across
-multiple application systems. These usually are:
+Certain application systems are supported by shared subsystems that span
+across multiple application systems. These usually are:
 
 **Access & control system**
 
@@ -68,14 +69,9 @@ multiple application systems. These usually are:
   
   DNS, NTP, MTA clients
 
-
-Service Decomposition 
-~~~~~~~~~~~~~~~~~~~~~
-
-The following chapter shows service decomposition of GitLab all-in-one box.
-
-Server level
-^^^^^^^^^^^^
+These horizontal services are not configured directly but rather reuse the
+metadata of other services to configure itself (metering agent collects
+metrics to collect for metadata of surrounding services).
 
 Servers contain one or more systems that bring business value and several
 maintenance systems that are common to any node. Following list shows basic
@@ -297,66 +293,7 @@ database.
             port: 6379
             protocol: tcp
 
-Service Decomposition 
-~~~~~~~~~~~~~~~~~~~~~
 
-reclass has some features that make it unique:
-
-- Including and deep merging of data structures through usage of classes
-- Parameter interpolation for cross-referencing parameter values
-
-The system aggregation level:
-
-.. code-block:: yaml
-
-    classes:
-    - system.linux.system.kvm
-    - system.openssh.server.team.tcpcloud
-    - system.gitlab.server.single
-    parameters:
-      _param:
-        salt_master_host: master1.robotice.cz
-        mysql_admin_password: <redacted>
-        gitlab_client_token: <redacted>
-        gitlab_server_name: git.tcpcloud.eu
-        gitlab_client_host: git.tcpcloud.eu
-        mysql_gitlab_password: <redacted>
-        nginx_site_gitlab_server_host: git.tcpcloud.eu
-        gitlab_server_email: gitlab@robotice.cz
-        gitlab_server_version: '7.7'
-        nginx_site_gitlab_ssl_authority: <redacted>
-
-The single system level:
-
-.. code-block:: yaml
-
-    classes:
-    - service.git.client
-    - service.gitlab.server.single
-    - service.nginx.server.single
-    - service.mysql.server.local
-    - service.redis.server.local
-    parameters:
-      _param:
-        nginx_site_gitlab_host: ${linux:network:fqdn}
-        mysql_admin_user: root
-        mysql_admin_password: password
-        mysql_gitlab_password: password
-
-The single service level:
-
-.. code-block:: yaml
-
-    applications:
-    - redis
-    parameters:
-      redis:
-        server:
-          enabled: true
-          bind:
-            address: 127.0.0.1
-            port: 6379
-            protocol: tcp
 
 --------------
 

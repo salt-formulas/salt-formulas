@@ -1,10 +1,12 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
+============================
 Chapter 4. Formula Ecosystem
 ============================
 
 .. toctree::
 
+   ecosystem-overview.rst
    ecosystem-infra.rst
    ecosystem-supplement.rst
    ecosystem-deploy.rst
@@ -15,7 +17,6 @@ Chapter 4. Formula Ecosystem
    ecosystem-iot.rst
    ecosystem-program.rst
    ecosystem-webapp.rst
-
 
 --------------
 

@@ -1,6 +1,7 @@
+`Home <index.html>`_ Installation and Operations Manual
 
-Log monitoring
-============================
+Log event collection
+====================
 
 **Log Processing Service (Heka, ElasticSearch)**
 

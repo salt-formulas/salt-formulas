@@ -7,10 +7,17 @@ Metadata Standards
     :backlinks: none
     :local:
 
+Handling plugin structure
+-------------------------
+
+
+
 Handling SSL certificates
 -------------------------
 
 TODO
+
+
 
 
 --------------

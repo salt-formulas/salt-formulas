@@ -1,7 +1,7 @@
 `Home <index.html>`_ Installation and Operations Manual
 
 Chapter 2. Configuration
-========================
+------------------------
 
 .. toctree::
 
