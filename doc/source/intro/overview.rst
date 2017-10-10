@@ -1,4 +1,3 @@
-`Home <index.html>`_ SaltStack-Formulas Project Introduction
 
 ===================
 Chapter 1. Overview

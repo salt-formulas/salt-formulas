@@ -1,6 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Monitoring services
+===================
+Monitoring Services
 ===================
 
 Monitoring, metering and log collecting tools implementing complete monitoring

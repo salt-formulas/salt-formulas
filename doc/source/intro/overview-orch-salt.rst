@@ -1,8 +1,12 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-==================================
-SaltStack Configuration Management
-==================================
+=========================
+Introduction to SaltStack
+=========================
+
+.. contents::
+    :backlinks: none
+    :local:
 
 SaltStack-Formulas uses Salt configuration platform to install and manage
 infrastructures. Salt is an automation platform that greatly simplifies system
@@ -11,7 +15,7 @@ written in the YAML language that orchestrate the individual parts of system
 into the working entity.
 
 
-Pillar metadata
+Pillar Metadata
 ===============
 
 Pillar is an interface for Salt designed to offer global values that are

@@ -1,4 +1,5 @@
 
+====================
 Project Introduction
 ====================
 
@@ -7,7 +8,7 @@ project. Existing formula ecosystem and undelying metadata standards.
 
 
 Overview
---------
+========
 
 .. toctree::
    :maxdepth: 2
@@ -15,8 +16,8 @@ Overview
    overview.rst
 
 
-Quick start
------------
+Quick Start
+===========
 
 .. toctree::
    :maxdepth: 2
@@ -24,16 +25,16 @@ Quick start
    quickstart.rst
 
 
-Metadata
---------
+Metadata Models
+===============
 
 .. toctree::
    :maxdepth: 2
 
    metadata.rst
 
-Ecosystem
----------
+Service Ecosystem
+=================
 
 .. toctree::
    :maxdepth: 2

@@ -1,9 +1,15 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Quick Deployment on OpenStack
-=============================
+===================================
+Quick Deploy on OpenStack with Heat
+===================================
 
-All-in-one (AIO) deployments are a great way to setup an SaltStack-Formulas cloud for:
+.. contents::
+    :backlinks: none
+    :local:
+
+Single node deployments are a great way to setup an SaltStack-Formulas cloud
+for:
 
 * a service development environment
 * an overview of how all of the OpenStack services and roles play together
@@ -21,11 +27,8 @@ The single-node deployment has following requirements:
 * 16GB RAM
 
 
-Available Heat templates
-------------------------
-
-Application single setup
-~~~~~~~~~~~~~~~~~~~~~~~~
+Available Heat Templates
+========================
 
 The ``app_single`` environment consists of three nodes.
 
@@ -46,15 +49,15 @@ The ``app_single`` environment consists of three nodes.
       - 10.10.10.202
 
 
-Heat client setup
------------------
+Heat Client Setup
+=================
 
 The preffered way of installing OpenStack clients is isolated Python
 environment. To creat Python environment and install compatible OpenStack
 clients, you need to install build tools first.
 
-Ubuntu installation
-~~~~~~~~~~~~~~~~~~~
+Installation on Ubuntu
+----------------------
 
 Install required packages:
 
@@ -86,8 +89,8 @@ If everything goes right, you should be able to use openstack clients, `heat`,
 `nova`, etc.
 
 
-Connecting to OpenStack cloud
------------------------------
+Connecting to OpenStack Cloud
+=============================
 
 Setup OpenStack credentials so you can use openstack clients. You can
 download ``openrc`` file from Openstack dashboard and source it or execute
@@ -116,8 +119,8 @@ To test your sourced variables:
 
 Some resources required for heat environment deployment.
 
-Get network ID
-~~~~~~~~~~~~~~
+Get Network Resource Name
+-------------------------
 
 The public network is needed for setting up both testing heat stacks. The
 network ID can be found in Openstack Dashboard or by running following
@@ -129,8 +132,8 @@ command:
    $ neutron net-list
 
 
-Get image ID
-~~~~~~~~~~~~
+Get Image Resource Name
+-----------------------
 
 Image ID is required to run OpenStack Salt lab templates, Ubuntu 14.04 LTS is
 required as config_image and image for one of the supported platforms is
@@ -142,8 +145,8 @@ installed images run:
    $ glance image-list
 
 
-Launching the Heat stack
-------------------------
+Launching the Heat Stack
+========================
 
 Download heat templates from this repository.
 
@@ -156,9 +159,6 @@ Now you need to customize env files for stacks, see examples in envs directory
 ``doc/source/_static/scripts/envs`` and set required parameters.
 
 Full examples of env files for the two respective stacks:
-
-.. _hardware-assisted virtualization: https://en.wikipedia.org/wiki/Hardware-assisted_virtualization
-.. _Vagrant downloads page: https://www.vagrantup.com/downloads.html
 
 
 --------------

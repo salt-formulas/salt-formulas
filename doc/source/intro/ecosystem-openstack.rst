@@ -1,6 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-OpenStack services
+==================
+OpenStack Services
 ==================
 
 All supported OpenStack cloud platform services.

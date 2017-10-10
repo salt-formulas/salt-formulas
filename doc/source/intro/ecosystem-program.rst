@@ -1,6 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Programming languages
+=====================
+Programming Languages
 =====================
 
 Support programming languages, libraries, environments.

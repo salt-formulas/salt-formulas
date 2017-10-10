@@ -1,6 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Infrastructure services
+=======================
+Infrastructure Services
 =======================
 
 Core services needed for basic infrastructure operation.

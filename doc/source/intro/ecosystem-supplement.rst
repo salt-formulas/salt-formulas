@@ -1,6 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Supplemental services
+=====================
+Supplemental Services
 =====================
 
 Support services as databases, proxies, application servers.

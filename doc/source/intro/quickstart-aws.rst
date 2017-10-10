@@ -1,15 +1,27 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Quick Deployment on AWS
-=======================
+========================================
+Quick Deploy on AWS with CloudFormations
+========================================
 
-Encrypted communication
------------------------
+.. contents::
+    :backlinks: none
+    :local:
+
+AWS Client Setup
+================
 
 TODO
 
-System permissions
-------------------
+
+Connecting to Amazon Cloud
+==========================
+
+TODO
+
+
+Launching the CFN Stack
+=======================
 
 TODO
 

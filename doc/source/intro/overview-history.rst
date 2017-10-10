@@ -4,6 +4,10 @@
 Project History
 ===============
 
+.. contents::
+    :backlinks: none
+    :local:
+
 Beginnings
 ==========
 

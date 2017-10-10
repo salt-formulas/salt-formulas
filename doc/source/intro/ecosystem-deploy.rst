@@ -1,6 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Deployment services
+===================
+Deployment Services
 ===================
 
 Deployment services for automated delivery pipelines.

@@ -1,7 +1,8 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Node Classification
-===================
+=====================
+Working with Metadata
+=====================
 
 .. contents::
     :backlinks: none
@@ -32,9 +33,8 @@ servers or locations. Following text takes apart individual layers and
 explains them in further detail.
 
 
-
-Deployment models
------------------
+Scaling Metadata Models
+=======================
 
 Keeping consistency across multiple models/deployments has proven to be the
 most difficult part of keeping things running smooth over time with evolving
@@ -45,16 +45,16 @@ The service level metadata can be handled in common namespace not by formulas
 itself, but it is recommended to keep the relevant metadata states
 
 
-Shared cluster and system level
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Shared Cluster and System Level
+-------------------------------
 
 If every deployment only defined on system level, you need to keep copy of all
 system definitions at all deployments. This is suitable only for small number
 of deployments.
 
 
-Separate cluster with single system level
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Separate Cluster with Single System Level
+-----------------------------------------
 
 With introduction of new features and services shared deployments does not
 provide necessary flexibility to cope with the change. Having service metadata
@@ -66,8 +66,8 @@ deployment(s). The cluster layer only contains soft parametrization and class
 references.
 
 
-Separate cluster with multiple system levels
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Separate Cluster with Multiple System Levels
+--------------------------------------------
 
 When customer is reusing the provided system, but also has formulas and system
 on its own. Customer is free to create its own system level classes.
@@ -83,10 +83,8 @@ systems. At the same time he's free to create formulas of it's own as well as
 custom systems.
 
 
-
-
-Handling sensitive metadata
----------------------------
+Handling Sensitive Metadata
+===========================
 
 Sensitive data refers to any information that you would not wish to share with
 anyone accessing a server. This could include data such as passwords, keys, or
@@ -137,15 +135,15 @@ As you can see the GPG encrypted parameters can be further referenced with
 reclass interpolation ``${_param:rabbitmq_secret_key}`` statement.
 
 
-Creating new models
--------------------
+Creating new Models
+===================
 
 Following text shows steps that need to be undertaken to implement new
 functionality, new system or entire deployment:
 
 
-Creating a new formula (Service level)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creating a New Formula (Service Level)
+--------------------------------------
 
 If some of required services are missing, you can create a new service formula
 for Salt with the default model that describe the basic setup of the service.
@@ -168,8 +166,8 @@ And symlink of the formula content to the specific salt-master file root:
     ln -s <service_name>/<service_name> /srv/salt/env/<env_name>/<service_name>
 
 
-Creating new a business unit (System level)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creating New Business Units (System Level)
+------------------------------------------
 
 If some ‘system’ is missing, then you can create a new ‘system’ from the set
 of ‘services’ and extend the ‘services’ models with necessary settings for the
@@ -178,8 +176,8 @@ etc). Do not introduce too much of `hard` metadata on the system level, try to
 use class references as much as possible.
 
 
-Creating new deployment (Cluster level)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creating New Deployments (Cluster Level)
+----------------------------------------
 
 Determine which products are being used in the selected deployemnt, you can
 have infrastructure services, applications, monitoring products defined at
@@ -188,16 +186,16 @@ was already created and included into global system level, then it can be just
 referenced. Follow the guidelines further up in this text.
 
 
-Making changes to existing models
----------------------------------
+Making Changes to Existing Models
+=================================
 
 When you have decided to add or modify some options in the existing models,
 the right place of the modification should be considered depending of the
 impact of the change:
 
 
-Updating existing formula (Service level)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Updating Existing Formula (Service Level)
+-----------------------------------------
 
 Change the model in salt-formula-<service-name> for some service-specific
 improvements. For example: if the change is related to the change in the new
@@ -210,16 +208,16 @@ https://github.com/openstack/salt-formula-horizon/tree/
 master/metadata/service/server/
 
 
-Updating business unit (System level)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Updating Business Unit (System Level)
+-------------------------------------
 
 Change the system level for a specific application, if the base services don’t
 provide required configurations for the application functionality. Example
 where the application-related change can be applied to the service,
 
 
-Updating deployment configurations (Cluster level)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Updating Deployment Configurations (Cluster Level)
+--------------------------------------------------
 
 Changes on the cluster level are related to the requirements that are specific
 for this particular cluster solution, for example: number and names of nodes;

@@ -1,7 +1,6 @@
-`Home <index.html>`_ SaltStack-Formulas Project Introduction
 
 ============================
-Chapter 4. Formula Ecosystem
+Chapter 4. Service Ecosystem
 ============================
 
 .. toctree::

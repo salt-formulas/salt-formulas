@@ -1,6 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Web applications
+================
+Web Applications
 ================
 
 Automated management of web-based applications.

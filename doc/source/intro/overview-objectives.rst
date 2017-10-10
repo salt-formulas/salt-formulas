@@ -4,6 +4,10 @@
 Project Objectives
 ==================
 
+.. contents::
+    :backlinks: none
+    :local:
+
 Project provides standards to define service models and processes with ability
 to reuse these components in varying contexts. Metadata model shared accross
 all services let us explore underlying relationships that ease the management
@@ -16,7 +20,7 @@ decomposition which being consistent accross all formulas in SaltStack-
 Formulas project.
 
 
-Collateral Bonuses
+Collateral Goodies
 ==================
 
 Adhering to the standards allows further services to be declared and

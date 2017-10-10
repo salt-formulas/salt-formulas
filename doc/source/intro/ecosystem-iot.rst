@@ -1,6 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-IoT services
+============
+IoT Services
 ============
 
 Support for Internet of Things services.
@@ -18,8 +19,6 @@ Support for Internet of Things services.
       - https://github.com/salt-formulas/salt-formula-kodi
    *  - home-assistant
       - https://github.com/salt-formulas/salt-formula-home-assistant
-   *  - motion
-      - https://github.com/salt-formulas/salt-formula-motion
    *  - octoprint
       - https://github.com/salt-formulas/salt-formula-octoprint
 
@@ -28,7 +27,6 @@ Support for Internet of Things services.
    ../_files/formulas/ffmpeg/README.rst
    ../_files/formulas/kodi/README.rst
    ../_files/formulas/home-assistant/README.rst
-   ../_files/formulas/motion/README.rst
    ../_files/formulas/octoprint/README.rst
 
 

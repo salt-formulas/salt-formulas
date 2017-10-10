@@ -1,4 +1,3 @@
-`Home <index.html>`_ SaltStack-Formulas Project Introduction
 
 ==========================
 Chapter 3. Metadata Models
@@ -8,8 +7,9 @@ Chapter 3. Metadata Models
 
    metadata-architecture.rst
    metadata-layout.rst
+   metadata-reclass.rst
    metadata-patterns.rst
-   metadata-classification.rst
+   metadata-operations.rst
 
 
 --------------

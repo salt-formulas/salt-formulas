@@ -1,7 +1,12 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
+=================================
 Deployment Preparation Guidelines
 =================================
+
+.. contents::
+    :backlinks: none
+    :local:
 
 Let's consider simple deployment of single configuration node with one
 application and one database node.
@@ -15,19 +20,16 @@ Installation of salt minions on controlled nodes is then very simple.
 
 
 Salt Master Formulas
---------------------
+====================
 
 States are delivered by formulas and are stored in ``/srv/salt/env/<env>/``
 directory. Environment can be either production [prd] or development [dev].
-This directory is correlates with `salt_files` root for given env. You can
-serve multiple environments from single salt master at once, but this setup is
-not recommentded.
+This directory is correlates with `salt_files` root for given environment. You
+can serve multiple environments from single salt master at once, but this
+setup is not recommentded.
 
 Usually production environment formulas are delivered by packages and
 development environment formulas are delivered by git sourced formulas.
-
-Salt formulas represent resources that can be automatically installed
-configured at managed nodes.
 
 .. code-block:: text
 
@@ -64,9 +66,12 @@ environment in a little shortened version.
         |-- server.sls
         `-- client.sls
 
+More about structure and layout of the formulas can be found in Development
+documentation.
+
 
 Salt Master Metadata
---------------------
+====================
 
 Metadata then define what state formulas in given specific context are
 projected to managed nodes.
@@ -80,13 +85,14 @@ the FQDN.
 
     /srv/salt/reclass/
     |-- classes/
-    |   |-- cluster_name/
-    |   |   |-- infra/
-    |   |   |   `-- config.yml
-    |   |   |-- python_app/
-    |   |   |   |-- database.yml
-    |   |   |   `-- web.yml
-    |   |   `-- init.yml
+    |   |-- cluster/
+    |   |   `-- deployment/
+    |   |       |-- infra/
+    |   |       |   `-- config.yml
+    |   |       |-- python_app/
+    |   |       |   |-- database.yml
+    |   |       |   `-- web.yml
+    |   |       `-- init.yml
     |   |-- system/
     |   |   |-- python_app/
     |   |   |   `-- server/
@@ -108,14 +114,14 @@ the FQDN.
         `-- cfg.cluster.domain.yml
 
 You start with defining single node `cfg.cluster.domain` in nodes directory
-and that is core node pointing to your `cluster_name.infra.config` class.
+and that is core node pointing to your `cluster.deploy.infra.config` class.
 
 Content of the `nodes/cfg.cluster.domain.yml` file:
 
 .. code-block:: yaml
 
     classes:
-    - cluster.cluster_name.infra.config
+    - cluster.deploy.infra.config
     parameters:
       _param:
         reclass_data_revision: master
@@ -124,10 +130,10 @@ Content of the `nodes/cfg.cluster.domain.yml` file:
           name: cfg01
           domain: cluster.domain
 
-Contains pointer to class `cluster.cluster_name.infra.config` and some basic
+Contains pointer to class `cluster.deploy.infra.config` and some basic
 parameters.
 
-Content of the `classes/cluster/cluster_name/infra/config.yml` file:
+Content of the `classes/cluster/deploy/infra/config.yml` file:
 
 .. code-block:: yaml
 
@@ -165,6 +171,9 @@ Content of the `classes/cluster/cluster_name/infra/config.yml` file:
               params:
                 salt_master_host: ${_param:reclass_config_master}
                 single_address: ${_param:python_database_node01_single_address}
+
+More about structure and layout of the metadata can be found in Metadata
+chapter.
 
 
 --------------

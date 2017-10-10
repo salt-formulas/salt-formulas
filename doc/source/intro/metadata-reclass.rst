@@ -4,6 +4,10 @@
 ReClass - Recursive Classifier
 ==============================
 
+.. contents::
+    :backlinks: none
+    :local:
+
 reclass in node centric classifier for any configuration management. When
 reclass parses a node or class definition and encounters a parent class, it
 recurses to this parent class first before reading any data of the node (or
@@ -19,6 +23,7 @@ classes further up the list.
 Core Functions
 ==============
 
+There are only 2 main concepts of reclass:
 
 Data merging
 ------------
@@ -48,7 +53,7 @@ what has been accumulated during the processing of the classes, and returns
 the final result.
 
 
-Parameter interpolation
+Parameter Interpolation
 -----------------------
 
 Parameters may reference each other, including deep references, e.g.:
@@ -67,7 +72,7 @@ Types are preserved if the value contains nothing but a reference. Hence, the
 value of `dict_reference` will actually be a dictionary.
 
 
-Metadata types
+Metadata Types
 ==============
 
 The reclass deals with complex data structures we call 'hard' metadata, these
@@ -79,7 +84,7 @@ uses the parameter interpolation function of reclass to achieve defining
 parameter at single location.
 
 
-The 'Soft' metadata
+The 'Soft' Metadata
 -------------------
 
 In reclass storage is a special dictionary called `_param`, which contains
@@ -101,7 +106,7 @@ cluster level readable and can be overriden by ``reclass.set_cluster_param
 name value`` module. 
 
 
-The 'Hard' metadata
+The 'Hard' Metadata
 -------------------
 
 This metadata are the complex metadata structures that can contain

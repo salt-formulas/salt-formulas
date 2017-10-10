@@ -1,6 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Integration services
+====================
+Integration Services
 ====================
 
 Continuous integration services for automated integration and delivery

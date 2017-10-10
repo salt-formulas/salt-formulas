@@ -1,6 +1,7 @@
 `Home <index.html>`_ SaltStack-Formulas Project Introduction
 
-Container services
+==================
+Container Services
 ==================
 
 Container services for automated container management.

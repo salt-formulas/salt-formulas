@@ -4,6 +4,10 @@
 Standard Metadata Layout
 ========================
 
+.. contents::
+    :backlinks: none
+    :local:
+
 Metadata models are separated into 3 individual layers: service, system and
 cluster. The layers are firmly isolated from each other and can be aggregated
 on south-north direction and using service interface agreements for objects on
@@ -12,8 +16,17 @@ both on service and system layers as building blocks for a new solutions and
 deployments following the fundamental MDA principles.
 
 
-Service level (Basic functional units)
-======================================
+Basic Functional Units (Service Class Level)
+============================================
+
+The services are the atomic units of config management. SaltStack formula or
+Puppet recipe with default metadata set can be considered as a service. Each
+service implements one or more roles and together with other services form
+systems. Following list shows decomposition
+
+- Formula - Set of states that perform together atomic service
+- State - Declarative definition of various resources (package, files, services)
+- Module - Imperative interaction enforcing defined state for each State
 
 Meta-data fragments for individual services are stored in salt formulas and
 can be reused in multiple contexts. Service level roles set the granularity of
@@ -22,7 +35,16 @@ aggregation. Service models are used to provide models with defaults for
 various contexts. This the low level modelling, where models are directly
 mapped to the Salt formula functions and get projected to the actual nodes.
 
-You store basic configurations ofservices in `metadata/service` directory.
+.. figure:: /_images/meta_service.png
+  :width: 60%
+  :align: center
+
+Given Redis formula from Gitlab example we set basic set of parametes that can
+be used for actual service configuration as well as support services
+configuration.
+
+Basic service metadata is present in `metadata/service` directory of every
+service formula.
 
 .. code-block:: text
 
@@ -107,8 +129,8 @@ There are about 140 formulas in several categories. You can look at complete
 `Formula Ecosystem <extending-formulas.html>`_ chapter.
 
 
-System level (Business function units)
---------------------------------------
+Business Function Unit (System Class Level)
+===========================================
 
 Aggregation of services performing given role in business IT infrastructure.
 System level models are the sets of the ‘services’ combined in a such way that
@@ -116,6 +138,29 @@ the result of the installation of these services will produce a ready-to-use
 application (system) on integration level. In the ‘system’ model, you can not
 only include the ‘services’, but also override some ‘services’ options to get
 the system with the expected functionality.
+
+.. figure:: /_images/meta_system.png
+  :width: 60%
+  :align: center
+
+The systems are usually one of the following type:
+
+**Single**
+
+  Usually all-in-one application system on a node (Taiga, Gitlab)
+
+**Multi**
+
+  Multiple all-in-one application systems on a node (Horizon, Wordpress)
+
+**Cluster**
+
+  Service is part of a cluster (OpenStack controllers, large-scale web
+  applications)
+
+**Container**
+
+  Service is run as Docker container
 
 For example, in the service ‘haproxy’ there is only one port configured by
 default (haproxy_admin_port: 9600) , but the system ‘horizon’ add to the
@@ -205,8 +250,8 @@ to functional business unit of single node scope.
                 rights: all privileges
 
 
-Cluster level (Deployment units)
---------------------------------
+Product Deployments (Cluster Class Level)
+=========================================
 
 Cluster/deployment level aggregating systems directly referenced by individual
 host nodes or container services. Cluster is the set of models that combine
@@ -221,7 +266,7 @@ actual mapping is defined, where each node is member of specific cluster and
 is implementing specific role(s) in systems.
 
 .. figure :: /_images/cluster_detail.png
-   :width: 90%
+   :width: 80%
    :align: center
 
    Cluster level in detail
@@ -275,6 +320,26 @@ Graphite services butr also grafana sever and sensu server.
 
 Cluster level classes can be shared by members of the particular cluster or by
 single node.
+
+
+Node Classification (Node Level)
+================================
+
+Servers contain one or more systems that bring business value and several
+maintenance systems that are common to any node. Services running on single
+host can be viewed as at following picture.
+
+.. figure:: /_images/meta_host.png
+  :width: 60%
+  :align: center
+
+Nodes generally include cluster level classes which include relevant system
+classes and these include service level classes which configure individual
+formulas to work.
+
+.. figure:: /_images/metadata_structure.svg
+  :width: 90%
+  :align: center
 
 
 --------------
