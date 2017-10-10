@@ -4,14 +4,15 @@
 Formula Authoring Guidelines
 ============================
 
-Salt formulas encapsulate specific services. This document contains guidelines
-to salt formula creation and maintenance.
-
 .. contents::
     :backlinks: none
     :local:
 
-Formula directory structure
+Salt formulas encapsulate specific services. This document contains guidelines
+to salt formula creation and maintenance.
+
+
+Formula Directory Structure
 ===========================
 
 Formulas follow the same directory structure as Salt official `conventions <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_ and `best practices <http://docs.saltstack.com/en/latest/topics/best_practices.html>`_ described in the SaltStack documentation.

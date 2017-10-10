@@ -1,11 +1,15 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Myrepos Synchronisation
-=======================
+=====================================
+Sync Multiple Repository with Myrepos
+=====================================
 
+.. contents::
+    :backlinks: none
+    :local:
 
 Installation
-------------
+============
 
 .. code-block:: bash
 
@@ -23,8 +27,9 @@ To avoid using ``--trust-all`` option, add this .mrconfig into trusts file:
 
     echo $PWD/.mrconfig >> ~/.mrtrust
 
-Clone repositories
-------------------
+
+Clone Repositories
+==================
 
 Simply run ``checkout`` tool without parameters or with formula names, eg.:
 
@@ -39,8 +44,9 @@ Or with some parallelism:
 
     mr --trust-all --force -j 4 checkout
 
-Update repositories
--------------------
+
+Update Repositories
+===================
 
 Pull with rebase in each repo or only one
 
@@ -50,8 +56,14 @@ Pull with rebase in each repo or only one
     mr --trust-all -d tcpcloud update
     mr --trust-all -d tcpcloud/apache update
 
-Read more
----------
 
-- https://wiki.debian.org/Teams/Ruby/Packaging
-- https://myrepos.branchable.com/
+More Information
+================
+
+* https://wiki.debian.org/Teams/Ruby/Packaging
+* https://myrepos.branchable.com/
+
+
+--------------
+
+.. include:: navigation.txt

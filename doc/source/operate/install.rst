@@ -1,7 +1,7 @@
-`Home <index.html>`_ Installation and Operations Manual
 
-Chapter 3. Install of the environment
-=====================================
+===================================
+Chapter 1. Environment Installation
+===================================
 
 .. toctree::
 

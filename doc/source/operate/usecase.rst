@@ -1,13 +1,12 @@
-`Home <index.html>`_ Installation and Operations Manual
 
-Chapter 2. Configuration
-------------------------
+====================
+Chapter 4. Use Cases
+====================
 
 .. toctree::
 
-   configure-initial.rst
-   configure-infrastructure.rst
-   configure-dashboard.rst
+   usecase-kubernetes.rst
+   usecase-openstack.rst
 
 --------------
 

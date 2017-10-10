@@ -1,9 +1,12 @@
 `Home <index.html>`_ Installation and Operations Manual
 
-Install infrastructure services
+===============================
+Install Infrastructure Services
 ===============================
 
-`Home <index.html>`_ SaltStack-Formulas Operation Manual
+.. contents::
+    :backlinks: none
+    :local:
 
 First execute basic states on all nodes to ensure Salt minion, system and
 OpenSSH are set up.
@@ -29,10 +32,6 @@ On monitoring node, git needs to be setup first:
    salt 'mon*' state.sls git
    salt 'mon*' state.highstate
 
-
---------------
-
-.. include:: navigation.txt
 
 --------------
 

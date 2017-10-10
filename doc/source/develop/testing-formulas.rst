@@ -1,14 +1,21 @@
 `Home <index.html>`_ Salt-Formulas Development Documentation
 
-Salt Formula testing
-====================
+=====================
+Testing Salt Formulas
+=====================
+
+.. contents::
+    :backlinks: none
+    :local:
 
 Each formula contains *Makefile* with at least *test* target.
 Under ``tests`` directory are located resources for test execution.
 
-Test target executes *"smoke test"* implemented by `tests/run_tests.sh <https://github.com/salt-formulas/salt-formulas/blob/master/cookiecutter/salt-formula/%7B%7Bcookiecutter.service_name%7D%7D/tests/run_tests.sh>_`
-capable to fetch dependencies in python virtual environment by executing
-`salt-call state.show_sls` with provided ``tests/pillar`` data.
+Test target executes *"smoke test"* implemented by `tests/run_tests.sh
+<https://github.com/salt-formulas/salt-formulas/blob/master/cookiecutter/salt-
+formula/%7B%7Bcookiecutter.service_name%7D%7D/tests/run_tests.sh>_` capable to
+fetch dependencies in python virtual environment by executing `salt-call
+state.show_sls` with provided ``tests/pillar`` data.
 
 The purpose of the smoke test is to find syntax, typo issues and verify
 example pillar data against the formula.
@@ -26,15 +33,16 @@ Initial content of ``tests`` folder contains test pillars and a run_tests.sh as 
 
 Create or update pillars in ``tests/pillar/\*.sls`` with test data.
 
-Generate test structures in formula
------------------------------------
+Generate Test Structures in Formula
+===================================
 
 There is and salt-formulas
 `cookiecutter template <https://github.com/salt-formulas/salt-formulas/tree/master/cookiecutter/salt-formula>_`.
 to generate initial repository structure for new formula.
 
-For existing formulas there is an convenient script capable to generate initial structures from available content.
-For more details follow the README in the above linked repository. To simply generate test structures according
+For existing formulas there is an convenient script capable to generate
+initial structures from available content. For more details follow the README
+in the above linked repository. To simply generate test structures according
 specification stated in this document simply run ``kitchen-init.sh``.
 
 tl;dr:
@@ -44,14 +52,16 @@ tl;dr:
   curl -skL "https://raw.githubusercontent.com/salt-formulas/salt-formulas/master/cookiecutter/salt-formula/kitchen-init.sh" | bash -s --
 
 
-Formula testing with Test Kitchen
----------------------------------
+Formula Testing with Test Kitchen
+=================================
 
-`Test Kitchen <http://kitchen.ci>`_ with forked `kitchen-salt <https://github.com/salt-formulas/kitchen-salt>`_ provisioner
-plugin may be used for local development as well as CI scenario.
+`Test Kitchen <http://kitchen.ci>`_ with forked `kitchen-salt
+<https://github.com/salt-formulas/kitchen-salt>`_ provisioner plugin may be
+used for local development as well as CI scenario.
 
-Test Kitchen is a test harness tool to execute your configured code on one or more platforms in isolation.
-There is a ``.kitchen.yml`` in main directory that defines *platforms* to be tested and *suites* to execute on them.
+Test Kitchen is a test harness tool to execute your configured code on one or
+more platforms in isolation. There is a ``.kitchen.yml`` in main directory
+that defines *platforms* to be tested and *suites* to execute on them.
 
 Kitchen CI can spin instances locally or remote, based on used *driver*.
 For example ``.kitchen.yml`` may define a
@@ -61,8 +71,9 @@ For example ``.kitchen.yml`` may define a
 For more, explore it's rich
 `ecosystem <https://github.com/test-kitchen/test-kitchen/blob/master/ECOSYSTEM.md>`_ of supported drivers/provisioners/verifiers/...
 
-Usage:
-^^^^^^
+
+Using Test Kitchen
+------------------
 
 A listing of scenarios to be executed:
 
@@ -76,11 +87,12 @@ A listing of scenarios to be executed:
   client-single-ubuntu-1604   Docker   SaltSolo     Inspec    Ssh        <Not Created>
   client-single-centos-71     Docker   SaltSolo     Inspec    Ssh        <Not Created>
 
-The `Busser <https://github.com/test-kitchen/busser>`_ *Verifier* is used to setup and run tests
-implementated in `<repo>/test/integration`. It installs the particular driver to tested instance
-(`Serverspec <https://github.com/neillturner/kitchen-verifier-serverspec>`_,
-`InSpec <https://github.com/chef/kitchen-inspec>`_, Shell, Bats, ...) prior the verification is executed.
-
+The `Busser <https://github.com/test-kitchen/busser>`_ *Verifier* is used to
+setup and run tests implementated in `<repo>/test/integration`. It installs
+the particular driver to tested instance (`Serverspec
+<https://github.com/neillturner/kitchen-verifier-serverspec>`_, `InSpec
+<https://github.com/chef/kitchen-inspec>`_, Shell, Bats, ...) prior the
+verification is executed.
 
 Example workflow:
 
@@ -96,19 +108,20 @@ Example workflow:
  make kitchen
 
 
+How it Works
+------------
 
-How it works
-^^^^^^^^^^^^
-
-Kitchen spin an instances in Docker, Vagrant, OpenStack environment, etc. based on configured driver.
-Instance is configured as salt minion, where the configuration is defined by ``.kitchen.yml`` and ``tests/pillar/*.sls``
+Kitchen spin an instances in Docker, Vagrant, OpenStack environment, etc.
+based on configured driver. Instance is configured as salt minion, where the
+configuration is defined by ``.kitchen.yml`` and ``tests/pillar/*.sls``
 
 Override your specific needs with ``.kitchen.<backend|local>.yml`` that you may load as:
 ``KITCHEN_LOCAL_YAML=.kitchen.<driver>.yml kitchen <action> <suite>``.
 
 Example: ``KITCHEN_LOCAL_YAML=.kitchen.local kitchen verify server-ubuntu-1404 -t tests/integration``.
 
-Test Kitchen then allows you execute several action to perform your testing under configured conditions:
+Test Kitchen then allows you execute several action to perform your testing
+under configured conditions:
 
 1. *create*, provision an test instance (VM, container)
 2. *converge*, run a provisioner (shell script, kitchen-salt)
@@ -116,11 +129,12 @@ Test Kitchen then allows you execute several action to perform your testing unde
 4. *destroy*
 
 
-Verifying deployment
-^^^^^^^^^^^^^^^^^^^^
+Verifying Deployment
+--------------------
 
-There is couple of verifier plugins that are shipped with Test Kitchen. They allow to run simple bash scripts and checking
-it's exit codes to run specific purpose based frameworks.
+There is couple of verifier plugins that are shipped with Test Kitchen. They
+allow to run simple bash scripts and checking it's exit codes to run specific
+purpose based frameworks.
 
 The `Busser <https://github.com/test-kitchen/busser>`_ *Verifier* goes with test-kitchen by default.
 It is used to setup and run tests implemented in ``<repo>/test/integration``. It guess and installs the particular driver to tested instance.
@@ -183,7 +197,7 @@ Example verification scripts under `tests/integration` folder of the formula:
 
 
 Requirements
-^^^^^^^^^^^^
+------------
 
 Use latest stable kitchen-salt and kitchen-test.
 Supported version of kitchen-salt is available at ``kitchen-salt <https://github.com/salt-formulas/kitchen-salt>`` fork.
@@ -287,8 +301,8 @@ With such alias set, you should be able to execute ``rbenv exec bundler exec
 make kitchen`` and see test results.
 
 
-Sample configs
-^^^^^^^^^^^^^^
+Sample Configurations
+---------------------
 
 For advanced configs have a look at ``.kitchen*.yml`` examples in `cookiecutter template <https://github.com/salt-formulas/salt-formulas/tree/master/cookiecutter/salt-formula/%7B%7Bcookiecutter.service_name%7D%7D>_`.
 
@@ -396,13 +410,13 @@ For advanced configs have a look at ``.kitchen*.yml`` examples in `cookiecutter 
 		# vim: ft=yaml sw=2 ts=2 sts=2 tw=125
 
 Continous Integration with Travis
----------------------------------
+=================================
 
-Salt-formulas uses Travis CI to run smoke and integration tests.
-To generate ``.travis.yml`` follow `Generate test structures in formula`_.
+Salt-formulas uses Travis CI to run smoke and integration tests. To generate
+``.travis.yml`` follow `Generate test structures in formula`_.
 
-Sample configs
-^^^^^^^^^^^^^^
+Sample Configurations
+---------------------
 
 **.travis.yml**
 
@@ -444,8 +458,9 @@ Sample configs
 		
 		# vim: ft=yaml sw=2 ts=2 sts=2 tw=125
 
-Common practices
-----------------
+
+Common Practices
+================
 
 **noservices**
 
@@ -537,3 +552,7 @@ However this is later extended on Travis CI while using ``ENV`` variables in bui
     We tend to set complex ``PLATFORMS`` and ``SUITE`` etc.. build matrix to run test in parallel
     or with the aim to fit the ``kitchen test`` output in the Travis scrollable terminal buffer.
 
+
+--------------
+
+.. include:: navigation.txt

@@ -1,5 +1,5 @@
-`Home <index.html>`_ SaltStack-Formulas Development Documentation
 
+====================
 Chapter 1. Extending
 ====================
 

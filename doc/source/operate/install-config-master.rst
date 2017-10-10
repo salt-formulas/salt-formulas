@@ -1,11 +1,15 @@
 `Home <index.html>`_ Installation and Operations Manual
 
+========================
 Configuration Node Setup
 ========================
 
+.. contents::
+    :backlinks: none
+    :local:
 
-Configuring the operating system
---------------------------------
+Configuring the Operating System
+================================
 
 The configuration files will be installed to :file:`/etc/salt` and are named
 after the respective components, :file:`/etc/salt/master`, and
@@ -99,8 +103,10 @@ Install the Salt master from the apt repository with the apt-get command after y
 
 .. Note::
 
-Instalation is tested on Ubuntu Linux 12.04/14.04, but should work on any distribution with python 2.7 installed.
-You should keep Salt components at current stable version.
+  Instalation is tested on Ubuntu Linux 14.04/16.04, but should work on any
+  distribution with python 2.7 installed.
+
+  You should keep Salt components at current stable version.
 
 
 Configuring Secure Shell (SSH) keys

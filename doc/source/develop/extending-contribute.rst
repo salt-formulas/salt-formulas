@@ -1,10 +1,15 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
+======================
 Contributor Guidelines
 ======================
 
+.. contents::
+    :backlinks: none
+    :local:
+
 Bugs
-----
+====
 
 Bugs should be filed on `Bug Launchpad`_ for SaltStack-formulas.
 
@@ -22,21 +27,21 @@ criteria are met:
 * Steps to reproduce the problem if possible.
 
 Tags
-~~~~
+----
 
 If it's a bug that needs fixing in a branch in addition to master, add a
 '\<release\>-backport-potential' tag (e.g. ``kilo-backport-potential``).
 There are predefined tags that will auto-complete.
 
 Status
-~~~~~~
+------
 
 Please leave the **status** of an issue alone until someone confirms it or
 a member of the bugs team triages it. While waiting for the issue to be
 confirmed or triaged the status should remain as **New**.
 
 Importance
-~~~~~~~~~~
+----------
 
 Should only be touched if it is a Blocker/Gating issue. If it is, please
 set to **High**, and only use **Critical** if you have found a bug that
@@ -44,8 +49,8 @@ can take down whole infrastructures. Once the importance has been changed
 the status should be changed to *Triaged* by someone other than the bug
 creator.
 
-Triaging bugs
-~~~~~~~~~~~~~
+Triaging Bugs
+-------------
 
 Reported bugs need prioritization, confirmation, and shouldn't go stale.
 If you care about OpenStack stability but aren't wanting to actively
@@ -58,7 +63,7 @@ immensely. The whole process is described in the upstream
 .. _Bug Triage Documentation: https://wiki.openstack.org/wiki/BugTriage
 
 Submitting Code
----------------
+===============
 
 * Write good commit messages. We follow the OpenStack
   "`Git Commit Good Practice`_" guide. if you have any questions regarding how
@@ -107,7 +112,8 @@ Submitting Code
 .. _Salt best practices: http://docs.salt.com/playbooks_best_practices.html
 
 Backporting
------------
+===========
+
 * Backporting is defined as the act of reproducing a change from another
   branch. Unclean/squashed/modified cherry-picks and complete
   reimplementations are OK.
@@ -132,7 +138,7 @@ Backporting
 .. _Submitting a change to a branch for review: http://www.mediawiki.org/wiki/Gerrit/Advanced_usage#Submitting_a_change_to_a_branch_for_review_.28.22backporting.22.29
 
 Style Guide
------------
+===========
 
 When creating tasks and other roles for use in Salt please create then
 using the YAML dictionary format.
@@ -148,7 +154,6 @@ Example YAML dictionary format:
       tags:
         - some-tag
         - some-other-tag
-
 
 Example what **NOT** to do:
 
@@ -169,6 +174,7 @@ Example what **NOT** to do:
 
 Usage of the ">" and "|" operators should be limited to Salt conditionals
 and command modules such as the Salt ``shell`` or ``command``.
+
 
 --------------
 

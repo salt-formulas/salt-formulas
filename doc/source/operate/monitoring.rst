@@ -1,7 +1,7 @@
-`Home <index.html>`_ Installation and Operations Manual
 
-Chapter 2. Monitoring
----------------------
+=====================
+Chapter 3. Monitoring
+=====================
 
 .. toctree::
 

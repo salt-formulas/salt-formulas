@@ -1,13 +1,18 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-Using Cookiecutter
-==================
+======================================
+Creating New Formula with Cookiecutter
+======================================
+
+.. contents::
+    :backlinks: none
+    :local:
 
 This guide shows how to use cookiecutter template to create new Salt formula.
 
 
 Installation
-------------
+============
 
 Install in blank virtualenv.
 
@@ -19,11 +24,12 @@ Install in blank virtualenv.
 
 
 Usage
------
+=====
 
 .. code-block:: bash
 
     cookiecutter salt-formula
+
 
 --------------
 

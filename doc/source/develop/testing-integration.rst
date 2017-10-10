@@ -1,8 +1,12 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
-
-Integration testing
 ===================
+Integration Testing
+===================
+
+.. contents::
+    :backlinks: none
+    :local:
 
 There are requirements, in addition to Salt's requirements, which need to be
 installed in order to run the test suite. Install the line below.
@@ -14,8 +18,9 @@ installed in order to run the test suite. Install the line below.
 Once all require requirements are set, use ``tests/runtests.py`` to run all of
 the tests included in Salt's test suite. For more information, see --help.
 
-Running the tests
------------------
+
+Running the Tests
+=================
 
 An alternative way of invoking the test suite is available in setup.py:
 
@@ -32,8 +37,9 @@ specific groups of tests or individual tests:
 * Run unit tests for an individual module: ./tests/runtests.py -n unit.modules.virt_test
 * Run an individual test by using the class and test name (this example is for the test_default_kvm_profile test in the integration.module.virt)
 
-Running Unit tests without integration test daemons
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Running Unit Tests without Integration Test Daemons
+---------------------------------------------------
 
 Since the unit tests do not require a master or minion to execute, it is often
 useful to be able to run unit tests individually, or as a whole group, without
@@ -47,11 +53,12 @@ runtests.py command:
 
    ./runtests.py --unit
 
-All of the other options to run individual tests, entire classes of tests, or entire test modules still apply.
+All of the other options to run individual tests, entire classes of tests, or
+entire test modules still apply.
 
 
-Destructive integration tests
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Destructive Integration Tests
+-----------------------------
 
 Salt is used to change the settings and behavior of systems. In order to
 effectively test Salt's functionality, some integration tests are written to
@@ -73,8 +80,9 @@ To run tests marked as destructive, set the ``--run-destructive`` flag:
 
    ./tests/runtests.py --run-destructive
 
-Automated test runs
--------------------
+
+Automated Test Runs
+===================
 
 Jenkins server executes series of tests across supported platforms. The tests
 executed from SaltStack-Formulas's Jenkins server create fresh virtual
@@ -95,6 +103,7 @@ Once the pull request is merged into SaltStack-Formulas's develop branch, a
 new set of Jenkins virtual machines will begin executing the test suite. The
 develop branch tests have many more virtual machines to provide more
 comprehensive results.
+
 
 --------------
 

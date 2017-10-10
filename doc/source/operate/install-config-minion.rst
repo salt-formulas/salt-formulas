@@ -1,14 +1,20 @@
 `Home <index.html>`_ Installation and Operations Manual
 
-Target nodes installation
+=========================
+Target Nodes Installation
 =========================
 
-On most distributions, you can set up a Salt Minion with the `Salt Bootstrap <https://github.com/saltstack/salt-bootstrap>`_ .
+.. contents::
+    :backlinks: none
+    :local:
+
+On most distributions, you can set up a Salt Minion with the `Salt Bootstrap
+<https://github.com/saltstack/salt-bootstrap>`_ .
 
 .. note::
 
-    In every two-step example, you would be well-served to examine the downloaded file and examine
-    it to ensure that it does what you expect.
+    In every two-step example, you would be well-served to examine the
+    downloaded file and examine it to ensure that it does what you expect.
 
 
 Using ``curl`` to install latest git:
@@ -63,7 +69,9 @@ configuration file, typically ``/etc/salt/minion``, as follows:
 Setting ``Salt minion ID``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Then explicitly declare the id for this minion to use. Since Salt uses detached ids it is possible to run multiple minions on the same machine but with different ids.
+Then explicitly declare the ID for this minion to use. Since Salt uses
+detached IDs it is possible to run multiple minions on the same machine but
+with different IDs.
 
 .. code-block:: yaml
 
@@ -82,6 +90,7 @@ After updating the configuration files, restart the Salt minion.
 
 See the `minion configuration reference <https://docs.saltstack.com/en/latest/ref/configuration/minion.html>`_
 for more details about other configurable options.
+
 
 --------------
 

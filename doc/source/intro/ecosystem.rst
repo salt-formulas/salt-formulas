@@ -13,9 +13,9 @@ Chapter 4. Service Ecosystem
    ecosystem-monitor.rst
    ecosystem-container.rst
    ecosystem-openstack.rst
-   ecosystem-iot.rst
    ecosystem-program.rst
    ecosystem-webapp.rst
+   ecosystem-iot.rst
 
 --------------
 

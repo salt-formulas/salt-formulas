@@ -1,7 +1,12 @@
 `Home <index.html>`_ Installation and Operations Manual
 
+===========================
 Validate Configuration Node
-============================
+===========================
+
+.. contents::
+    :backlinks: none
+    :local:
 
 Now it's time to validate your configuration infrastrucuture.
 
