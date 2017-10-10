@@ -1,31 +1,13 @@
 
-Development documentation
+Development Documentation
 =========================
 
 In this section, you will find documentation relevant to developing SaltStack
 formulas. How to change existing formula, how to create a new formula.
 
 
-Overview
-^^^^^^^^
-
-.. toctree::
-   :maxdepth: 2
-
-   overview.rst
-
-
-Quick start
-^^^^^^^^^^^
-
-.. toctree::
-   :maxdepth: 2
-
-   quickstart.rst
-
-
 Extending
-^^^^^^^^^
+---------
 
 .. toctree::
    :maxdepth: 2
@@ -34,17 +16,17 @@ Extending
 
 
 Testing
-^^^^^^^
+-------
 
 .. toctree::
    :maxdepth: 2
 
    testing.rst
 
+Maintenance
+-----------
 
-Indices and tables
-==================
+.. toctree::
+   :maxdepth: 2
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   maintenance.rst

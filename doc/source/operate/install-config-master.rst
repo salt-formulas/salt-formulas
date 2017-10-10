@@ -1,10 +1,14 @@
+`Home <index.html>`_ Installation and Operations Manual
 
 ========================
 Configuration Node Setup
 ========================
 
+.. contents::
+    :backlinks: none
+    :local:
 
-Configuring the operating system
+Configuring the Operating System
 ================================
 
 The configuration files will be installed to :file:`/etc/salt` and are named
@@ -80,9 +84,8 @@ See the `master configuration reference <https://docs.saltstack.com/en/latest/re
 for more details about other configurable options.
 
 
-
 Setting up package repository
-================================
+-----------------------------
 
 Use ``curl`` to install your distribution's stable packages. Examine the downloaded file ``install_salt.sh`` to ensure that it contains what you expect (bash script). You need to perform this step even for salt-master instalation as it adds official saltstack package management PPA repository.
 
@@ -100,12 +103,14 @@ Install the Salt master from the apt repository with the apt-get command after y
 
 .. Note::
 
-Instalation is tested on Ubuntu Linux 12.04/14.04, but should work on any distribution with python 2.7 installed.
-You should keep Salt components at current stable version.
+  Instalation is tested on Ubuntu Linux 14.04/16.04, but should work on any
+  distribution with python 2.7 installed.
+
+  You should keep Salt components at current stable version.
 
 
 Configuring Secure Shell (SSH) keys
-===================================
+-----------------------------------
 
 Generate SSH key file for accessing your reclass metadata and development formulas.
 

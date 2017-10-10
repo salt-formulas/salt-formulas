@@ -1,14 +1,20 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
+==================
 Formula Versioning
 ==================
 
-Current versioning system is date based same as `Saltstack versioning`_ using
+.. contents::
+    :backlinks: none
+    :local:
+
+Current versioning system is date based same as Saltstack versioning using
 format ``YYYY-MM-R`` (year-month-revision) where revision is minor release
 that increments of 1 starting at 0.
 
-Making release
---------------
+
+Creating New Release
+====================
 
 Releasing is currently not automatic and is up to maintainer of individual
 formula.
@@ -52,7 +58,7 @@ Example use and output:
   $ git push origin master
   $ git push origin --tags
 
-Read more
----------
 
-.. _`Saltstack versioning`: https://docs.saltstack.com/en/latest/topics/releases/version_numbers.html
+--------------
+
+.. include:: navigation.txt

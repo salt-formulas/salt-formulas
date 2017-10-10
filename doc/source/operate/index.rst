@@ -1,39 +1,31 @@
 
+Installation and Operations Manual
 ==================================
-Installation and operations manual
-==================================
 
-`Home <index.html>`_ SaltStack-Formulas Installation Manual
-
-
-Overview
-^^^^^^^^
+Installation
+------------
 
 .. toctree::
 
-   overview.rst
-
+   install.rst
 
 Configuration
-^^^^^^^^^^^^^
+-------------
 
 .. toctree::
 
    configure.rst
 
-
-Installation
-^^^^^^^^^^^^
-
-.. toctree::
-
-   install-config.rst
-   install-infrastructure.rst
-
-
 Monitoring
-^^^^^^^^^^
+----------
 
 .. toctree::
 
    monitoring.rst
+
+Use cases
+---------
+
+.. toctree::
+
+   usecase.rst

@@ -1,6 +1,12 @@
+`Home <index.html>`_ Installation and Operations Manual
 
-Initial environment configuration
 =================================
+Initial Environment Configuration
+=================================
+
+.. contents::
+    :backlinks: none
+    :local:
 
 Linux system setup
 ------------------

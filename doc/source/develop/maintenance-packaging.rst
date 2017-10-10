@@ -1,13 +1,18 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
+=================
 Formula Packaging
 =================
+
+.. contents::
+    :backlinks: none
+    :local:
 
 This section describes process of building distribution packages for various
 distributions.
 
 Debian
-------
+======
 
 Debian packaging ecosystems is very diversed, there's many ways how to build
 and maintain a package.
@@ -16,8 +21,8 @@ We have decided to use ``git-buildpackage`` (aka ``gbp``) and support two
 source formats depending on formula needs: ``3.0 (native)`` and ``3.0
 (quilt)``
 
-Native
-~~~~~~
+Native Packages
+---------------
 
 Native source format is for applications made especially for Debian, it
 doesn't distinquish upstream vs. debian distribution.
@@ -39,8 +44,8 @@ or building source package and using cowbuilder:
 Disadvantages of using native format is that it's not possible to maintain
 stable versions and therefore maintain formula package in Debian distribution.
 
-Quilt
-~~~~~
+Quilt Packages
+--------------
 
 Quilt format adds more complexity as it distinquish upstream vs. debian
 distribution.
@@ -96,10 +101,15 @@ To build package, checkout into debian branch and run:
 
     gbp buildpackage --git-ignore-new --git-ignore-branch -S -uc -us
 
-Read more
-~~~~~~~~~
+More Information
+================
 
 Debian packaging is complex topic so it's good to check some external
 resources as well:
 
 - http://honk.sigxcpu.org/projects/git-buildpackage/manual-html/gbp.html
+
+
+--------------
+
+.. include:: navigation.txt
