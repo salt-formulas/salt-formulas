@@ -14,21 +14,21 @@ configuring, and starting a service, setting up users or permissions, and many
 other common tasks. They have certain rules that needs to be adhered.
 
 
-Using double quotes with no variables
+Using Double Quotes with no Variables
 =====================================
 
 In general - it's a bad idea. All the strings which does not contain dynamic
 content ( variables ) should use single quote instead of double.
 
 
-Line length above 80 characters
+Line Length Above 80 Characters
 ===============================
 
 As a 'standard code width limit' and for historical reasons - [IBM punch
 card](http://en.wikipedia.org/wiki/Punched_card) had exactly 80 columns.
 
 
-Single line declarations
+Single Line Declarations
 ========================
 
 Avoid extending your code by adding single-line declarations. It makes your
@@ -36,7 +36,7 @@ code much cleaner and easier to parse / grep while searching for those
 declarations.
 
 
-No newline at the end of the file
+No Newline at the End of the File
 =================================
 
 Each line should be terminated in a newline character, including the last one.
@@ -46,7 +46,7 @@ thread](http://stackoverflow.com/questions/729692/why-should-files-end-
 with-a-newline)
 
 
-Trailing whitespace characters
+Trailing Whitespace Characters
 ==============================
 
 Trailing whitespaces take more spaces than necessary, any regexp based
