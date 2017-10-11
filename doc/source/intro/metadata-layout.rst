@@ -322,8 +322,8 @@ Cluster level classes can be shared by members of the particular cluster or by
 single node.
 
 
-Node Classification (Node Level)
-================================
+Node/Cluster Classification (Node Level)
+========================================
 
 Servers contain one or more systems that bring business value and several
 maintenance systems that are common to any node. Services running on single
@@ -340,6 +340,9 @@ formulas to work.
 .. figure:: /_images/metadata_structure.svg
   :width: 90%
   :align: center
+
+The previous figure shows the real composition of individual metadata
+fragments that form the complete service catalog for each managed node.
 
 
 --------------

@@ -25,8 +25,8 @@ Quick Start
    quickstart.rst
 
 
-Metadata Models
-===============
+Metadata Modelling
+==================
 
 .. toctree::
    :maxdepth: 2
