@@ -8,6 +8,10 @@ Model-driven Architectures
     :backlinks: none
     :local:
 
+We have the formula structures covered, now we can proceed to define how the
+metadata is modelled and key patterns we need to know to build nice standard
+models.
+
 Model Driven Architecture (MDA) is an answer to growing complexity of systems
 controlled by configuration management and orchestration tools. It provides
 unified node classification with atomic service definitions.
