@@ -10,7 +10,7 @@ Reclass model
 ===========================
 
 Most of the salt-formulas deployments are deployed with `reclass <http://reclass.pantsfullofunix.net/>`_ an “external node classifier” (ENC).
-More informations can be found at `reclass overview http://salt-formulas.readthedocs.io/en/latest/develop/overview-reclass.htm`_.
+More informations can be found at `reclass overview <https://salt-formulas.readthedocs.io/en/latest/intro/metadata-reclass.html>`_.
 
 
 Local model verification
@@ -38,7 +38,7 @@ On already deployed salt master, use as:
 Test-Kitchen is rehearsal test framework that allows to spin a docker container and bootstrap salt-master with desired
 configuration.
 
-More details related the ``kitchen-salt`` and usage with salt-formulas you may find at `salt-formulas testing documentation <https://salt-formulas.readthedocs.io/en/latest/develop/testing-formulas.html>`_
+More details related the ``kitchen-salt`` and usage with salt-formulas you may find at `salt-formulas testing documentation <https://salt-formulas.readthedocs.io/en/latest/develop/testing-formulas.html>`_ and for a `model validation and integration testing <https://salt-formulas.readthedocs.io/en/latest/develop/testing-integration.html>`_.
 
 Command ``kitchen converge`` uses ``verify.sh`` script as simple ``provisioner`` script.
 
