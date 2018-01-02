@@ -1,19 +1,171 @@
 `Home <index.html>`_ SaltStack-Formulas Development Documentation
 
 ===================
-Integration Testing
+Testing Salt models
 ===================
 
 .. contents::
     :backlinks: none
     :local:
 
-There are requirements, in addition to Salt's requirements, which need to be
-installed in order to run the test suite. Install the line below.
+In order to test your model you may use kitchen-salt again.
 
-.. code-block:: bash
+To validate model use:
 
-   pip install -r requirements/dev_python27.txt
+
+Kitchen-salt to validate mode
+=============================
+
+With the below approach you may validate or even deploy your model in any platform the `kitchen-test` support.
+
+.. note: Most of the salt-formulas deployments are deployed with reclass an “external node classifier” (ENC).
+         The examples below expect's usage of reclass for ext_pillar data.
+         More information about reclass can be found at:
+         `reclass overview <http://salt-formulas.readthedocs.io/en/latest/develop/overview-reclass.htm>`_.
+
+Expected repository structure:
+
+.. code-block:: shell
+
+  ➜  tree -L 3
+  .
+  ├── classes
+  │   │  
+  │   ├── service
+  │   │  
+  │   ├── system
+  │   │  
+  │   ├── cluster
+  │   │   ├── k8s-aio-calico
+  │   │   ├── k8s-aio-contrail
+  │   │   ├── k8s-ha-calico
+  │   │   ├── k8s-ha-calico-cloudprovider
+  │   │   ├── k8s-ha-calico-syndic
+  │   │   ├── k8s-ha-contrail
+  │   │   ├── os-aio-contrail
+  │   │   ├── os-aio-ovs
+  │   │   ├── os-ha-contrail
+  │   │   ├── os-ha-contrail-40
+  │   │   ├── os-ha-contrail-ironic
+  │   │   ├── os-ha-ovs
+  │   │   ├── os-ha-ovs-ceph
+  │   │  
+  │
+  ├── Makefile
+  ├── README.rst
+  │
+  ├── verify.sh
+
+
+Place this ``kitchen.yml`` and ``verify.sh`` to to your model repo.
+
+.. note: The above files has maintained upstream at
+         `github.com/salt-formulas/deploy/model <https://github.com/salt-formulas/salt-formulas/tree/master/deploy/model>`_.
+
+Example ``kitchen.yml``:
+
+.. code-block:: yaml
+
+  ---
+  driver:
+    name: docker
+    use_sudo: false
+    volume:
+      - <%= ENV['PWD'] %>:/tmp/kitchen
+
+  provisioner:
+    name: shell
+    script: verify.sh
+
+  platforms:
+    <% `find classes/cluster -maxdepth 1 -mindepth 1 -type d | tr '_' '-' |sort -u`.split().each do |cluster| %>
+    <% cluster=cluster.split('/')[2] %>
+    - name: <%= cluster %>
+      driver_config:
+        #image: ubuntu:16.04
+        image: tcpcloud/salt-models-testing # With preinstalled dependencies (faster)
+        platform: ubuntu
+        hostname: cfg01.<%= cluster %>.local
+        provision_command:
+          - apt-get update
+          - apt-get install -y git curl python-pip
+          - pip install --upgrade pip
+          - git clone https://github.com/salt-formulas/salt-formulas-scripts /srv/salt/scripts
+          - cd /srv/salt/scripts; git pull -r; cd -
+          # NOTE: Configure ENV options as needed, example:
+          - echo "
+              export BOOTSTRAP=1;\n
+              export CLUSTER_NAME=<%= cluster %>;\n
+              export FORMULAS_SOURCE=pkg;\n
+              export RECLASS_VERSION=master;\n
+              export RECLASS_IGNORE_CLASS_NOTFOUND=True;\n
+              export RECLASS_IGNORE_CLASS_REGEXP='service.*';\n
+              export EXTRA_FORMULAS="";\n
+            " > /kitchen.env
+            #export RECLASS_SOURCE_PATH=/usr/lib/python2.7/site-packages/reclass;\n
+            #export PYTHONPATH=$RECLASS_SOURCE_PATH:$PYTHONPATH;\n
+    <% end %>
+
+  suites:
+    - name: cluster
+
+Example ``verify.sh``:
+
+.. code-block:: yaml
+
+  #!/bin/bash
+
+  #export HOSTNAME=${`hostname -s`}
+  #export DOMAIN=${`hostname -d`}
+  cd /srv/salt/scripts; git pull -r || true; source bootstrap.sh || exit 1
+
+  # BOOTSTRAP
+  if [[ $BOOTSTRAP =~ ^(True|true|1|yes)$ ]]; then
+    # workarounds for kitchen
+    test ! -e /tmp/kitchen  || (mkdir -p /srv/salt/reclass; rsync -avh /tmp/kitchen/ /srv/salt/reclass)
+    cd /srv/salt/reclass
+    # clone latest system-level if missing
+    if [[ -e .gitmodules ]] && [[ ! -e classes/system/linux ]]; then
+      git submodule update --init --recursive --remote || true
+    fi
+    source_local_envs
+    /srv/salt/scripts/bootstrap.sh &&\
+    if [[ -e /tmp/kitchen ]]; then sed -i '/BOOTSTRAP=/d' /kitchen.env; fi
+  fi
+
+  # VERIFY
+  export RECLASS_IGNORE_CLASS_NOTFOUND=False
+  cd /srv/salt/reclass &&\
+  if [[ -z "$1" ]] ; then
+    verify_salt_master &&\
+    verify_salt_minions
+  else
+    verify_salt_minion "$1"
+  fi
+
+
+Usage:
+
+.. code-block:: yaml
+
+  kitchen list
+
+  Instance                                  Driver  Provisioner  Verifier  Transport  Last Action    Last Error
+  -------------------------------------------------------------------------------------------------------------
+  cluster-k8s-aio-calico                    Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-k8s-aio-contrail                  Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-k8s-ha-calico                     Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-k8s-ha-calico-cloudprovider       Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-k8s-ha-calico-syndic              Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-k8s-ha-contrail                   Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-os-aio-contrail                   Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-os-aio-ovs                        Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-os-ha-contrail                    Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-os-ha-contrail-40                 Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-os-ha-contrail-ironic             Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-os-ha-ovs                         Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  cluster-os-ha-ovs-ceph                    Docker  Shell        Busser    Ssh        <Not Created>  <None>
+  ...
 
 Once all require requirements are set, use ``tests/runtests.py`` to run all of
 the tests included in Salt's test suite. For more information, see --help.
@@ -21,88 +173,6 @@ the tests included in Salt's test suite. For more information, see --help.
 
 Running the Tests
 =================
-
-An alternative way of invoking the test suite is available in setup.py:
-
-.. code-block:: bash
-
-   ./setup.py test
-
-Instead of running the entire test suite, there are several ways to run only
-specific groups of tests or individual tests:
-
-* Run unit tests only: ./tests/runtests.py --unit-tests
-* Run unit and integration tests for states: ./tests/runtests.py --state
-* Run integration tests for an individual module: ./tests/runtests.py -n integration.modules.virt
-* Run unit tests for an individual module: ./tests/runtests.py -n unit.modules.virt_test
-* Run an individual test by using the class and test name (this example is for the test_default_kvm_profile test in the integration.module.virt)
-
-
-Running Unit Tests without Integration Test Daemons
----------------------------------------------------
-
-Since the unit tests do not require a master or minion to execute, it is often
-useful to be able to run unit tests individually, or as a whole group, without
-having to start up the integration testing daemons. Starting up the master,
-minion, and syndic daemons takes a lot of time before the tests can even start
-running and is unnecessary to run unit tests. To run unit tests without
-invoking the integration test daemons, simple remove the /tests portion of the
-runtests.py command:
-
-.. code-block:: bash
-
-   ./runtests.py --unit
-
-All of the other options to run individual tests, entire classes of tests, or
-entire test modules still apply.
-
-
-Destructive Integration Tests
------------------------------
-
-Salt is used to change the settings and behavior of systems. In order to
-effectively test Salt's functionality, some integration tests are written to
-make actual changes to the underlying system. These tests are referred to as
-"destructive tests". Some examples of destructive tests are changes may be
-testing the addition of a user or installing packages. By default, destructive
-tests are disabled and will be skipped.
-
-Generally, destructive tests should clean up after themselves by attempting to
-restore the system to its original state. For instance, if a new user is
-created during a test, the user should be deleted after the related test(s)
-have completed. However, no guarantees are made that test clean-up will
-complete successfully. Therefore, running destructive tests should be done
-with caution.
-
-To run tests marked as destructive, set the ``--run-destructive`` flag:
-
-.. code-block:: bash
-
-   ./tests/runtests.py --run-destructive
-
-
-Automated Test Runs
-===================
-
-Jenkins server executes series of tests across supported platforms. The tests
-executed from SaltStack-Formulas's Jenkins server create fresh virtual
-machines for each test run, then execute destructive tests on the new, clean
-virtual machines.
-
-When a pull request is submitted to SaltStack-Formulas's repository, Jenkins
-runs Salt's test suite on a couple of virtual machines to gauge the pull
-request's viability to merge into SaltStack-Formulas's develop branch. If
-these initial tests pass, the pull request can then merged into SaltStack-
-Formulas's develop branch by one of SaltStack-Formulas's core developers,
-pending their discretion. If the initial tests fail, core developers may
-request changes to the pull request. If the failure is unrelated to the
-changes in question, core developers may merge the pull request despite the
-initial failure.
-
-Once the pull request is merged into SaltStack-Formulas's develop branch, a
-new set of Jenkins virtual machines will begin executing the test suite. The
-develop branch tests have many more virtual machines to provide more
-comprehensive results.
 
 
 --------------

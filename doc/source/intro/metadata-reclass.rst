@@ -19,6 +19,18 @@ This means any class may define a list of classes it derives metadata from, in
 which case classes defined further down the list will be able to override
 classes further up the list.
 
+Resources
+=========
+
+Original reclass implementation:
+
+ * https://github.com/madduck/reclass
+
+Forked reclass with many additional features:
+
+ * https://github.com/salt-formulas/reclass
+ * https://github.com/salt-formulas/reclass/tree/develop (develop branch)
+
 
 Core Functions
 ==============
