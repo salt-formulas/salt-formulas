@@ -508,4 +508,4 @@
 	url = https://github.com/salt-formulas/salt-formulas-scripts
 [submodule "cookiecutter"]
 	path = cookiecutter
-	url = http://github.com/salt-formulas/salt-formulas-cookiecutter
+	url = http://github.com/salt-formulas/cookiecutter-salt-formula
