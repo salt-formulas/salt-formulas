@@ -506,6 +506,6 @@
 [submodule "deploy/scripts"]
 	path = deploy/scripts
 	url = https://github.com/salt-formulas/salt-formulas-scripts
-[submodule "cookiecutter"]
-	path = cookiecutter
+[submodule "cookiecutter/salt-formula"]
+	path = cookiecutter/salt-formula
 	url = http://github.com/salt-formulas/cookiecutter-salt-formula
