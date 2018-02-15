@@ -609,3 +609,47 @@ skip = lazy
 checkout = git_checkout hubblestack
 skip = lazy
 
+[formulas/hovercraft]
+checkout = git_checkout hovercraft
+skip = lazy
+
+[formulas/fluentbit]
+checkout = git_checkout fluentbit
+skip = lazy
+
+[formulas/openbook]
+checkout = git_checkout openbook
+skip = lazy
+
+[formulas/pypiserver]
+checkout = git_checkout pypiserver
+skip = lazy
+
+[formulas/tinyproxy]
+checkout = git_checkout tinyproxy
+skip = lazy
+
+[formulas/syncthing]
+checkout = git_checkout syncthing
+skip = lazy
+
+[formulas/gitolite]
+checkout = git_checkout gitolite
+skip = lazy
+
+[formulas/kalliope]
+checkout = git_checkout kalliope
+skip = lazy
+
+[formulas/watchdog]
+checkout = git_checkout watchdog
+skip = lazy
+
+[formulas/debmirror]
+checkout = git_checkout debmirror
+skip = lazy
+
+[formulas/dogtag]
+checkout = git_checkout dogtag
+skip = lazy
+

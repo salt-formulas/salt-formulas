@@ -501,7 +501,7 @@
 [submodule "formulas/helm"]
 	ignore = all
 	path = formulas/helm
-	url = https://github.com/salt-formulas/salt-formula-helm.git
+	url = https://github.com/salt-formulas/salt-formula-helm
 	branch = master
 [submodule "deploy/scripts"]
 	path = deploy/scripts
@@ -509,3 +509,96 @@
 [submodule "cookiecutter/salt-formula"]
 	path = cookiecutter/salt-formula
 	url = http://github.com/salt-formulas/cookiecutter-salt-formula
+[submodule "formulas/hovercraft"]
+	path = formulas/hovercraft
+	url = https://github.com/salt-formulas/salt-formula-hovercraft
+[submodule "formulas/fluentbit"]
+	path = formulas/fluentbit
+	url = https://github.com/salt-formulas/salt-formula-fluentbit
+[submodule "formulas/pypiserver"]
+	path = formulas/pypiserver
+	url = https://github.com/salt-formulas/salt-formula-pypiserver
+[submodule "formulas/tinyproxy"]
+	path = formulas/tinyproxy
+	url = https://github.com/salt-formulas/salt-formula-tinyproxy
+[submodule "formulas/gitolite"]
+	path = formulas/gitolite
+	url = https://github.com/salt-formulas/salt-formula-gitolite
+[submodule "formulas/kalliope"]
+	path = formulas/kalliope
+	url = https://github.com/salt-formulas/salt-formula-kalliope
+[submodule "formulas/watchdog"]
+	path = formulas/watchdog
+	url = https://github.com/salt-formulas/salt-formula-watchdog
+[submodule "formulas/debmirror"]
+	path = formulas/debmirror
+	url = https://github.com/salt-formulas/salt-formula-debmirror
+[submodule "formulas/shibboleth"]
+	path = formulas/shibboleth
+	url = https://github.com/salt-formulas/salt-formula-shibboleth
+[submodule "formulas/decapod"]
+	path = formulas/decapod
+	url = https://github.com/salt-formulas/salt-formula-decapod
+[submodule "formulas/tvheadend"]
+	path = formulas/tvheadend
+	url = https://github.com/salt-formulas/salt-formula-tvheadend
+[submodule "formulas/monasca"]
+	path = formulas/monasca
+	url = https://github.com/salt-formulas/salt-formula-monasca
+[submodule "formulas/prometheus"]
+	path = formulas/prometheus
+	url = https://github.com/salt-formulas/salt-formula-prometheus
+[submodule "formulas/storm"]
+	path = formulas/storm
+	url = https://github.com/salt-formulas/salt-formula-storm
+[submodule "formulas/spinnaker"]
+	path = formulas/spinnaker
+	url = https://github.com/salt-formulas/salt-formula-spinnaker
+[submodule "formulas/lldp"]
+	path = formulas/lldp
+	url = https://github.com/salt-formulas/salt-formula-lldp
+[submodule "formulas/odoo"]
+	path = formulas/odoo
+	url = https://github.com/salt-formulas/salt-formula-odoo
+[submodule "formulas/airflow"]
+	path = formulas/airflow
+	url = https://github.com/salt-formulas/salt-formula-airflow
+[submodule "formulas/superset"]
+	path = formulas/superset
+	url = https://github.com/salt-formulas/salt-formula-superset
+[submodule "formulas/pgbouncer"]
+	path = formulas/pgbouncer
+	url = https://github.com/salt-formulas/salt-formula-pgbouncer
+[submodule "formulas/telegraf"]
+	path = formulas/telegraf
+	url = https://github.com/salt-formulas/salt-formula-telegraf
+[submodule "formulas/selenium"]
+	path = formulas/selenium
+	url = https://github.com/salt-formulas/salt-formula-selenium
+[submodule "formulas/xtrabackup"]
+	path = formulas/xtrabackup
+	url = https://github.com/salt-formulas/salt-formula-xtrabackup
+[submodule "formulas/ironic"]
+	path = formulas/ironic
+	url = https://github.com/salt-formulas/salt-formula-ironic
+[submodule "formulas/octavia"]
+	path = formulas/octavia
+	url = https://github.com/salt-formulas/salt-formula-octavia
+[submodule "formulas/panko"]
+	path = formulas/panko
+	url = https://github.com/salt-formulas/salt-formula-panko
+[submodule "formulas/devops-portal"]
+	path = formulas/devops-portal
+	url = https://github.com/salt-formulas/salt-formula-devops-portal
+[submodule "formulas/rundeck"]
+	path = formulas/rundeck
+	url = https://github.com/salt-formulas/salt-formula-rundeck
+[submodule "formulas/model-manager"]
+	path = formulas/model-manager
+	url = https://github.com/salt-formulas/salt-formula-model-manager
+[submodule "formulas/barbican"]
+	path = formulas/barbican
+	url = https://github.com/salt-formulas/salt-formula-barbican
+[submodule "formulas/hubblestack"]
+	path = formulas/hubblestack
+	url = https://github.com/salt-formulas/salt-formula-hubblestack
