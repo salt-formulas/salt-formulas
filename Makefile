@@ -16,7 +16,8 @@ submodules: pull
 	git submodule update
 
 update: submodules
-	(for formula in formulas/*; do FORMULA=`basename $$formula` && cd $$formula && git remote set-url --push origin git@github.com:salt-formulas/salt-formula-$$FORMULA.git && cd ../..; done)
+	# TODO: safe set-url push origin on update target
+	#(for formula in formulas/*; do FORMULA=`basename $$formula` && cd $$formula && git remote set-url --push origin git@github.com:salt-formulas/salt-formula-$$FORMULA.git && cd ../..; done)
 	mr --trust-all -j4 run git checkout master
 	mr --trust-all -j4 update
 
@@ -37,15 +38,19 @@ pdf:
 	make -C doc latexpdf
 
 FORKED_FORMULAS_DIR=formulas
-FORMULAS=`python3 -c 'import sys; sys.path.append("scripts");from update_mrconfig import *; print(*get_org_repos(make_github_agent(), "salt-formulas"), sep="\n")'| egrep 'salt-formula-' | sed 's/salt-formula-//'`
+FORMULAS=`$(pipenv --py) -c 'import sys; sys.path.append("scripts");from update_mrconfig import *; print(*get_org_repos(make_github_agent(), "salt-formulas"), sep="\n")'| egrep 'salt-formula-' | sed 's/salt-formula-//'`
+
+set_push:
+	(for formula in $${FORMULAS_DIR:-$(FORKED_FORMULAS_DIR)}/*; do FORMULA=`basename $$formula` && cd $$formula && git remote set-url --push origin git@github.com:salt-formulas/salt-formula-$$FORMULA.git && cd ../..; done)
 
 scripts_prerequisites:
-	pip3 install -r scripts/requirements.txt
+	@if ! which pipenv; then echo "Please install pipenv first";  exit 2; fi
+	pipenv --three install
 
 list: scripts_prerequisites
 	@echo $(FORMULAS)
 
-update_forks:
+update_forks: scripts_prerequisites
 	@mkdir -p $(FORKED_FORMULAS_DIR)
 	@for FORMULA in $(FORMULAS) ; do\
      test -e $(FORKED_FORMULAS_DIR)/$$FORMULA || git clone  https://github.com/salt-formulas/salt-formula-$$FORMULA.git $(FORKED_FORMULAS_DIR)/$$FORMULA;\
@@ -81,3 +86,13 @@ remote_github_add:
      fi;\
      cd - > /dev/null;\
      done;
+
+
+install:
+	@SALT_ENV=$${SALT_ENV:-/usr/share/salt-formulas/env}
+	@mkdir -p $(SALT_ENV)/_formulas
+	for FORMULA in `ls $(FORMULAS_DIR)/`; do\
+		cp -fva $$FORMULA $$SALT_ENV/_formulas/$$FORMULA;
+	done;
+	# TODO, what should be linked now?
+
