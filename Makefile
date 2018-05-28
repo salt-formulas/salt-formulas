@@ -38,7 +38,7 @@ pdf:
 	make -C doc latexpdf
 
 FORKED_FORMULAS_DIR=formulas
-FORMULAS=`$(pipenv --py) -c 'import sys; sys.path.append("scripts");from update_mrconfig import *; print(*get_org_repos(make_github_agent(), "salt-formulas"), sep="\n")'| egrep 'salt-formula-' | sed 's/salt-formula-//'`
+FORMULAS=`$$(pipenv --py) -c 'import sys; sys.path.append("scripts");from update_mrconfig import *; print(*get_org_repos(make_github_agent(), "salt-formulas"), sep="\n")' | egrep 'salt-formula-' | sed 's/salt-formula-//'`
 
 set_push:
 	(for formula in $${FORMULAS_DIR:-$(FORKED_FORMULAS_DIR)}/*; do FORMULA=`basename $$formula` && cd $$formula && git remote set-url --push origin git@github.com:salt-formulas/salt-formula-$$FORMULA.git && cd ../..; done)
