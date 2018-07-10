@@ -7,31 +7,41 @@ driver:
 
 provisioner:
   name: shell
-  script: verify.sh
+  script: .kitchen-verify.sh
+
+verifier:
+  name: inspec
+
+# Use: find classes/cluster/$cluster -name '*.env' | xargs -n1 source
+# TODO, Load and set ENV from **/*.env
+<%- saltver = ENV['SALT_VERSION'] || '2017.7' %>
+<%- btstrap = ENV['SALT_BOOTSTRAP'] || '0' %>
+<%- extrafo = ENV['EXTRA_FORMULAS'] || 'ntp' %>
+<%- formula = ENV['FORMULA_VERSION'] || 'master' %>
+<%- reclass = ENV['RECLASS_VERSION'] || 'master' %>
 
 platforms:
-  <% `find classes/cluster -maxdepth 1 -mindepth 1 -type d |sort -u`.split().each do |cluster| %>
+  <% `find classes/cluster -maxdepth 1 -mindepth 1 -type d | tr '_' '-' |sort -u`.split().each do |cluster| %>
   <% cluster=cluster.split('/')[2] %>
   - name: <%= cluster %>
     driver_config:
-      #image: ubuntu:16.04
-      image: tcpcloud/salt-models-testing # With preinstalled dependencies (faster)
+      # image: epcim/salt:saltstack-ubuntu-xenial-salt-stable
+      # FIXME, USE ONCE RECLASS@DEVELOP IS IN MASTER, AND REQUIREDE FEATURES FROM FORMULA NIGHTLY REPO ARE IN STABLE
+      image: epcim/salt:saltmaster-reclass-ubuntu-xenial-salt-<%= saltver %>-formula-<%= formula %>
       platform: ubuntu
       hostname: cfg01.<%= cluster %>.local
       provision_command:
-        - apt-get update
-        - apt-get install -y git curl python-pip
-        - git clone https://github.com/salt-formulas/salt-formulas-scripts /srv/salt/scripts
-        - cd /srv/salt/scripts; git pull -r; cd -
-        # NOTE: Configure ENV options as needed, example:
+        - test -e /srv/salt/bootstrap.sh || curl -qsSL https://raw.githubusercontent.com/salt-formulas/salt-formulas-scripts/develop/bootstrap.sh -o /srv/salt/bootstrap.sh
+        # Configure ENV options as needed, example:
         - echo "
-            export BOOTSTRAP=1;\n
+            export BOOTSTRAP=<%= btstrap %>;\n
             export CLUSTER_NAME=<%= cluster %>;\n
-            export FORMULAS_SOURCE=pkg;\n
-            export RECLASS_VERSION=dev;\n
+            export EXTRA_FORMULAS='<%= extrafo %>';\n
+            export RECLASS_VERSION=<%= reclass %>;\n
             export RECLASS_IGNORE_CLASS_NOTFOUND=True;\n
-            export EXTRA_FORMULAS="";\n
+            export RECLASS_IGNORE_CLASS_REGEXP='service.*';\n
           " > /kitchen.env
+          #export FORMULAS_SOURCE=pkg;\n
   <% end %>
 
 suites:
