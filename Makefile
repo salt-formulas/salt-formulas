@@ -1,126 +1,98 @@
-DESTDIR=/
-SALTENVDIR=/usr/share/salt-formulas/env
-RECLASSDIR=/usr/share/salt-formulas/reclass
-FORMULANAME=$(shell grep name: metadata.yml|head -1|cut -d : -f 2|grep -Eo '[a-z0-9\-\_]*')
-VERSION=$(shell grep version: metadata.yml|head -1|cut -d : -f 2|grep -Eo '[a-z0-9\.\-\_]*')
-VERSION_MAJOR := $(shell echo $(VERSION)|cut -d . -f 1-2)
-VERSION_MINOR := $(shell echo $(VERSION)|cut -d . -f 3)
+help:
+	@echo "submodules    Get submodules"
+	@echo "update        Checkout master, get submodules and pull all formulas"
+	@echo "release       Make new major release of all formulas"
+	@echo "mrconfig      Re-generate .mrconfig with all formulas on Github"
+	@echo "html          Build html documentation"
+	@echo "pdf           Build pdf documentation"
+	@echo "remote_gerrit Add git remote gerrit"
+	@echo "remote_github Add git remote github"
 
-NEW_MAJOR_VERSION ?= $(shell date +%Y.%m|sed 's,\.0,\.,g')
-NEW_MINOR_VERSION ?= $(shell /bin/bash -c 'echo $$[ $(VERSION_MINOR) + 1 ]')
+pull:
+	git pull --rebase
 
-MAKE_PID := $(shell echo $$PPID)
-JOB_FLAG := $(filter -j%, $(subst -j ,-j,$(shell ps T | grep "^\s*$(MAKE_PID).*$(MAKE)")))
+submodules: pull
+	git submodule init
+	git submodule update
 
-ifneq ($(subst -j,,$(JOB_FLAG)),)
-JOBS := $(subst -j,,$(JOB_FLAG))
-else
-JOBS := 1
-endif
+update: submodules
+	# TODO: safe set-url push origin on update target
+	#(for formula in formulas/*; do FORMULA=`basename $$formula` && cd $$formula && git remote set-url --push origin git@github.com:salt-formulas/salt-formula-$$FORMULA.git && cd ../..; done)
+	mr --trust-all -j4 run git checkout master
+	mr --trust-all -j4 update
 
-ifeq (,$(wildcard ./.kitchen.openstack.yml))
-KITCHEN_LOCAL_YAML?=.kitchen.openstack.yml
-else
-KITCHEN_LOCAL_YAML?=.kitchen.yml
-endif
-KITCHEN_OPTS?="--concurrency=$(JOBS)"
-KITCHEN_OPTS_CREATE?=""
-KITCHEN_OPTS_CONVERGE?=""
-KITCHEN_OPTS_VERIFY?=""
-KITCHEN_OPTS_TEST?=""
+release:
+	mr --trust-all -j4 run make release-major
 
-all:
-	@echo "make install - Install into DESTDIR"
-	@echo "make lint    - Run lint tests"
-	@echo "make test    - Run tests"
-	@echo "make kitchen - Run Kitchen CI tests (create, converge, verify)"
-	@echo "make clean   - Cleanup after tests run"
-	@echo "make release-major  - Generate new major release"
-	@echo "make release-minor  - Generate new minor release"
-	@echo "make changelog      - Show changes since last release"
+mrconfig:
+	./scripts/update_mrconfig.py
+
+muconfig:
+	mu group add salt-formulas --empty
+	mu register $(FORKED_FORMULAS_DIR)/*
+
+html:
+	make -C doc html
+
+pdf:
+	make -C doc latexpdf
+
+FORKED_FORMULAS_DIR=formulas
+FORMULAS=`$$(pipenv --py) -c 'import sys; sys.path.append("scripts");from update_mrconfig import *; print(*get_org_repos(make_github_agent(), "salt-formulas"), sep="\n")' | egrep 'salt-formula-' | sed 's/salt-formula-//'`
+
+set_push:
+	(for formula in $${FORMULAS_DIR:-$(FORKED_FORMULAS_DIR)}/*; do FORMULA=`basename $$formula` && cd $$formula && git remote set-url --push origin git@github.com:salt-formulas/salt-formula-$$FORMULA.git && cd ../..; done)
+
+scripts_prerequisites:
+	@if ! which pipenv; then echo "Please install pipenv first";  exit 2; fi
+	pipenv --three install
+
+list: scripts_prerequisites
+	@echo $(FORMULAS)
+
+update_forks: scripts_prerequisites
+	@mkdir -p $(FORKED_FORMULAS_DIR)
+	@for FORMULA in $(FORMULAS) ; do\
+     test -e $(FORKED_FORMULAS_DIR)/$$FORMULA || git clone  https://github.com/salt-formulas/salt-formula-$$FORMULA.git $(FORKED_FORMULAS_DIR)/$$FORMULA;\
+   done;
+
+
+GERRIT_REMOTE_URI=gerrit.mcp.mirantis.net:29418/salt-formulas
+remote_gerrit: FORMULAS_DIR=$(FORKED_FORMULAS_DIR)
+remote_gerrit: remote_gerrit_add
+
+remote_gerrit_add:
+	@#(for formula in $(FORMULAS_DIR)/*; do FORMULA=`basename $$formula` && cd $$formula && git remote remove gerrit || true && cd ../.. ; done)
+	@mkdir -p $(FORMULAS_DIR)
+	@ID=$${GERRIT_USERNAME:-$$USER};\
+   for FORMULA in `ls $(FORMULAS_DIR)/`; do\
+     cd $(FORMULAS_DIR)/$$FORMULA > /dev/null;\
+     if ! git remote | grep gerrit 2>&1 > /dev/null ; then\
+       git remote add gerrit ssh://$$ID@$(GERRIT_REMOTE_URI)/$$FORMULA;\
+     fi;\
+     cd - > /dev/null;\
+     done;
+
+remote_github: FORMULAS_DIR=$(FORKED_FORMULAS_DIR)
+remote_github: remote_github_add
+
+remote_github_add:
+	@mkdir -p $(FORMULAS_DIR)
+	@ID=$${GITHUB_USERNAME:-$$USER};\
+   for FORMULA in `ls $(FORMULAS_DIR)/`; do\
+     cd $(FORMULAS_DIR)/$$FORMULA > /dev/null;\
+     if ! git remote | grep $$ID 2>&1 > /dev/null ; then\
+       git remote add $$ID git://github.com/$$ID/salt-formula-$$FORMULA;\
+     fi;\
+     cd - > /dev/null;\
+     done;
+
 
 install:
-	# Formula
-	[ -d $(DESTDIR)/$(SALTENVDIR) ] || mkdir -p $(DESTDIR)/$(SALTENVDIR)
-	cp -a $(FORMULANAME) $(DESTDIR)/$(SALTENVDIR)/
-	[ ! -d _modules ] || cp -a _modules $(DESTDIR)/$(SALTENVDIR)/
-	[ ! -d _states ] || cp -a _states $(DESTDIR)/$(SALTENVDIR)/ || true
-	[ ! -d _grains ] || cp -a _grains $(DESTDIR)/$(SALTENVDIR)/ || true
-	# Metadata
-	[ -d $(DESTDIR)/$(RECLASSDIR)/service/$(FORMULANAME) ] || mkdir -p $(DESTDIR)/$(RECLASSDIR)/service/$(FORMULANAME)
-	cp -a metadata/service/* $(DESTDIR)/$(RECLASSDIR)/service/$(FORMULANAME)
+	@SALT_ENV=$${SALT_ENV:-/usr/share/salt-formulas/env}
+	@mkdir -p $(SALT_ENV)/_formulas
+	for FORMULA in `ls $(FORMULAS_DIR)/`; do\
+		cp -fva $$FORMULA $$SALT_ENV/_formulas/$$FORMULA;
+	done;
+	# TODO, what should be linked now?
 
-lint:
-	[ ! -d tests ] || (cd tests; ./run_tests.sh lint)
-
-test:
-	[ ! -d tests ] || (cd tests; ./run_tests.sh)
-
-release-major: check-changes
-	@echo "Current version is $(VERSION), new version is $(NEW_MAJOR_VERSION)"
-	@[ $(VERSION_MAJOR) != $(NEW_MAJOR_VERSION) ] || (echo "Major version $(NEW_MAJOR_VERSION) already released, nothing to do. Do you want release-minor?" && exit 1)
-	echo "$(NEW_MAJOR_VERSION)" > VERSION
-	sed -i 's,version: .*,version: "$(NEW_MAJOR_VERSION)",g' metadata.yml
-	[ ! -f debian/changelog ] || dch -v $(NEW_MAJOR_VERSION) -m --force-distribution -D `dpkg-parsechangelog -S Distribution` "New version"
-	make genchangelog-$(NEW_MAJOR_VERSION)
-	(git add -u; git commit -m "Version $(NEW_MAJOR_VERSION)")
-	git tag -s -m $(NEW_MAJOR_VERSION) $(NEW_MAJOR_VERSION)
-
-release-minor: check-changes
-	@echo "Current version is $(VERSION), new version is $(VERSION_MAJOR).$(NEW_MINOR_VERSION)"
-	echo "$(VERSION_MAJOR).$(NEW_MINOR_VERSION)" > VERSION
-	sed -i 's,version: .*,version: "$(VERSION_MAJOR).$(NEW_MINOR_VERSION)",g' metadata.yml
-	[ ! -f debian/changelog ] || dch -v $(VERSION_MAJOR).$(NEW_MINOR_VERSION) -m --force-distribution -D `dpkg-parsechangelog -S Distribution` "New version"
-	make genchangelog-$(VERSION_MAJOR).$(NEW_MINOR_VERSION)
-	(git add -u; git commit -m "Version $(VERSION_MAJOR).$(NEW_MINOR_VERSION)")
-	git tag -s -m $(VERSION_MAJOR).$(NEW_MINOR_VERSION) $(VERSION_MAJOR).$(NEW_MINOR_VERSION)
-
-check-changes:
-	@git log --pretty=oneline --decorate $(VERSION)..HEAD | grep -Eqc '.*' || (echo "No new changes since version $(VERSION)"; exit 1)
-
-changelog:
-	git log --pretty=short --invert-grep --grep="Merge pull request" --decorate $(VERSION)..HEAD
-
-genchangelog: genchangelog-$(VERSION_MAJOR).$(NEW_MINOR_VERSION)
-
-genchangelog-%:
-	$(eval NEW_VERSION := $(patsubst genchangelog-%,%,$@))
-	(echo "=========\nChangelog\n=========\n"; \
-	(echo $(NEW_VERSION);git tag) | sort -r | grep -E '^[0-9\.]+' | while read i; do \
-	    cur=$$i; \
-	    test $$i = $(NEW_VERSION) && i=HEAD; \
-	    prev=`(echo $(NEW_VERSION);git tag)|sort|grep -E '^[0-9\.]+'|grep -B1 "$$cur\$$"|head -1`; \
-	    echo "Version $$cur\n=============================\n"; \
-	    git log --pretty=short --invert-grep --grep="Merge pull request" --decorate $$prev..$$i; \
-	    echo; \
-	done) > CHANGELOG.rst
-
-kitchen-check:
-	@[ -e $(KITCHEN_LOCAL_YAML) ] || (echo "Kitchen tests not available, there's no $(KITCHEN_LOCAL_YAML)." && exit 1)
-
-kitchen: kitchen-check kitchen-create kitchen-converge kitchen-verify kitchen-list
-
-kitchen-create: kitchen-check
-	kitchen create ${KITCHEN_OPTS} ${KITCHEN_OPTS_CREATE}
-	[ "$(shell echo $(KITCHEN_LOCAL_YAML)|grep -Eo docker)" = "docker" ] || sleep 120
-
-kitchen-converge: kitchen-check
-	kitchen converge ${KITCHEN_OPTS} ${KITCHEN_OPTS_CONVERGE} &&\
-	kitchen converge ${KITCHEN_OPTS} ${KITCHEN_OPTS_CONVERGE}
-
-kitchen-verify: kitchen-check
-	[ ! -d tests/integration ] || kitchen verify -t tests/integration ${KITCHEN_OPTS} ${KITCHEN_OPTS_VERIFY}
-	[ -d tests/integration ]   || kitchen verify ${KITCHEN_OPTS} ${KITCHEN_OPTS_VERIFY}
-
-kitchen-test: kitchen-check
-	[ ! -d tests/integration ] || kitchen test -t tests/integration ${KITCHEN_OPTS} ${KITCHEN_OPTS_TEST}
-	[ -d tests/integration ]   || kitchen test ${KITCHEN_OPTS} ${KITCHEN_OPTS_TEST}
-
-kitchen-list: kitchen-check
-	kitchen list
-
-clean:
-	[ ! -x "$(shell which kitchen)" ] || kitchen destroy
-	[ ! -d .kitchen ] || rm -rf .kitchen
-	[ ! -d tests/build ] || rm -rf tests/build
-	[ ! -d build ] || rm -rf build
