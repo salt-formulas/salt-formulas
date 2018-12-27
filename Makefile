@@ -89,6 +89,6 @@ remote_github_add:
 
 
 install:
-	for FORMULA in `ls $(FORMULAS_DIR)/`; do \
+	for FORMULA in `ls formulas/`; do \
 		cd $$FORMULA && make install; \
 	done;
