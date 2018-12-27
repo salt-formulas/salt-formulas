@@ -91,4 +91,5 @@ remote_github_add:
 install:
 	for FORMULA in formulas/*; do \
 		cd $$FORMULA && make install; \
+		cd ../..; \
 	done;
