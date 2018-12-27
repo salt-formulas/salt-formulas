@@ -89,10 +89,6 @@ remote_github_add:
 
 
 install:
-	@SALT_ENV=$${SALT_ENV:-/usr/share/salt-formulas/env}
-	@mkdir -p $(SALT_ENV)/_formulas
-	for FORMULA in `ls $(FORMULAS_DIR)/`; do\
-		cp -fva $$FORMULA $$SALT_ENV/_formulas/$$FORMULA;
+	for FORMULA in `ls $(FORMULAS_DIR)/`; do \
+		cd $$FORMULA && make install; \
 	done;
-	# TODO, what should be linked now?
-
