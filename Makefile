@@ -13,7 +13,7 @@ pull:
 
 submodules: pull
 	git submodule init
-	git submodule update
+	git submodule update -j 4
 
 update: submodules
 	# TODO: safe set-url push origin on update target
